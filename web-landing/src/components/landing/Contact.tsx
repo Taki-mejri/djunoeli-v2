@@ -33,17 +33,17 @@ export default function Contact() {
             <h2>Parlons de votre logistique</h2>
             <p className="lead">Une question, un devis, un partenariat ? Notre équipe vous répond rapidement.</p>
             <ul className="contact-info">
-              <li><span className="ci-ic"><Phone /></span><div><div className="ci-l">Téléphone</div><div className="ci-v">+216 71 000 000</div></div></li>
-              <li><span className="ci-ic"><Mail /></span><div><div className="ci-l">E-mail</div><div className="ci-v">contact@djunoeli.tn</div></div></li>
-              <li><span className="ci-ic"><Pin /></span><div><div className="ci-l">Adresse</div><div className="ci-v">Tunis, Tunisie</div></div></li>
+              <li><span className="ci-ic"><Phone /></span><div><div className="ci-l">Téléphone</div><div className="ci-v">+49 231 0000000</div></div></li>
+              <li><span className="ci-ic"><Mail /></span><div><div className="ci-l">E-mail</div><div className="ci-v">contact@djunoeli.de</div></div></li>
+              <li><span className="ci-ic"><Pin /></span><div><div className="ci-l">Adresse</div><div className="ci-v">Dortmund, Allemagne</div></div></li>
             </ul>
           </div>
           <div ref={form} className="form reveal">
             <div className="row2">
               <div className="field"><label>Nom</label><input placeholder="Votre nom" /></div>
-              <div className="field"><label>Téléphone</label><input placeholder="+216 ..." /></div>
+              <div className="field"><label>Téléphone</label><input placeholder="+49 ..." /></div>
             </div>
-            <div className="field"><label>E-mail</label><input placeholder="vous@entreprise.tn" /></div>
+            <div className="field"><label>E-mail</label><input placeholder="vous@entreprise.de" /></div>
             <div className="field"><label>Message</label><textarea rows={4} placeholder="Comment pouvons-nous vous aider ?" /></div>
             <button className="btn btn-primary" style={{ width: "100%", justifyContent: "center" }} onClick={submit}>
               Envoyer le message

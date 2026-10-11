@@ -64,7 +64,7 @@
       "assigned": "Fahrer zugewiesen",
       "assignedSub": "#TRK-9912 → Skander T.",
       "codReceived": "Nachnahme-Zahlung erhalten",
-      "codReceivedSub": "142 DT · #TRK-9801",
+      "codReceivedSub": "142,00 € · #TRK-9801",
       "newExpediteur": "Neuer Versender",
       "newExpediteurSub": "Boutique El Manar registriert",
       "minutesAgo": "vor {{count}} Min.",

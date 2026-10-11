@@ -53,8 +53,8 @@
     "title": "Zustellung bestätigen",
     "question": "Sendung an {{name}} übergeben?",
     "amountToCollect": "Einzuziehender Betrag",
-    "codWarning": "Mit der Bestätigung bestätigen Sie, {{amount}} DT in bar eingezogen zu haben. Dieser Betrag wird Ihrem abzuführenden Saldo hinzugefügt.",
-    "confirmWithCod": "Zugestellt · {{amount}} DT eingezogen",
+    "codWarning": "Mit der Bestätigung bestätigen Sie, {{amount}} in bar eingezogen zu haben. Dieser Betrag wird Ihrem abzuführenden Saldo hinzugefügt.",
+    "confirmWithCod": "Zugestellt · {{amount}} eingezogen",
     "confirm": "Zustellung bestätigen",
     "validating": "Wird bestätigt...",
     "success": "Sendung zugestellt! Gut gemacht."
@@ -86,7 +86,7 @@
     "subtitle": "Bargeld-Übersicht",
     "cashToRemit": "Abzuführendes Bargeld",
     "remitToOffice": "Im Büro abführen",
-    "toCollect": "Einzuziehen ({{amount}} DT)",
+    "toCollect": "Einzuziehen ({{amount}})",
     "collectedToday": "Heute eingesammelt"
   },
   "banner": {
@@ -129,7 +129,7 @@
       "availabilityDesc": "Neue Aufträge erhalten",
       "zone": "Liefergebiet",
       "vehicle": "Fahrzeug",
-      "vehicleValue": "Motorrad · 188 TUN 2024",
+      "vehicleValue": "Motorrad · DO-SK 2024",
       "notifications": "Benachrichtigungen",
       "notificationsOn": "Aktiviert",
       "language": "Sprache"

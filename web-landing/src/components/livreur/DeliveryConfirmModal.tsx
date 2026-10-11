@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { X, Wallet, Check } from "lucide-react";
+import { formatEUR } from "../../lib/money";
 
 type Props = {
   open: boolean;
@@ -24,7 +25,7 @@ export default function DeliveryConfirmModal({
   if (!open) return null;
 
   const hasCod = codAmount > 0;
-  const amount = codAmount.toFixed(0);
+  const amount = formatEUR(codAmount);
 
   return (
     <div className="liv-overlay" onClick={(e) => e.target === e.currentTarget && !pending && onClose()}>
@@ -42,7 +43,7 @@ export default function DeliveryConfirmModal({
             <Wallet size={20} />
             <div>
               <span className="liv-cod-label">{t("delivery.amountToCollect")}</span>
-              <span className="liv-cod-amount">{amount} DT</span>
+              <span className="liv-cod-amount">{amount}</span>
             </div>
           </div>
         )}

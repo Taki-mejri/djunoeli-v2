@@ -1,0 +1,145 @@
+{
+  "nav": {
+    "home": "Home",
+    "jobs": "Jobs",
+    "cod": "COD",
+    "profile": "Profile"
+  },
+  "header": {
+    "back": "Back"
+  },
+  "jobs": {
+    "title": "My jobs",
+    "subtitle": "Your shipments to deliver.",
+    "activeCount_one": "{{count}} active job",
+    "activeCount_other": "{{count}} active jobs",
+    "empty": "No jobs yet",
+    "emptyHint": "Your shipments to deliver will appear here once a warehouse assigns them to you."
+  },
+  "detail": {
+    "back": "My jobs",
+    "backToJobs": "Back to jobs",
+    "receiver": "Recipient",
+    "package": "Shipment",
+    "pickup": "Pickup",
+    "sender": "Sender",
+    "senderLine": "Sender: {{name}}",
+    "tracking": "Tracking no.",
+    "call": "Call",
+    "logCall": "Log call",
+    "map": "Map",
+    "codToCollect": "To collect on delivery",
+    "trackingTitle": "Tracking",
+    "terminalDelivered": "Job completed — shipment delivered",
+    "terminalFailed": "Job completed — delivery failed"
+  },
+  "actions": {
+    "start": "Start job",
+    "enRoute": "On my way",
+    "arrived": "Arrived — out for delivery",
+    "markDelivered": "Mark as delivered",
+    "reportFailure": "Report failure"
+  },
+  "call": {
+    "title": "Call outcome",
+    "question": "How did the call with {{name}} go?",
+    "answered": "Answered",
+    "noAnswer": "No answer",
+    "rescheduled": "Rescheduled",
+    "wrongNumber": "Wrong number",
+    "recorded": "Call logged"
+  },
+  "delivery": {
+    "title": "Confirm delivery",
+    "question": "Shipment handed over to {{name}}?",
+    "amountToCollect": "Amount to collect",
+    "codWarning": "By confirming, you confirm that you collected {{amount}} in cash. This amount will be added to the balance you must remit.",
+    "confirmWithCod": "Delivered · {{amount}} collected",
+    "confirm": "Confirm delivery",
+    "validating": "Confirming...",
+    "success": "Shipment delivered! Well done."
+  },
+  "failure": {
+    "title": "Delivery failed",
+    "subtitle": "Select the reason. The shipment will be marked as undelivered.",
+    "reasonAbsent": "Recipient absent",
+    "reasonAddress": "Address not found",
+    "reasonPhone": "Wrong number",
+    "reasonRefused": "Customer refused the shipment",
+    "reasonRescheduled": "Rescheduled at customer's request",
+    "detailsPlaceholder": "Additional details (optional if a reason is selected above)",
+    "confirm": "Confirm failure",
+    "saving": "Saving...",
+    "recorded": "Failure logged."
+  },
+  "tags": {
+    "express": "Express",
+    "fragile": "Fragile",
+    "standard": "Standard"
+  },
+  "cod": {
+    "myBalance": "My COD balance",
+    "toRemit": "To remit",
+    "history": "Remittance history",
+    "noBalance": "No balance to remit",
+    "title": "My COD",
+    "subtitle": "Cash overview",
+    "cashToRemit": "Cash to remit",
+    "remitToOffice": "Remit at the office",
+    "toCollect": "To collect ({{amount}})",
+    "collectedToday": "Collected today"
+  },
+  "banner": {
+    "statusUpdated": "Status: {{status}}"
+  },
+  "home": {
+    "greeting": "Hello, {{name}} 👋",
+    "fallbackName": "Driver",
+    "cashInHand": "Cash on hand (COD)",
+    "see": "View",
+    "statusTitle": "Status",
+    "seeMyJobs": "View my jobs",
+    "availability": {
+      "available": "Available",
+      "busy": "Busy",
+      "offline": "Offline"
+    },
+    "stats": {
+      "toDeliver": "To deliver",
+      "enRoute": "In transit",
+      "deliveredTotal": "Delivered (total)",
+      "rating": "Rating"
+    },
+    "statusText": {
+      "available": "You are available for new jobs. The system automatically assigns you shipments near you.",
+      "busy": "You are currently out for delivery. Complete your current jobs before accepting new ones.",
+      "offline": "You are offline. Turn on your availability to receive jobs."
+    }
+  },
+  "profile": {
+    "title": "My profile",
+    "role": "Driver",
+    "stats": {
+      "deliveries": "Deliveries",
+      "rating": "Rating",
+      "successRate": "Success rate"
+    },
+    "rows": {
+      "availability": "Availability",
+      "availabilityDesc": "Receive new jobs",
+      "zone": "Delivery zone",
+      "vehicle": "Vehicle",
+      "vehicleValue": "Motorcycle · DO-SK 2024",
+      "notifications": "Notifications",
+      "notificationsOn": "Enabled",
+      "language": "Language"
+    },
+    "logout": "Log out"
+  },
+  "errors": {
+    "load": "Error while loading",
+    "jobNotFound": "Job not found",
+    "generic": "Error",
+    "callFailed": "Could not log the call."
+  }
+}

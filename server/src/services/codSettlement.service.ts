@@ -1,6 +1,7 @@
 import type { Prisma } from "@prisma/client";
 import { prisma } from "../lib/prisma.js";
 import { notFound, badRequest } from "../middleware/errorHandler.js";
+import { formatEUR } from "../lib/money.js";
 
 /* =====================================================
    SOLDES LIVREURS — qui détient combien de cash COD
@@ -98,7 +99,7 @@ export async function settleLivreur(input: SettleInput) {
 
   if (amount > currentBalance + 0.001) {
     throw badRequest(
-      `Montant (${amount.toFixed(0)} DT) supérieur au solde du livreur (${currentBalance.toFixed(0)} DT).`
+      `Montant (${formatEUR(amount)}) supérieur au solde du livreur (${formatEUR(currentBalance)}).`
     );
   }
 
@@ -145,8 +146,8 @@ export async function settleLivreur(input: SettleInput) {
     fullSettlement: result.remainingBalance === 0,
     message:
       result.remainingBalance === 0
-        ? `${amount.toFixed(0)} DT reçus de ${livreurName}. Solde soldé.`
-        : `${amount.toFixed(0)} DT reçus de ${livreurName}. Reste ${result.remainingBalance.toFixed(0)} DT.`,
+        ? `${formatEUR(amount)} reçus de ${livreurName}. Solde soldé.`
+        : `${formatEUR(amount)} reçus de ${livreurName}. Reste ${formatEUR(result.remainingBalance)}.`,
   };
 }
 

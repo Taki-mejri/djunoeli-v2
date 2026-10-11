@@ -72,7 +72,7 @@ export default function ReceptionPage() {
                 <div className="dsp-recent-row" key={`${r.trackingNumber}-${i}`}>
                   <Package size={16} />
                   <span className="mono-cell dsp-recent-trk">{r.trackingNumber}</span>
-                  {/* Gouvernorats tunisiens : jamais traduits */}
+                  {/* Quartiers de Dortmund : jamais traduits */}
                   <span className="dsp-recent-info">{r.receiverName} · {r.deliveryCity}</span>
                   <span className="dsp-recent-badge">{t("reception.scanned")}</span>
                   <span className="dsp-recent-time">{r.at}</span>

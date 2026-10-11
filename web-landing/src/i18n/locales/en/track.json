@@ -1,0 +1,60 @@
+{
+  "menuLink": "Shipment tracking",
+  "title": "Track your shipment",
+  "subtitle": "Enter your tracking number to see the status of your delivery.",
+  "placeholder": "e.g. TRK-2026-00012",
+  "trackBtn": "Track",
+  "trackingNumber": "Tracking number",
+  "destination": "Destination",
+  "type": "Type",
+  "handling": "Handling",
+  "standard": "Standard",
+  "express": "Express",
+  "fragile": "Fragile",
+  "notFoundTitle": "Shipment not found",
+  "notFoundHint": "No shipment matches number {{code}}. Please check the code and try again.",
+  "errorTitle": "An error occurred",
+  "errorHint": "Tracking cannot be retrieved right now. Please try again shortly.",
+  "privacyNote": "For your security, only delivery information is shown. Personal data stays protected.",
+  "steps": {
+    "CREATED": "Shipment created",
+    "PICKED_UP": "Picked up",
+    "AT_WAREHOUSE": "At warehouse",
+    "IN_TRANSIT": "In transit",
+    "OUT_FOR_DELIVERY": "Out for delivery",
+    "DELIVERED": "Delivered"
+  },
+  "special": {
+    "FAILED": "Delivery failed",
+    "CANCELLED": "Cancelled",
+    "RETURNED": "Returned"
+  },
+  "specialHint": {
+    "FAILED": "The delivery failed. Our team will contact you.",
+    "CANCELLED": "This shipment was cancelled.",
+    "RETURNED": "This shipment was returned to the sender."
+  },
+  "tabs": {
+    "byCode": "By tracking number",
+    "byPhone": "By phone"
+  },
+  "otp": {
+    "phoneTitle": "Track by phone",
+    "phoneSubtitle": "Enter the phone number used for the delivery. You will receive a verification code.",
+    "phonePlaceholder": "e.g. 20 123 456",
+    "sendCode": "Get code",
+    "sending": "Sending...",
+    "codeTitle": "Enter code",
+    "codeSubtitle": "A 6-digit code was sent to {{phone}}.",
+    "verify": "Verify",
+    "verifying": "Verifying...",
+    "resend": "Resend code",
+    "simulatedHint": "Demo mode: the code appears in the server logs (no SMS sent).",
+    "privacyNote": "We only show your delivery information, never your personal data.",
+    "resultTitle": "Your shipments",
+    "resultCount_one": "{{count}} shipment found",
+    "resultCount_other": "{{count}} shipments found",
+    "otherNumber": "Other number",
+    "noShipments": "No shipment is linked to this number."
+  }
+}

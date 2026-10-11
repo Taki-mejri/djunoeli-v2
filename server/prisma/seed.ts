@@ -42,34 +42,34 @@ type SeedUser = {
 };
 
 const USERS: SeedUser[] = [
-  { email: "admin@djunoeli.tn", password: "Djunoeli2026", firstName: "Admin", lastName: "Djunoeli", phone: "+216 70 000 000", role: "SUPER_ADMIN" },
-  { email: "farah@djunoeli.tn", password: "Farah2026", firstName: "Farah", lastName: "Mansour", phone: "+216 22 333 444", role: "FINANCE_MANAGER" },
-  { email: "ali@djunoeli.tn", password: "Ali2026", firstName: "Ali", lastName: "Ben Salah", phone: "+216 22 111 222", role: "DISPATCHER" },
+  { email: "admin@djunoeli.de", password: "Djunoeli2026", firstName: "Admin", lastName: "Djunoeli", phone: "+49 231 0000000", role: "SUPER_ADMIN" },
+  { email: "farah@djunoeli.de", password: "Farah2026", firstName: "Farah", lastName: "Mansour", phone: "+49 151 22333444", role: "FINANCE_MANAGER" },
+  { email: "ali@djunoeli.de", password: "Ali2026", firstName: "Ali", lastName: "Ben Salah", phone: "+49 151 22111222", role: "DISPATCHER" },
 ];
 
 // Expéditeurs (créent aussi une ligne Expediteur)
 const EXPEDITEURS = [
-  { email: "medina@test.tn", password: "Medina2026", firstName: "Sami", lastName: "Medina", phone: "+216 20 100 100", companyName: "Medina Store", pickupAddress: "Rue de la Kasbah 12", pickupCity: "Tunis" },
-  { email: "tech@test.tn", password: "TechZone2026", firstName: "Nour", lastName: "TechZone", phone: "+216 20 200 200", companyName: "TechZone", pickupAddress: "Showroom TechZone", pickupCity: "Sfax" },
+  { email: "medina@djunoeli.de", password: "Medina2026", firstName: "Sami", lastName: "Medina", phone: "+49 170 1001001", companyName: "Medina Store", pickupAddress: "Westenhellweg 45", pickupCity: "Innenstadt-West" },
+  { email: "tech@djunoeli.de", password: "TechZone2026", firstName: "Nour", lastName: "TechZone", phone: "+49 170 2002002", companyName: "TechZone", pickupAddress: "Hermannstraße 12", pickupCity: "Hörde" },
 ];
 
 // Livreurs (créent aussi une ligne Livreur)
 const LIVREURS = [
-  { email: "skander@test.tn", password: "Skander2026", firstName: "Skander", lastName: "Trabelsi", phone: "+216 25 111 111", cin: "12345678", vehicleType: "MOTO", vehiclePlate: "188 TUN 2024" },
-  { email: "mohamed@test.tn", password: "Mohamed2026", firstName: "Mohamed", lastName: "Ben Salah", phone: "+216 25 222 222", cin: "98765432", vehicleType: "CAMIONNETTE", vehiclePlate: "210 TUN 2023" },
+  { email: "skander@djunoeli.de", password: "Skander2026", firstName: "Skander", lastName: "Trabelsi", phone: "+49 176 1111111", cin: "L01X00T47", vehicleType: "MOTO", vehiclePlate: "DO-SK 2024" },
+  { email: "mohamed@djunoeli.de", password: "Mohamed2026", firstName: "Mohamed", lastName: "Ben Salah", phone: "+49 176 2222222", cin: "L02X00T48", vehicleType: "CAMIONNETTE", vehiclePlate: "DO-MB 2023" },
 ];
 
 async function main() {
   console.log("🌱 Seed propre Djunoeli...\n");
 
-  // 1. Dépôt Hammamet
-  let warehouse = await prisma.warehouse.findFirst({ where: { name: "Dépôt Hammamet" } });
+  // 1. Dépôt Dortmund
+  let warehouse = await prisma.warehouse.findFirst({ where: { name: "Depot Dortmund" } });
   if (!warehouse) {
     warehouse = await prisma.warehouse.create({
       data: {
-        name: "Dépôt Hammamet", code: "HMT",
-        address: "Zone industrielle Hammamet Sud", city: "Hammamet",
-        governorate: "Nabeul", country: "TN", phone: "+216 72 100 200", isActive: true,
+        name: "Depot Dortmund", code: "DTM",
+        address: "Bornstraße 160, 44145 Dortmund", city: "Dortmund",
+        governorate: "Innenstadt-Nord", country: "DE", phone: "+49 231 1002000", isActive: true,
       },
     });
     console.log(`✅ Dépôt créé : ${warehouse.name}`);
@@ -163,18 +163,18 @@ async function main() {
         },
       });
     }
-    console.log(`✅ LIVREUR          ${l.email} (CIN ${l.cin})`);
+    console.log(`✅ LIVREUR          ${l.email} (Ausweis ${l.cin})`);
   }
 
   console.log("\n🎉 Seed terminé.\n");
   console.log("Comptes :");
-  console.log("  Admin      : admin@djunoeli.tn   / Djunoeli2026");
-  console.log("  Finance    : farah@djunoeli.tn   / Farah2026");
-  console.log("  Dispatcher : ali@djunoeli.tn     / Ali2026");
-  console.log("  Expéditeur : medina@test.tn      / Medina2026");
-  console.log("  Expéditeur : tech@test.tn        / TechZone2026");
-  console.log("  Livreur    : skander@test.tn     / Skander2026");
-  console.log("  Livreur    : mohamed@test.tn     / Mohamed2026");
+  console.log("  Admin      : admin@djunoeli.de   / Djunoeli2026");
+  console.log("  Finance    : farah@djunoeli.de   / Farah2026");
+  console.log("  Dispatcher : ali@djunoeli.de     / Ali2026");
+  console.log("  Expéditeur : medina@djunoeli.de  / Medina2026");
+  console.log("  Expéditeur : tech@djunoeli.de    / TechZone2026");
+  console.log("  Livreur    : skander@djunoeli.de / Skander2026");
+  console.log("  Livreur    : mohamed@djunoeli.de / Mohamed2026");
 }
 
 main()

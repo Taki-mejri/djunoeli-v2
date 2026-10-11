@@ -1,5 +1,6 @@
 import { prisma } from "../lib/prisma.js";
 import { notFound, badRequest } from "../middleware/errorHandler.js";
+import { formatEUR } from "../lib/money.js";
 
 /* =====================================================
    COD DÛ AUX EXPÉDITEURS
@@ -158,7 +159,7 @@ export async function settleExpediteurCod(input: SettleExpInput) {
     commission,
     netAmount,
     shipmentCount: shipments.length,
-    message: `${netAmount.toFixed(0)} DT reversés à ${expediteur.companyName} (${grossCod.toFixed(0)} COD − ${commission.toFixed(0)} commission).`,
+    message: `${formatEUR(netAmount)} reversés à ${expediteur.companyName} (${grossCod.toFixed(0)} COD − ${commission.toFixed(0)} commission).`,
   };
 }
 

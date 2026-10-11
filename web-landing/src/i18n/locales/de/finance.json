@@ -141,7 +141,7 @@
     "totalAmount": "Gesamtbetrag",
     "amountToRemit": "Abzuführender Betrag",
     "partial": "Teilweise Abführung",
-    "amountMax": "Betrag (max. {{max}} DT)",
+    "amountMax": "Betrag (max. {{max}})",
     "method": "Methode",
     "reference": "Referenz (optional)",
     "referencePlaceholder": "Belegnr., Überweisung...",

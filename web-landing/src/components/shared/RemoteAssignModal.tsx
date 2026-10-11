@@ -9,6 +9,7 @@ import {
   useAssignableShipments, useAssignableLivreurs, useRemoteAssign,
   type AssignableShipment, type AssignableLivreur,
 } from "../../lib/remoteAssignQueries";
+import { formatEUR } from "../../lib/money";
 
 /** Résultat remonté à la page : clé i18n ou message brut du backend */
 export type RemoteAssignResult = { key: string } | { raw: string };
@@ -123,9 +124,9 @@ export default function RemoteAssignModal({ open, onClose, presetShipment, onDon
                         <span className="ra-ship-badge">{tc(`status.${s.status}`, { defaultValue: s.status })}</span>
                       </div>
                       <div className="ra-ship-sub">
-                        {/* Gouvernorats : non traduits */}
+                        {/* Quartiers : non traduits */}
                         <MapPin size={12} /> {s.receiverName} · {s.deliveryCity}
-                        {s.codAmount > 0 && <span className="ra-cod"><Wallet size={11} /> {s.codAmount.toFixed(0)} DT</span>}
+                        {s.codAmount > 0 && <span className="ra-cod"><Wallet size={11} /> {formatEUR(s.codAmount)}</span>}
                         {s.isFragile && <span className="ra-frag"><AlertTriangle size={11} /> {t("tags.fragile")}</span>}
                       </div>
                       {s.currentLivreur && (

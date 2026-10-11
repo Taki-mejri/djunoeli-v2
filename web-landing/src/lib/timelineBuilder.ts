@@ -80,7 +80,7 @@ function formatTimestamp(iso: string, locale: string): string {
 export function buildTimeline(
   currentStatus: ShipmentStatus,
   history: ShipmentStatusHistoryEntry[],
-  locale: string = "fr-FR"
+  locale: string = "de-DE"
 ): { steps: TimelineStep[]; progressIndex: number; isFailed: boolean; isCancelled: boolean } {
   const currentIndex = STATUS_TO_STEP_INDEX[currentStatus];
   const isFailed = currentStatus === "FAILED_DELIVERY" || currentStatus === "RETURNED";

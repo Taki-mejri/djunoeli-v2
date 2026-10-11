@@ -70,8 +70,8 @@
   },
   "language": {
     "select": "Sprache",
-    "fr": "Französisch",
-    "de": "Deutsch"
+    "de": "Deutsch",
+    "en": "Englisch"
   },
   "topbar": {
     "search": "Sendung oder Fahrer suchen...",

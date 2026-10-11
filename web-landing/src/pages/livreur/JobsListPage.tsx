@@ -4,6 +4,7 @@ import {
   Package, AlertCircle, ChevronRight, MapPin, Wallet, Zap, AlertTriangle,
 } from "lucide-react";
 import { useMyJobs, type LivreurJobStatus } from "../../lib/jobQueries";
+import { formatEUR } from "../../lib/money";
 
 const statusClass: Record<LivreurJobStatus, string> = {
   AWAITING_PICKUP: "liv-b-wait",
@@ -61,7 +62,7 @@ export default function JobsListPage() {
                 <div className="liv-job-receiver">
                   <b>{job.receiverName}</b>
                   <div className="liv-job-addr">
-                    {/* Gouvernorats tunisiens : jamais traduits */}
+                    {/* Quartiers de Dortmund : jamais traduits */}
                     <MapPin size={13} /> {job.deliveryAddress}, {job.deliveryCity}
                   </div>
                 </div>
@@ -74,7 +75,7 @@ export default function JobsListPage() {
                     <span className="liv-tag fragile"><AlertTriangle size={12} /> {t("tags.fragile")}</span>
                   )}
                   {cod > 0 && (
-                    <span className="liv-tag cod"><Wallet size={12} /> COD {cod.toFixed(0)} DT</span>
+                    <span className="liv-tag cod"><Wallet size={12} /> COD {formatEUR(cod)}</span>
                   )}
                 </div>
 

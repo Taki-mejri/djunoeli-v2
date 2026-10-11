@@ -53,8 +53,8 @@
     "title": "Confirmer la livraison",
     "question": "Colis remis à {{name}} ?",
     "amountToCollect": "Montant à encaisser",
-    "codWarning": "En confirmant, vous attestez avoir encaissé {{amount}} DT en espèces. Ce montant sera ajouté à votre solde à reverser.",
-    "confirmWithCod": "Livré · {{amount}} DT encaissés",
+    "codWarning": "En confirmant, vous attestez avoir encaissé {{amount}} en espèces. Ce montant sera ajouté à votre solde à reverser.",
+    "confirmWithCod": "Livré · {{amount}} encaissés",
     "confirm": "Confirmer la livraison",
     "validating": "Validation...",
     "success": "Colis livré ! Bravo."
@@ -86,7 +86,7 @@
     "subtitle": "Suivi des espèces",
     "cashToRemit": "Espèces en main à reverser",
     "remitToOffice": "Reverser au bureau",
-    "toCollect": "À encaisser ({{amount}} DT)",
+    "toCollect": "À encaisser ({{amount}})",
     "collectedToday": "Collecté aujourd'hui"
   },
   "banner": {

@@ -27,9 +27,9 @@ export default function ProfilePage() {
             <div className="set-field"><label>{t("profile.fields.company")}</label><input defaultValue="Medina Store" /></div>
             <div className="set-row">
               <div className="set-field"><label>{t("profile.fields.contact")}</label><input defaultValue="Ahmed Karoui" /></div>
-              <div className="set-field"><label>{t("profile.fields.phone")}</label><input defaultValue="+216 71 220 110" /></div>
+              <div className="set-field"><label>{t("profile.fields.phone")}</label><input defaultValue="+49 231 2201100" /></div>
             </div>
-            <div className="set-field"><label>{t("profile.fields.email")}</label><input defaultValue="contact@medinastore.tn" /></div>
+            <div className="set-field"><label>{t("profile.fields.email")}</label><input defaultValue="contact@medinastore.de" /></div>
             <div className="set-field"><label>{t("profile.fields.vat")}</label><input defaultValue="1234567/A/M/000" /></div>
             <button className="ds-btn-primary">{tc("actions.save")}</button>
           </>
@@ -39,8 +39,8 @@ export default function ProfilePage() {
             <p style={{ color: "var(--muted)", marginBottom: 18 }}>{t("profile.pickup.note")}</p>
             <div className="set-field"><label>{t("profile.pickup.address")}</label><input defaultValue="Av. Habib Bourguiba, immeuble Carthage" /></div>
             <div className="set-row">
-              {/* Gouvernorat : non traduit */}
-              <div className="set-field"><label>{t("profile.pickup.city")}</label><input defaultValue="Tunis" /></div>
+              {/* Quartier : non traduit */}
+              <div className="set-field"><label>{t("profile.pickup.city")}</label><input defaultValue="Innenstadt-West" /></div>
               <div className="set-field"><label>{t("profile.pickup.zip")}</label><input defaultValue="1000" /></div>
             </div>
             <button className="ds-btn-primary">{tc("actions.save")}</button>

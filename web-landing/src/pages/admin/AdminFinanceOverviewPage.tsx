@@ -7,8 +7,9 @@ import {
 import {
   useFinancialOverview, useLivreurBalances, useExpediteurCod,
 } from "../../lib/financeQueries";
+import { formatEUR } from "../../lib/money";
 
-function money(n: number) { return `${n.toLocaleString("fr-FR")} DT`; }
+function money(n: number) { return formatEUR(n); }
 
 /**
  * Vue de SUPERVISION financière pour l'admin, intégrée à son espace.

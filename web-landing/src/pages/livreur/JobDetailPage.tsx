@@ -15,6 +15,7 @@ import FailureModal from "../../components/livreur/FailureModal";
 import DeliveryConfirmModal from "../../components/livreur/DeliveryConfirmModal";
 import { dateLocaleTag } from "../../lib/dateLocale";
 import { serverNoteKey } from "../../lib/serverNotes";
+import { formatEUR } from "../../lib/money";
 
 /**
  * Bandeau de retour : on ne stocke jamais un texte figé, mais soit une CLÉ i18n
@@ -157,7 +158,7 @@ export default function JobDetailPage() {
         <div className="liv-card-label">{t("detail.receiver")}</div>
         <div className="liv-receiver-name">{job.receiverName}</div>
         <div className="liv-addr-full">
-          {/* Gouvernorats tunisiens : jamais traduits */}
+          {/* Quartiers de Dortmund : jamais traduits */}
           <MapPin size={15} /> {job.deliveryAddress}, {job.deliveryCity}
         </div>
 
@@ -185,7 +186,7 @@ export default function JobDetailPage() {
           <Wallet size={22} />
           <div>
             <span className="liv-cod-card-label">{t("detail.codToCollect")}</span>
-            <span className="liv-cod-card-amount">{cod.toFixed(0)} DT</span>
+            <span className="liv-cod-card-amount">{formatEUR(cod)}</span>
           </div>
         </div>
       )}

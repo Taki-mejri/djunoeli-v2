@@ -8,8 +8,9 @@ import {
 import StatusBadge from "../../components/dashboard/StatusBadge";
 import { dateLocaleTag } from "../../lib/dateLocale";
 import { bannerFromError, type BannerText } from "../../lib/financeBanner";
+import { formatEUR } from "../../lib/money";
 
-function money(n: number) { return `${n.toLocaleString("fr-FR")} DT`; }
+function money(n: number) { return formatEUR(n); }
 
 const statusTone: Record<string, "green" | "gray" | "red" | "amber"> = {
   PAID: "green",

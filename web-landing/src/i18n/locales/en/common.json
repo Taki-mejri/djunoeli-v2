@@ -1,0 +1,101 @@
+{
+  "app": {
+    "name": "Djunoeli"
+  },
+  "nav": {
+    "dashboard": "Overview",
+    "shipments": "Shipments",
+    "expediteurs": "Senders",
+    "livreurs": "Drivers",
+    "finance": "Finance",
+    "reception": "Receiving",
+    "sorting": "Sorting",
+    "verification": "Verification",
+    "assignment": "Assignment",
+    "remoteAssign": "Remote dispatch",
+    "livreurBalances": "Driver balances",
+    "expediteurCod": "Sender COD",
+    "invoices": "Invoices",
+    "reports": "Reports",
+    "myShipments": "My shipments",
+    "createShipment": "Create shipment",
+    "jobs": "My jobs"
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "search": "Search",
+    "filter": "Filter",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "view": "View",
+    "manage": "Manage",
+    "start": "Start",
+    "logout": "Sign out",
+    "loading": "Loading...",
+    "seeMore": "See more"
+  },
+  "status": {
+    "PENDING": "Pending",
+    "AWAITING_PICKUP": "Awaiting pickup",
+    "AT_WAREHOUSE": "At warehouse",
+    "PICKED_UP": "Picked up",
+    "IN_TRANSIT": "In transit",
+    "OUT_FOR_DELIVERY": "Out for delivery",
+    "DELIVERED": "Delivered",
+    "FAILED_DELIVERY": "Failed",
+    "RETURNED": "Returned",
+    "CANCELLED": "Cancelled"
+  },
+  "livreurStatus": {
+    "AVAILABLE": "Available",
+    "BUSY": "Busy",
+    "OFFLINE": "Offline"
+  },
+  "common": {
+    "yes": "Yes",
+    "no": "No",
+    "all": "All",
+    "none": "None",
+    "error": "Error",
+    "success": "Success",
+    "noData": "No data",
+    "required": "Required",
+    "optional": "Optional"
+  },
+  "language": {
+    "select": "Language",
+    "de": "Deutsch",
+    "en": "English"
+  },
+  "topbar": {
+    "search": "Search shipment or driver...",
+    "menu": "Menu",
+    "notifications": "Notifications",
+    "myProfile": "My profile",
+    "logout": "Sign out",
+    "loggingOut": "Signing out..."
+  },
+  "table": {
+    "empty": "No results.",
+    "searchPlaceholder": "Search..."
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "serverNotes": {
+    "created": "Shipment created",
+    "pickedUp": "Picked up",
+    "inTransit": "In transit",
+    "outForDelivery": "Out for delivery",
+    "delivered": "Delivered",
+    "failed": "Delivery failed",
+    "unassigned": "Unassigned by driver"
+  }
+}

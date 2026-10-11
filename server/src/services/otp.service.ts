@@ -10,15 +10,16 @@ const RESEND_COOLDOWN_SECONDS = 60;
 /**
  * Normalise un numéro de téléphone pour la comparaison.
  * On retire espaces, tirets, points, parenthèses. On garde un éventuel +.
- * (Tunisie : les numéros peuvent être saisis avec ou sans +216.)
+ * (Allemagne : les numéros peuvent être saisis avec +49, 0049 ou le 0 national.)
  */
 export function normalizePhone(raw: string): string {
   let p = raw.trim().replace(/[\s\-.()]/g, "");
-  // Normalise l'indicatif tunisien : +216XXXXXXXX ou 216XXXXXXXX ou XXXXXXXX
-  if (p.startsWith("+216")) p = p.slice(4);
-  else if (p.startsWith("216") && p.length > 8) p = p.slice(3);
-  else if (p.startsWith("00216")) p = p.slice(5);
-  return p; // on compare sur les 8 chiffres locaux
+  // Normalise l'indicatif allemand : +49 170…, 0049 170…, 49170… ou 0170…
+  if (p.startsWith("+49")) p = p.slice(3);
+  else if (p.startsWith("0049")) p = p.slice(4);
+  else if (p.startsWith("49") && p.length > 10) p = p.slice(2);
+  if (p.startsWith("0")) p = p.slice(1); // préfixe national (0170… → 170…)
+  return p; // on compare sur le numéro national sans 0
 }
 
 /** Génère un code à 6 chiffres */

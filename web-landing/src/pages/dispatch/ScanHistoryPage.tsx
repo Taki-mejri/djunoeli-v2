@@ -92,7 +92,7 @@ export default function ScanHistoryPage() {
                     <span className="dsp-hist-note">{noteText(e.note)}</span>
                   </div>
                   <div className="dsp-hist-sub">
-                    {/* Gouvernorats : non traduits */}
+                    {/* Quartiers : non traduits */}
                     <span>{e.shipment.receiverName} · {e.shipment.deliveryCity}</span>
                     {e.location && (
                       <span className="dsp-hist-loc">

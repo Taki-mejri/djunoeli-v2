@@ -1,0 +1,310 @@
+{
+  "nav": {
+    "groupSpace": "My Space",
+    "groupFinance": "Finance",
+    "groupAccount": "Account",
+    "dashboard": "Overview",
+    "create": "Create shipment",
+    "shipments": "My shipments",
+    "invoices": "Invoices",
+    "cod": "COD balance",
+    "profile": "My profile"
+  },
+  "layout": {
+    "roleLabel": "Sender",
+    "fallbackName": "Sender",
+    "helpTitle": "Need help?",
+    "helpDesc": "Support available around the clock"
+  },
+  "dashboard": {
+    "greeting": "Hello, {{name}} 👋",
+    "subtitle": "Here is an overview of your activity today.",
+    "createCta": "+ Create shipment",
+    "kpi": {
+      "monthly": "Shipments this month",
+      "inProgress": "In transit",
+      "delivered": "Delivered",
+      "codPending": "Pending COD"
+    },
+    "chart": {
+      "title": "My shipments this week",
+      "tag": "Last 7 days",
+      "series": "Shipments"
+    },
+    "codPanel": {
+      "title": "COD balance",
+      "toRemit": "To be paid out to you",
+      "collected": "Collected",
+      "remittedMonth": "Paid out (month)",
+      "detail": "View details"
+    },
+    "recent": {
+      "title": "My recent shipments",
+      "seeAll": "View all"
+    },
+    "days": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun"
+    }
+  },
+  "table": {
+    "tracking": "Tracking no.",
+    "receiver": "Recipient",
+    "city": "City",
+    "status": "Status",
+    "type": "Type",
+    "price": "Price",
+    "cod": "COD",
+    "date": "Date",
+    "createdAt": "Created",
+    "amount": "Amount"
+  },
+  "shipmentType": {
+    "standard": "Standard",
+    "express": "Express",
+    "fragile": "Fragile"
+  },
+  "list": {
+    "title": "My shipments",
+    "subtitle": "{{total}} shipments sent. You can cancel a shipment while it is pending.",
+    "createCta": "Create shipment",
+    "searchPlaceholder": "Tracking no., recipient, city...",
+    "allStatuses": "All statuses",
+    "loadError": "Your shipments could not be loaded: {{message}}",
+    "unknownError": "unknown error",
+    "view": "View →",
+    "cancelTitle": "Cancel shipment",
+    "results": "{{total}} results",
+    "page": "Page",
+    "empty": {
+      "title": "No shipments yet",
+      "desc": "Create your first shipment to start using Djunoeli.",
+      "cta": "Create my first shipment"
+    }
+  },
+  "create": {
+    "title": "Create shipment",
+    "subtitle": "Enter the recipient's details and choose the delivery type.",
+    "sections": {
+      "receiver": "Recipient",
+      "address": "Delivery address",
+      "deliveryType": "Delivery type",
+      "cod": "Cash on delivery (optional)",
+      "description": "Shipment description (optional)"
+    },
+    "fields": {
+      "fullName": "Full name *",
+      "phone": "Phone *",
+      "email": "Email (optional)",
+      "fullAddress": "Full address *",
+      "city": "District *",
+      "codAmount": "Amount to collect on delivery (€)"
+    },
+    "placeholders": {
+      "name": "Ahmed Karoui",
+      "phone": "+49 170 1234567",
+      "email": "max@email.de",
+      "address": "Kampstraße 12, 44137 Dortmund",
+      "chooseCity": "Select a district...",
+      "codAmount": "0 = no COD",
+      "description": "E.g.: iPhone 13 smartphone + charger, in original packaging"
+    },
+    "standard": {
+      "name": "Standard",
+      "desc": "Delivery in 24-48 hrs"
+    },
+    "express": {
+      "name": "Express",
+      "desc": "Same day (all of Dortmund)"
+    },
+    "fragile": {
+      "title": "Fragile shipment",
+      "desc": "Careful handling · +€3.00"
+    },
+    "pickup": {
+      "toggleTitle": "Different pickup address",
+      "default": "Default: {{address}}, {{city}}",
+      "none": "No default address in your profile",
+      "address": "Pickup address *",
+      "addressPlaceholder": "Exact address",
+      "city": "Pickup city *"
+    },
+    "summary": {
+      "title": "Summary",
+      "type": "Delivery type",
+      "base": "Base price",
+      "fragileFee": "Fragile surcharge",
+      "total": "Total amount",
+      "codNote": "to be collected from the recipient"
+    },
+    "submit": "Confirm and create shipment",
+    "submitting": "Creating...",
+    "fineprint": "Price calculated and verified server-side. You will not pay more.",
+    "validation": {
+      "nameRequired": "Name required",
+      "phoneInvalid": "Invalid phone number",
+      "addressTooShort": "Address too short",
+      "cityRequired": "City required",
+      "codInvalid": "Invalid COD amount"
+    },
+    "errors": {
+      "noPickup": "You have no pickup address in your profile. Enable “Different pickup address” and fill it in, or update your profile.",
+      "create": "Error while creating.",
+      "network": "Network error."
+    }
+  },
+  "detail": {
+    "loadError": "Error: {{message}}",
+    "notFound": "Shipment not found",
+    "cancelCta": "Cancel shipment",
+    "sections": {
+      "delivery": "Delivery",
+      "expediteur": "Sender",
+      "pickup": "Pickup",
+      "receiver": "Recipient",
+      "content": "Contents",
+      "cod": "COD",
+      "livreur": "Assigned driver",
+      "dates": "Dates",
+      "journal": "Detailed log"
+    },
+    "type": "Type",
+    "pricePaid": "Price paid",
+    "fragileNote": "Fragile shipment — careful handling",
+    "company": "Company",
+    "contact": "Contact",
+    "noDescription": "No description",
+    "codNote": "To be collected from the recipient on delivery.",
+    "createdAt": "Created on",
+    "pickedUpAt": "Picked up on",
+    "deliveredAt": "Delivered on"
+  },
+  "timeline": {
+    "steps": {
+      "CREATED": "Created",
+      "PICKED_UP": "Picked up",
+      "AT_WAREHOUSE": "At warehouse",
+      "IN_TRANSIT": "In transit",
+      "OUT_FOR_DELIVERY": "Out for delivery",
+      "DELIVERED": "Delivered"
+    },
+    "hints": {
+      "inProgress": "in progress…",
+      "failed": "failed",
+      "returned": "returned"
+    },
+    "banner": {
+      "cancelled": "This shipment has been cancelled",
+      "failed": "Delivery failed — see the log for details"
+    },
+    "log": {
+      "empty": "No events recorded.",
+      "by": "by {{name}}"
+    }
+  },
+  "cancel": {
+    "title": "Cancel shipment?",
+    "descPrefix": "The shipment",
+    "descSuffix": "will be marked as cancelled. This action is final.",
+    "reasonLabel": "Reason (optional)",
+    "reasonPlaceholder": "Entry error, change of mind...",
+    "keep": "Keep shipment",
+    "confirm": "Confirm cancellation",
+    "pending": "Cancelling...",
+    "errors": {
+      "cancel": "Error while cancelling.",
+      "network": "Network error."
+    }
+  },
+  "cod": {
+    "title": "My COD balance",
+    "subtitle": "Amounts collected by our drivers for your shipments.",
+    "cards": {
+      "pending": "Payout pending",
+      "remittedMonth": "Paid out this month",
+      "totalToDate": "Total to date"
+    },
+    "searchPlaceholder": "Search by tracking no...",
+    "allStatuses": "All statuses",
+    "status": {
+      "collected": "Collected",
+      "remitted": "Paid out"
+    },
+    "footer": "{{total}} transactions"
+  },
+  "invoices": {
+    "title": "My invoices",
+    "subtitle": "Download your invoices and track your payments.",
+    "searchPlaceholder": "Search invoices...",
+    "table": {
+      "number": "Invoice no.",
+      "period": "Period",
+      "issuedAt": "Issued on",
+      "amount": "Amount",
+      "status": "Status"
+    },
+    "download": "Download PDF",
+    "status": {
+      "paid": "Paid",
+      "pending": "Pending",
+      "late": "Overdue"
+    },
+    "footer": "{{total}} invoices"
+  },
+  "profile": {
+    "title": "My account",
+    "subtitle": "Manage your details and settings.",
+    "tabs": {
+      "profile": "My profile",
+      "pickup": "Pickup address",
+      "notifications": "Notifications"
+    },
+    "fields": {
+      "company": "Company name",
+      "contact": "Contact",
+      "phone": "Phone",
+      "email": "Email",
+      "vat": "VAT ID"
+    },
+    "pickup": {
+      "note": "The address where our drivers pick up your shipments.",
+      "address": "Address",
+      "city": "City",
+      "zip": "Postal code"
+    },
+    "notifications": {
+      "smsDesc": "Receive an SMS at every delivery step.",
+      "whatsappDesc": "Updates via WhatsApp Business.",
+      "emailDesc": "Invoices and summaries."
+    }
+  },
+  "mock": {
+    "shipmentStatus": {
+      "pending": "Pending",
+      "picked_up": "Picked up",
+      "in_transit": "In transit",
+      "out_for_delivery": "Out for delivery",
+      "delivered": "Delivered",
+      "failed": "Failed"
+    },
+    "months": {
+      "1": "January",
+      "2": "February",
+      "3": "March",
+      "4": "April",
+      "5": "May",
+      "6": "June",
+      "7": "July",
+      "8": "August",
+      "9": "September",
+      "10": "October",
+      "11": "November",
+      "12": "December"
+    }
+  }
+}

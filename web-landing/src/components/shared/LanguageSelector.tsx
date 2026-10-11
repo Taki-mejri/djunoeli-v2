@@ -4,12 +4,12 @@ import { Check, ChevronDown } from "lucide-react";
 
 /**
  * Sélecteur de langue à drapeaux, à placer dans le topbar.
- * FR / DE. Le choix est mémorisé (localStorage via i18next-browser-languagedetector).
+ * DE / EN. Le choix est mémorisé (localStorage via i18next-browser-languagedetector).
  */
 
 const LANGS = [
-  { code: "fr", flag: "🇫🇷", label: "Français" },
   { code: "de", flag: "🇩🇪", label: "Deutsch" },
+  { code: "en", flag: "🇬🇧", label: "English" },
 ];
 
 export default function LanguageSelector() {

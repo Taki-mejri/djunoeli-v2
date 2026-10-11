@@ -21,7 +21,7 @@ const kpis: {
   { labelKey: "dashboard.stats.totalShipments", value: "3 482", delta: "+12,5%", up: true, icon: <Package size={20} />, tone: "t-navy" },
   { labelKey: "dashboard.stats.deliveredToday", value: "287", delta: "+8,2%", up: true, icon: <CheckCircle2 size={20} />, tone: "t-teal" },
   { labelKey: "dashboard.stats.inTransit", value: "94", delta: "-3,1%", up: false, icon: <Truck size={20} />, tone: "t-amber" },
-  { labelKey: "dashboard.stats.revenueMonth", value: "48 250 DT", delta: "+18,4%", up: true, icon: <Wallet size={20} />, tone: "t-green" },
+  { labelKey: "dashboard.stats.revenueMonth", value: "48.250,00 €", delta: "+18,4%", up: true, icon: <Wallet size={20} />, tone: "t-green" },
 ];
 
 const dailyKeys = [
@@ -29,10 +29,10 @@ const dailyKeys = [
   { k: "thu", v: 310 }, { k: "fri", v: 340 }, { k: "sat", v: 290 }, { k: "sun", v: 180 },
 ];
 
-/* Les gouvernorats ne se traduisent pas ; seul « Autres » porte une clé. */
+/* Les quartiers ne se traduisent pas ; seul « Autres » porte une clé. */
 const regions: { name?: string; labelKey?: string; v: number }[] = [
-  { name: "Tunis", v: 1240 }, { name: "Ariana", v: 720 }, { name: "Sfax", v: 560 },
-  { name: "Sousse", v: 480 }, { name: "Nabeul", v: 320 },
+  { name: "Innenstadt-Nord", v: 1240 }, { name: "Hörde", v: 720 }, { name: "Aplerbeck", v: 560 },
+  { name: "Brackel", v: 480 }, { name: "Eving", v: 320 },
   { labelKey: "dashboard.charts.otherRegions", v: 162 },
 ];
 const regionColors = ["#0d2a47", "#15507e", "#1fc4a0", "#0e9c7d", "#7cc6b3", "#b9d9d0"];

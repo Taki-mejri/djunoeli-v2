@@ -20,7 +20,7 @@ export default function ReportsPage() {
       </div>
       <div className="chart-row">
         <div className="panel">
-          <div className="panel-head"><h3>Revenus mensuels (DT)</h3><span className="panel-tag">6 mois</span></div>
+          <div className="panel-head"><h3>Revenus mensuels (€)</h3><span className="panel-tag">6 mois</span></div>
           <ResponsiveContainer width="100%" height={280}>
             <LineChart data={revenue} margin={{ top: 10, right: 10, left: -8, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#eef2f6" vertical={false} />

@@ -4,7 +4,7 @@ const steps = [
   { n: 1, title: "Créez l'envoi", desc: "L'expéditeur saisit les détails du colis et l'adresse depuis son espace." },
   { n: 2, title: "On assigne", desc: "Le colis est attribué au livreur le plus proche et disponible." },
   { n: 3, title: "Suivi en direct", desc: "Tout le monde suit le colis en temps réel jusqu'à destination." },
-  { n: 4, title: "Livré & encaissé", desc: "Preuve de livraison, encaissement COD et règlement automatique." },
+  { n: 4, title: "Livré le jour même", desc: "Preuve de livraison et facturation automatique." },
 ];
 
 function Step({ s, delay }: { s: (typeof steps)[number]; delay: number }) {

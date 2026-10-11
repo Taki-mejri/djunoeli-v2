@@ -1,6 +1,7 @@
 import { InvoiceStatus } from "@prisma/client";
 import { prisma } from "../lib/prisma.js";
 import { notFound, badRequest } from "../middleware/errorHandler.js";
+import { formatEUR } from "../lib/money.js";
 
 const INVOICE_STATUSES = new Set<string>(Object.values(InvoiceStatus));
 function isInvoiceStatus(value: string): value is InvoiceStatus {
@@ -121,7 +122,7 @@ export async function generateInvoice(input: GenInvoiceInput) {
     invoice: result,
     companyName: expediteur.companyName,
     shipmentCount: shipments.length,
-    message: `Facture ${result.number} créée : ${amount.toFixed(0)} DT (${shipments.length} colis).`,
+    message: `Facture ${result.number} créée : ${formatEUR(amount)} (${shipments.length} colis).`,
   };
 }
 
@@ -197,6 +198,6 @@ export async function payInvoice(
 
   return {
     invoice: updated,
-    message: `Facture ${invoice.number} marquée payée (${Number(invoice.amount).toFixed(0)} DT).`,
+    message: `Facture ${invoice.number} marquée payée (${formatEUR(Number(invoice.amount))}).`,
   };
 }

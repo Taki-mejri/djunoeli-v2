@@ -10,8 +10,8 @@ type Service = {
 
 const services: Service[] = [
   {
-    title: "Livraison Express",
-    desc: "Prise en charge le jour même et livraison rapide partout en Tunisie, du centre-ville aux zones rurales.",
+    title: "Livraison Same-Day",
+    desc: "Prise en charge et livraison le jour même partout à Dortmund, de l'Innenstadt à Wickede.",
     icon: (
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <path d="M3 9l9-6 9 6v9a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
@@ -20,8 +20,8 @@ const services: Service[] = [
     ),
   },
   {
-    title: "Paiement à la livraison (COD)",
-    desc: "Encaissez le montant à la livraison. Suivi de chaque dinar, du livreur jusqu'au règlement de l'expéditeur.",
+    title: "Facturation transparente",
+    desc: "Prix clairs en euros, factures détaillées et suivi de chaque envoi, de la commande au règlement.",
     tag: "POPULAIRE",
     icon: (
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -42,8 +42,8 @@ const services: Service[] = [
     ),
   },
   {
-    title: "Couverture Nationale",
-    desc: "Un réseau de livreurs présent dans les 24 gouvernorats, avec des hubs régionaux pour réduire les délais.",
+    title: "Tout Dortmund",
+    desc: "Un réseau de livreurs couvrant les quartiers de Dortmund, avec un dépôt central pour réduire les délais.",
     icon: (
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z" />
@@ -93,8 +93,8 @@ export default function Services() {
           <div className="sec-kicker">Nos Services</div>
           <h2>Tout ce qu'il faut pour livrer</h2>
           <p>
-            Une plateforme complète pensée pour les entreprises tunisiennes qui veulent
-            expédier vite, suivre en direct et encaisser sans souci.
+            Une plateforme complète pensée pour les commerces de Dortmund qui veulent
+            expédier le jour même et suivre chaque colis en direct.
           </p>
         </div>
         <div className="svc-grid">

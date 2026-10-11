@@ -64,7 +64,7 @@
       "assigned": "Livreur assigné",
       "assignedSub": "#TRK-9912 → Skander T.",
       "codReceived": "Paiement COD reçu",
-      "codReceivedSub": "142 DT · #TRK-9801",
+      "codReceivedSub": "142,00 € · #TRK-9801",
       "newExpediteur": "Nouvel expéditeur",
       "newExpediteurSub": "Boutique El Manar inscrite",
       "minutesAgo": "Il y a {{count}} min",

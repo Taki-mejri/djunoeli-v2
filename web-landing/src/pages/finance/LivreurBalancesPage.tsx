@@ -9,8 +9,9 @@ import SettleModal from "../../components/finance/SettleModal";
 import { dateLocaleTag } from "../../lib/dateLocale";
 import type { BannerText } from "../../lib/financeBanner";
 import { timeAgoKey } from "../../lib/timeAgo";
+import { formatEUR } from "../../lib/money";
 
-function money(n: number) { return `${n.toLocaleString("fr-FR")} DT`; }
+function money(n: number) { return formatEUR(n); }
 function initials(f: string | null, l: string | null) {
   return [(f ?? "").charAt(0), (l ?? "").charAt(0)].join("").toUpperCase() || "?";
 }

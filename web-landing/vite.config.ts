@@ -4,6 +4,9 @@ import tailwindcss from "@tailwindcss/vite";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
+  // v2 tourne sur 5174 pour cohabiter avec le v1 (5173)
+  server: { port: 5174, strictPort: true },
+  preview: { port: 5174, strictPort: true },
   plugins: [
     react(),
     tailwindcss(),
@@ -13,14 +16,14 @@ export default defineConfig({
       manifest: {
         name: "Djunoeli Livreur",
         short_name: "Djunoeli",
-        description: "Application livreur Djunoeli — gérez vos courses et encaissez le COD.",
+        description: "Djunoeli Fahrer-App — Same-Day-Lieferungen in Dortmund verwalten.",
         theme_color: "#0d2a47",
         background_color: "#0d2a47",
         display: "standalone",
         orientation: "portrait",
         start_url: "/livreur",
         scope: "/",
-        lang: "fr",
+        lang: "de",
         icons: [
           { src: "/pwa-192.png", sizes: "192x192", type: "image/png" },
           { src: "/pwa-512.png", sizes: "512x512", type: "image/png" },

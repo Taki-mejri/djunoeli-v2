@@ -19,7 +19,7 @@ import { otpRouter } from "./routes/otp.routes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4002;
 const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || "http://localhost:5173";
 
 app.use(helmet());

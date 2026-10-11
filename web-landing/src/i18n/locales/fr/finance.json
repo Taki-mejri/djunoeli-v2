@@ -141,7 +141,7 @@
     "totalAmount": "Montant total",
     "amountToRemit": "Montant à reverser",
     "partial": "Reversement partiel",
-    "amountMax": "Montant (max {{max}} DT)",
+    "amountMax": "Montant (max {{max}})",
     "method": "Méthode",
     "reference": "Référence (optionnel)",
     "referencePlaceholder": "N° reçu, virement...",

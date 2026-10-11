@@ -22,13 +22,13 @@ export type Shipment = {
 };
 
 export const shipments: Shipment[] = [
-  { tracking: "TRK-9921", expediteur: "Medina Store", destinataire: "Ahmed Karoui", ville: "Tunis", livreur: "Skander T.", statut: "En livraison", cod: "142 DT", date: "09/06 08:12" },
-  { tracking: "TRK-9920", expediteur: "Boutique El Manar", destinataire: "Sarra Ben Ali", ville: "Ariana", livreur: "Mohamed B.", statut: "En transit", cod: "89 DT", date: "09/06 07:40" },
-  { tracking: "TRK-9918", expediteur: "TechZone", destinataire: "Youssef Gharbi", ville: "Sfax", livreur: "—", statut: "En attente", cod: "0 DT", date: "09/06 07:05" },
-  { tracking: "TRK-9915", expediteur: "Medina Store", destinataire: "Ines Trabelsi", ville: "Sousse", livreur: "Ali R.", statut: "Livré", cod: "210 DT", date: "08/06 16:22" },
-  { tracking: "TRK-9912", expediteur: "Parfum Plus", destinataire: "Khalil Mejri", ville: "Nabeul", livreur: "Skander T.", statut: "Pris en charge", cod: "55 DT", date: "08/06 15:48" },
-  { tracking: "TRK-9908", expediteur: "TechZone", destinataire: "Mariem Saidi", ville: "Tunis", livreur: "Hatem K.", statut: "Échoué", cod: "320 DT", date: "08/06 14:10" },
-  { tracking: "TRK-9901", expediteur: "Boutique El Manar", destinataire: "Omar Belhaj", ville: "Bizerte", livreur: "Mohamed B.", statut: "Livré", cod: "98 DT", date: "08/06 11:30" },
+  { tracking: "TRK-9921", expediteur: "Medina Store", destinataire: "Ahmed Karoui", ville: "Innenstadt-West", livreur: "Skander T.", statut: "En livraison", cod: "142,00 €", date: "09/06 08:12" },
+  { tracking: "TRK-9920", expediteur: "Boutique El Manar", destinataire: "Sarra Ben Ali", ville: "Hörde", livreur: "Mohamed B.", statut: "En transit", cod: "89,00 €", date: "09/06 07:40" },
+  { tracking: "TRK-9918", expediteur: "TechZone", destinataire: "Youssef Gharbi", ville: "Aplerbeck", livreur: "—", statut: "En attente", cod: "0,00 €", date: "09/06 07:05" },
+  { tracking: "TRK-9915", expediteur: "Medina Store", destinataire: "Ines Trabelsi", ville: "Brackel", livreur: "Ali R.", statut: "Livré", cod: "210,00 €", date: "08/06 16:22" },
+  { tracking: "TRK-9912", expediteur: "Parfum Plus", destinataire: "Khalil Mejri", ville: "Eving", livreur: "Skander T.", statut: "Pris en charge", cod: "55,00 €", date: "08/06 15:48" },
+  { tracking: "TRK-9908", expediteur: "TechZone", destinataire: "Mariem Saidi", ville: "Innenstadt-West", livreur: "Hatem K.", statut: "Échoué", cod: "320,00 €", date: "08/06 14:10" },
+  { tracking: "TRK-9901", expediteur: "Boutique El Manar", destinataire: "Omar Belhaj", ville: "Hombruch", livreur: "Mohamed B.", statut: "Livré", cod: "98,00 €", date: "08/06 11:30" },
 ];
 
 /* ---------- LIVREURS ---------- */
@@ -40,11 +40,11 @@ export type Driver = {
   statut: DriverStatus; courses: number; note: string; [key: string]: unknown;
 };
 export const drivers: Driver[] = [
-  { nom: "Skander Trabelsi", tel: "+216 22 145 887", vehicule: "Moto", zone: "Tunis", statut: "Occupé", courses: 8, note: "4.9" },
-  { nom: "Mohamed Ben Salah", tel: "+216 98 332 014", vehicule: "Camionnette", zone: "Ariana", statut: "Disponible", courses: 5, note: "4.7" },
-  { nom: "Ali Rebai", tel: "+216 50 778 220", vehicule: "Moto", zone: "Sousse", statut: "Disponible", courses: 6, note: "4.8" },
-  { nom: "Hatem Khelifi", tel: "+216 24 909 551", vehicule: "Voiture", zone: "Tunis", statut: "Hors ligne", courses: 0, note: "4.5" },
-  { nom: "Nizar Aouni", tel: "+216 27 661 309", vehicule: "Camionnette", zone: "Sfax", statut: "Occupé", courses: 4, note: "4.6" },
+  { nom: "Skander Trabelsi", tel: "+49 152 2145887", vehicule: "Moto", zone: "Innenstadt-West", statut: "Occupé", courses: 8, note: "4.9" },
+  { nom: "Mohamed Ben Salah", tel: "+49 159 8332014", vehicule: "Camionnette", zone: "Hörde", statut: "Disponible", courses: 5, note: "4.7" },
+  { nom: "Ali Rebai", tel: "+49 155 0778220", vehicule: "Moto", zone: "Brackel", statut: "Disponible", courses: 6, note: "4.8" },
+  { nom: "Hatem Khelifi", tel: "+49 152 4909551", vehicule: "Voiture", zone: "Innenstadt-West", statut: "Hors ligne", courses: 0, note: "4.5" },
+  { nom: "Nizar Aouni", tel: "+49 152 7661309", vehicule: "Camionnette", zone: "Aplerbeck", statut: "Occupé", courses: 4, note: "4.6" },
 ];
 
 /* ---------- EXPÉDITEURS ---------- */
@@ -53,10 +53,10 @@ export type Expediteur = {
   ca: string; impaye: string; [key: string]: unknown;
 };
 export const expediteurs: Expediteur[] = [
-  { societe: "Medina Store", contact: "Ahmed Karoui", tel: "+216 71 220 110", colis: 482, ca: "12 400 DT", impaye: "320 DT" },
-  { societe: "Boutique El Manar", contact: "Leila Mansour", tel: "+216 71 884 200", colis: 311, ca: "8 950 DT", impaye: "0 DT" },
-  { societe: "TechZone", contact: "Wassim Daoud", tel: "+216 71 552 901", colis: 268, ca: "15 200 DT", impaye: "1 100 DT" },
-  { societe: "Parfum Plus", contact: "Rania Sassi", tel: "+216 71 330 778", colis: 154, ca: "4 600 DT", impaye: "0 DT" },
+  { societe: "Medina Store", contact: "Ahmed Karoui", tel: "+49 231 1220110", colis: 482, ca: "12.400,00 €", impaye: "320,00 €" },
+  { societe: "Boutique El Manar", contact: "Leila Mansour", tel: "+49 231 1884200", colis: 311, ca: "8.950,00 €", impaye: "0,00 €" },
+  { societe: "TechZone", contact: "Wassim Daoud", tel: "+49 231 1552901", colis: 268, ca: "15.200,00 €", impaye: "1.100,00 €" },
+  { societe: "Parfum Plus", contact: "Rania Sassi", tel: "+49 231 1330778", colis: 154, ca: "4.600,00 €", impaye: "0,00 €" },
 ];
 
 /* ---------- CLIENTS ---------- */
@@ -64,10 +64,10 @@ export type Customer = {
   nom: string; tel: string; ville: string; commandes: number; total: string; [key: string]: unknown;
 };
 export const customers: Customer[] = [
-  { nom: "Ahmed Karoui", tel: "+216 22 100 200", ville: "Tunis", commandes: 14, total: "1 980 DT" },
-  { nom: "Sarra Ben Ali", tel: "+216 98 444 121", ville: "Ariana", commandes: 9, total: "1 120 DT" },
-  { nom: "Youssef Gharbi", tel: "+216 50 332 880", ville: "Sfax", commandes: 22, total: "3 410 DT" },
-  { nom: "Ines Trabelsi", tel: "+216 27 901 554", ville: "Sousse", commandes: 6, total: "640 DT" },
+  { nom: "Ahmed Karoui", tel: "+49 152 2100200", ville: "Innenstadt-West", commandes: 14, total: "1.980,00 €" },
+  { nom: "Sarra Ben Ali", tel: "+49 159 8444121", ville: "Hörde", commandes: 9, total: "1.120,00 €" },
+  { nom: "Youssef Gharbi", tel: "+49 155 0332880", ville: "Aplerbeck", commandes: 22, total: "3.410,00 €" },
+  { nom: "Ines Trabelsi", tel: "+49 152 7901554", ville: "Brackel", commandes: 6, total: "640,00 €" },
 ];
 
 /* ---------- FACTURES ---------- */
@@ -77,10 +77,10 @@ export type Invoice = {
   numero: string; expediteur: string; montant: string; date: string; statut: InvoiceStatus; [key: string]: unknown;
 };
 export const invoices: Invoice[] = [
-  { numero: "FAC-2026-0142", expediteur: "Medina Store", montant: "1 480 DT", date: "01/06/2026", statut: "Payée" },
-  { numero: "FAC-2026-0141", expediteur: "TechZone", montant: "2 210 DT", date: "01/06/2026", statut: "En attente" },
-  { numero: "FAC-2026-0138", expediteur: "Boutique El Manar", montant: "950 DT", date: "28/05/2026", statut: "En retard" },
-  { numero: "FAC-2026-0135", expediteur: "Parfum Plus", montant: "620 DT", date: "25/05/2026", statut: "Payée" },
+  { numero: "FAC-2026-0142", expediteur: "Medina Store", montant: "1.480,00 €", date: "01/06/2026", statut: "Payée" },
+  { numero: "FAC-2026-0141", expediteur: "TechZone", montant: "2.210,00 €", date: "01/06/2026", statut: "En attente" },
+  { numero: "FAC-2026-0138", expediteur: "Boutique El Manar", montant: "950,00 €", date: "28/05/2026", statut: "En retard" },
+  { numero: "FAC-2026-0135", expediteur: "Parfum Plus", montant: "620,00 €", date: "25/05/2026", statut: "Payée" },
 ];
 
 /* ---------- COD ---------- */
@@ -90,10 +90,10 @@ export type Cod = {
 };
 export const codTone: Record<Cod["statut"], Tone> = { "Collecté": "amber", "Reversé": "green" };
 export const codCollections: Cod[] = [
-  { tracking: "TRK-9915", livreur: "Ali R.", expediteur: "Medina Store", montant: "210 DT", statut: "Collecté", date: "08/06" },
-  { tracking: "TRK-9901", livreur: "Mohamed B.", expediteur: "Boutique El Manar", montant: "98 DT", statut: "Reversé", date: "08/06" },
-  { tracking: "TRK-9888", livreur: "Skander T.", expediteur: "TechZone", montant: "340 DT", statut: "Collecté", date: "07/06" },
-  { tracking: "TRK-9875", livreur: "Nizar A.", expediteur: "Parfum Plus", montant: "75 DT", statut: "Reversé", date: "07/06" },
+  { tracking: "TRK-9915", livreur: "Ali R.", expediteur: "Medina Store", montant: "210,00 €", statut: "Collecté", date: "08/06" },
+  { tracking: "TRK-9901", livreur: "Mohamed B.", expediteur: "Boutique El Manar", montant: "98,00 €", statut: "Reversé", date: "08/06" },
+  { tracking: "TRK-9888", livreur: "Skander T.", expediteur: "TechZone", montant: "340,00 €", statut: "Collecté", date: "07/06" },
+  { tracking: "TRK-9875", livreur: "Nizar A.", expediteur: "Parfum Plus", montant: "75,00 €", statut: "Reversé", date: "07/06" },
 ];
 
 /* ---------- SUPPORT ---------- */
@@ -114,7 +114,7 @@ export const unassigned = shipments.filter((s) => s.livreur === "—" || s.statu
 /* ---------- ENTREPÔTS ---------- */
 export type Warehouse = { nom: string; ville: string; capacite: string; colis: number; [key: string]: unknown };
 export const warehouses: Warehouse[] = [
-  { nom: "Hub Tunis Centre", ville: "Tunis", capacite: "2 000", colis: 1240 },
-  { nom: "Hub Sfax", ville: "Sfax", capacite: "1 200", colis: 560 },
-  { nom: "Hub Sousse", ville: "Sousse", capacite: "900", colis: 480 },
+  { nom: "Depot Dortmund Nord", ville: "Innenstadt-West", capacite: "2 000", colis: 1240 },
+  { nom: "Depot Aplerbeck", ville: "Aplerbeck", capacite: "1 200", colis: 560 },
+  { nom: "Depot Brackel", ville: "Brackel", capacite: "900", colis: 480 },
 ];

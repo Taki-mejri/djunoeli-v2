@@ -18,14 +18,15 @@ export const scanReceiveSchema = z.object({
 export type ScanReceiveInput = z.infer<typeof scanReceiveSchema>;
 
 /* =====================================================
-   SCAN TRI — colis trié par gouvernorat
+   SCAN TRI — colis trié par quartier de Dortmund (Stadtteil)
    ===================================================== */
 
-const TUNISIA_GOUVERNORATS = [
-  "Tunis", "Ariana", "Ben Arous", "Manouba", "Nabeul", "Zaghouan",
-  "Bizerte", "Béja", "Jendouba", "Le Kef", "Siliana", "Sousse",
-  "Monastir", "Mahdia", "Sfax", "Kairouan", "Kasserine", "Sidi Bouzid",
-  "Gabès", "Médenine", "Tataouine", "Gafsa", "Tozeur", "Kébili",
+/** Doit rester synchronisé avec web-landing/src/lib/dortmund.ts */
+const DORTMUND_DISTRICTS = [
+  "Innenstadt-Nord", "Innenstadt-Ost", "Innenstadt-West", "Hörde", "Hombruch",
+  "Aplerbeck", "Brackel", "Eving", "Huckarde", "Lütgendortmund",
+  "Mengede", "Scharnhorst", "Nette", "Dorstfeld", "Kirchlinde",
+  "Marten", "Wambel", "Körne", "Asseln", "Wickede",
 ] as const;
 
 export const scanSortSchema = z.object({
@@ -33,9 +34,9 @@ export const scanSortSchema = z.object({
     .string()
     .trim()
     .regex(/^TRK-\d{4}-\d{5}$/, "Format de tracking invalide"),
-  /** Gouvernorat dans lequel le colis a été trié (doit matcher la destination du colis) */
-  destinationGovernorate: z.enum(TUNISIA_GOUVERNORATS, {
-    error: () => "Gouvernorat invalide",
+  /** Quartier dans lequel le colis a été trié (doit matcher la destination du colis) */
+  destinationGovernorate: z.enum(DORTMUND_DISTRICTS, {
+    error: () => "Quartier invalide",
   }),
   note: z.string().max(200).optional(),
 });

@@ -1,6 +1,7 @@
 import type { Prisma } from "@prisma/client";
 import { prisma } from "../lib/prisma.js";
 import { notFound, badRequest } from "../middleware/errorHandler.js";
+import { formatEUR } from "../lib/money.js";
 
 /* =====================================================
    Transitions valides : depuis → [vers autorisés]
@@ -86,7 +87,7 @@ export async function advanceJobStatus(input: AdvanceInput) {
   // Si livraison avec COD, on exige la confirmation d'encaissement
   if (input.target === "DELIVERED" && hasCod && input.codCollected !== true) {
     throw badRequest(
-      `Ce colis a un COD de ${codAmount.toFixed(0)} DT. Confirmez l'encaissement pour valider la livraison.`
+      `Ce colis a un COD de ${formatEUR(codAmount)}. Confirmez l'encaissement pour valider la livraison.`
     );
   }
 
@@ -113,7 +114,7 @@ export async function advanceJobStatus(input: AdvanceInput) {
     // Note d'historique
     let historyNote = STATUS_LABELS[input.target];
     if (input.target === "DELIVERED" && hasCod) {
-      historyNote += ` · COD ${codAmount.toFixed(0)} DT encaissé`;
+      historyNote += ` · COD ${formatEUR(codAmount)} encaissé`;
     }
     if (input.note) {
       historyNote += ` · ${input.note}`;

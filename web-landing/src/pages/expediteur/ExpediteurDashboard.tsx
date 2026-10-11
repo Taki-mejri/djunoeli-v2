@@ -1,5 +1,5 @@
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import { Package, Truck, CheckCircle2, Wallet, ArrowRight } from "lucide-react";
+import { Package, Truck, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import StatusBadge from "../../components/dashboard/StatusBadge";
@@ -11,7 +11,7 @@ const kpis = [
   { key: "monthly", value: "184", icon: <Package size={20} />, tone: "t-navy" },
   { key: "inProgress", value: "12", icon: <Truck size={20} />, tone: "t-amber" },
   { key: "delivered", value: "158", icon: <CheckCircle2 size={20} />, tone: "t-green" },
-  { key: "codPending", value: "440 DT", icon: <Wallet size={20} />, tone: "t-teal" },
+  // v2 : KPI « COD en attente » masqué (paiement à la livraison supprimé)
 ];
 
 export default function ExpediteurDashboard() {
@@ -54,7 +54,7 @@ export default function ExpediteurDashboard() {
         ))}
       </div>
 
-      <div className="chart-row">
+      <div className="chart-row" style={{ gridTemplateColumns: "1fr" }}>
         <div className="panel">
           <div className="panel-head">
             <h3>{t("dashboard.chart.title")}</h3>
@@ -77,20 +77,7 @@ export default function ExpediteurDashboard() {
           </ResponsiveContainer>
         </div>
 
-        <div className="panel">
-          <div className="panel-head"><h3>{t("dashboard.codPanel.title")}</h3></div>
-          <div className="cod-summary">
-            <div className="cs-main">
-              <span className="cs-label">{t("dashboard.codPanel.toRemit")}</span>
-              <span className="cs-value">440 DT</span>
-            </div>
-            <div className="cs-split">
-              <div><span className="cs-lbl">{t("dashboard.codPanel.collected")}</span><span className="cs-v">231 DT</span></div>
-              <div><span className="cs-lbl">{t("dashboard.codPanel.remittedMonth")}</span><span className="cs-v">218 DT</span></div>
-            </div>
-            <Link to="/expediteur/cod" className="cs-link">{t("dashboard.codPanel.detail")} <ArrowRight size={14} /></Link>
-          </div>
-        </div>
+        {/* v2 : panneau COD masqué (paiement à la livraison supprimé, wallet à venir) */}
       </div>
 
       <div className="panel">
@@ -106,7 +93,6 @@ export default function ExpediteurDashboard() {
                 <th>{t("table.receiver")}</th>
                 <th>{t("table.city")}</th>
                 <th>{t("table.status")}</th>
-                <th style={{ textAlign: "right" }}>{t("table.cod")}</th>
                 <th>{t("table.date")}</th>
               </tr>
             </thead>
@@ -115,10 +101,9 @@ export default function ExpediteurDashboard() {
                 <tr key={s.tracking}>
                   <td><b className="mono-cell">{s.tracking}</b></td>
                   <td>{s.destinataire}</td>
-                  {/* Les gouvernorats ne se traduisent pas */}
+                  {/* Les quartiers ne se traduisent pas */}
                   <td>{s.ville}</td>
                   <td><StatusBadge label={t(`mock.shipmentStatus.${s.statut}`)} tone={myShipmentTone[s.statut]} /></td>
-                  <td style={{ textAlign: "right" }}><span className="num-cell">{s.cod}</span></td>
                   <td>{s.date}</td>
                 </tr>
               ))}

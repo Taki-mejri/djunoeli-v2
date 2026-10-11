@@ -1,0 +1,18 @@
+# Base de données Djunoeli v2 (Dortmund) — isolée du v1 (djunoeli-db, port 5432).
+# Port hôte 5436 : 5433 est déjà occupé par pazarioads-saas-db-1 sur cette machine.
+services:
+  db:
+    image: postgres:16
+    container_name: djunoeli-v2-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: djunoeli
+      POSTGRES_PASSWORD: djunoeli_dev_2026
+      POSTGRES_DB: djunoeli_v2
+    ports:
+      - "5436:5432"
+    volumes:
+      - djunoeli_v2_data:/var/lib/postgresql/data
+
+volumes:
+  djunoeli_v2_data:

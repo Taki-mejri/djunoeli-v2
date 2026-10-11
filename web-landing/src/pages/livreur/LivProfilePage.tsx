@@ -17,8 +17,8 @@ export default function LivProfilePage() {
       <div className="liv-profile-card">
         <div className="liv-avatar-big">S</div>
         <h2>Skander Trabelsi</h2>
-        {/* Le rôle se traduit, le gouvernorat non */}
-        <p>{t("profile.role")} · Tunis Centre</p>
+        {/* Le rôle se traduit, le quartier non */}
+        <p>{t("profile.role")} · Innenstadt-Nord</p>
         <div className="liv-prof-stats">
           <div><span className="lps-v">142</span><span className="lps-l">{t("profile.stats.deliveries")}</span></div>
           <div><span className="lps-v"><Star size={15} fill="#f0b429" stroke="#f0b429" /> 4.9</span><span className="lps-l">{t("profile.stats.rating")}</span></div>
@@ -40,8 +40,8 @@ export default function LivProfilePage() {
       <div className="liv-prof-row">
         <div className="lpr-left">
           <span className="lpr-ic"><MapPin size={18} /></span>
-          {/* Gouvernorats : non traduits */}
-          <div><b>{t("profile.rows.zone")}</b><span>Tunis Centre, Ariana</span></div>
+          {/* Quartiers : non traduits */}
+          <div><b>{t("profile.rows.zone")}</b><span>Innenstadt-Nord, Eving</span></div>
         </div>
       </div>
 

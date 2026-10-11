@@ -12,6 +12,7 @@ import {
   type ShipmentWithHistory,
 } from "../../lib/shipmentQueries";
 import { dateLocaleTag } from "../../lib/dateLocale";
+import { formatEUR } from "../../lib/money";
 
 type Props = {
   shipment: ShipmentWithHistory;
@@ -68,7 +69,7 @@ export default function ShipmentDetailContent({ shipment, backLink, topActions, 
               </div>
               <div className="sd-cell">
                 <span className="sd-label">{t("detail.pricePaid")}</span>
-                <b>{Number(s.deliveryPrice).toFixed(0)} DT</b>
+                <b>{formatEUR(s.deliveryPrice)}</b>
               </div>
               {s.isFragile && (
                 <div className="sd-cell" style={{ gridColumn: "span 2" }}>
@@ -146,7 +147,7 @@ export default function ShipmentDetailContent({ shipment, backLink, topActions, 
                 <h3>{t("detail.sections.cod")}</h3>
               </div>
               <div className="sd-cod-big">
-                {Number(s.codAmount).toFixed(0)} <span>DT</span>
+                {formatEUR(s.codAmount)}
               </div>
               <p className="sd-cod-note">{t("detail.codNote")}</p>
             </div>

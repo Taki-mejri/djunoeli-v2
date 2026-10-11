@@ -103,7 +103,7 @@
       "email": "Email (optionnel)",
       "fullAddress": "Adresse complète *",
       "city": "Ville (gouvernorat) *",
-      "codAmount": "Montant à encaisser à la livraison (DT)"
+      "codAmount": "Montant à encaisser à la livraison (€)"
     },
     "placeholders": {
       "name": "Ahmed Karoui",
@@ -124,7 +124,7 @@
     },
     "fragile": {
       "title": "Colis fragile",
-      "desc": "Manipulation soignée · +3 DT"
+      "desc": "Manipulation soignée · +3,00 €"
     },
     "pickup": {
       "toggleTitle": "Adresse de ramassage spécifique",

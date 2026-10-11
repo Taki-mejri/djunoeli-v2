@@ -25,15 +25,15 @@ export default function ExpCodPage() {
       <div className="cod-cards">
         <div className="cod-card">
           <span className="cod-ic t-amber"><Clock size={20} /></span>
-          <div><span className="cod-label">{t("cod.cards.pending")}</span><span className="cod-value">231 DT</span></div>
+          <div><span className="cod-label">{t("cod.cards.pending")}</span><span className="cod-value">231,00 €</span></div>
         </div>
         <div className="cod-card">
           <span className="cod-ic t-green"><CheckCircle2 size={20} /></span>
-          <div><span className="cod-label">{t("cod.cards.remittedMonth")}</span><span className="cod-value">218 DT</span></div>
+          <div><span className="cod-label">{t("cod.cards.remittedMonth")}</span><span className="cod-value">218,00 €</span></div>
         </div>
         <div className="cod-card">
           <span className="cod-ic t-navy"><Wallet size={20} /></span>
-          <div><span className="cod-label">{t("cod.cards.totalToDate")}</span><span className="cod-value">3 480 DT</span></div>
+          <div><span className="cod-label">{t("cod.cards.totalToDate")}</span><span className="cod-value">3.480,00 €</span></div>
         </div>
       </div>
 

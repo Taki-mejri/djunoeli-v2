@@ -24,15 +24,15 @@ export default function CodPage() {
       <div className="cod-cards">
         <div className="cod-card">
           <span className="cod-ic t-amber"><Wallet size={20} /></span>
-          <div><span className="cod-label">Total collecté</span><span className="cod-value">2 480 DT</span></div>
+          <div><span className="cod-label">Total collecté</span><span className="cod-value">2.480,00 €</span></div>
         </div>
         <div className="cod-card">
           <span className="cod-ic t-navy"><Clock size={20} /></span>
-          <div><span className="cod-label">En attente de reversement</span><span className="cod-value">1 340 DT</span></div>
+          <div><span className="cod-label">En attente de reversement</span><span className="cod-value">1.340,00 €</span></div>
         </div>
         <div className="cod-card">
           <span className="cod-ic t-green"><CheckCircle2 size={20} /></span>
-          <div><span className="cod-label">Reversé ce mois</span><span className="cod-value">1 140 DT</span></div>
+          <div><span className="cod-label">Reversé ce mois</span><span className="cod-value">1.140,00 €</span></div>
         </div>
       </div>
 

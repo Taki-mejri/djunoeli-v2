@@ -22,10 +22,10 @@ export default function SettingsPage() {
           <>
             <div className="set-field"><label>Nom de la société</label><input defaultValue="Djunoeli" /></div>
             <div className="set-row">
-              <div className="set-field"><label>Téléphone</label><input defaultValue="+216 71 000 000" /></div>
+              <div className="set-field"><label>Téléphone</label><input defaultValue="+49 231 0000000" /></div>
               <div className="set-field"><label>N° TVA</label><input defaultValue="1234567/A/M/000" /></div>
             </div>
-            <div className="set-field"><label>Adresse</label><input defaultValue="Tunis, Tunisie" /></div>
+            <div className="set-field"><label>Adresse</label><input defaultValue="Dortmund, Allemagne" /></div>
             <button className="ds-btn-primary">Enregistrer</button>
           </>
         )}

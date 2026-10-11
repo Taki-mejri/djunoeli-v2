@@ -10,7 +10,7 @@ export default function Hero({ onLogin }: { onLogin: () => void }) {
       <div className="wrap hero-inner">
         <div ref={left} className="reveal">
           <span className="pill-tag">
-            <span className="dot" /> Livraison nationale en Tunisie
+            <span className="dot" /> Livraison same-day à Dortmund
           </span>
           <h1>
             Vos colis livrés,
@@ -18,9 +18,9 @@ export default function Hero({ onLogin }: { onLogin: () => void }) {
             <span className="accent">partout, à temps.</span>
           </h1>
           <p className="sub">
-            Djunoeli gère toute votre logistique de livraison — de la prise en charge
-            au paiement à la livraison (COD), avec un suivi en temps réel du premier au
-            dernier kilomètre.
+            Djunoeli livre vos colis le jour même dans tout Dortmund — de la prise en
+            charge à la remise, avec un suivi en temps réel du premier au dernier
+            kilomètre.
           </p>
           <div className="hero-cta">
             <button className="btn btn-primary" onClick={onLogin}>
@@ -40,8 +40,8 @@ export default function Hero({ onLogin }: { onLogin: () => void }) {
               <div className="t-lbl">Livreurs actifs</div>
             </div>
             <div>
-              <CountUp target={24} suffix="" className="t-num" />
-              <div className="t-lbl">Gouvernorats</div>
+              <CountUp target={20} suffix="" className="t-num" />
+              <div className="t-lbl">Quartiers desservis</div>
             </div>
           </div>
         </div>
@@ -56,17 +56,17 @@ export default function Hero({ onLogin }: { onLogin: () => void }) {
               <div className="tl-step done">
                 <span className="node" />
                 <div className="s-title">Colis créé</div>
-                <div className="s-time">08:12 · Tunis</div>
+                <div className="s-time">08:12 · Innenstadt-West</div>
               </div>
               <div className="tl-step done">
                 <span className="node" />
                 <div className="s-title">Pris en charge</div>
-                <div className="s-time">09:40 · Hub Tunis</div>
+                <div className="s-time">09:40 · Depot Dortmund</div>
               </div>
               <div className="tl-step active">
                 <span className="node" />
                 <div className="s-title">En cours de livraison</div>
-                <div className="s-time">11:05 · Ariana</div>
+                <div className="s-time">11:05 · Hörde</div>
               </div>
               <div className="tl-step pending">
                 <span className="node" />

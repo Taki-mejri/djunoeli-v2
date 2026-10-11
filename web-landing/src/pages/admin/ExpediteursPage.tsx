@@ -10,6 +10,7 @@ import {
   type ListExpediteursParams,
 } from "../../lib/expediteurQueries";
 import CreateExpediteurModal from "../../components/admin/CreateExpediteurModal";
+import { formatEUR } from "../../lib/money";
 
 const statusTone: Record<ExpediteurDTO["user"]["status"], Tone> = {
   ACTIVE: "green",
@@ -63,7 +64,7 @@ export default function ExpediteursPage() {
       key: "balance",
       label: t("expediteurs.columns.balance"),
       align: "right",
-      render: (r) => <span className="num-cell">{Number(r.balance).toFixed(3)} DT</span>,
+      render: (r) => <span className="num-cell">{formatEUR(r.balance)}</span>,
     },
     {
       key: "status",

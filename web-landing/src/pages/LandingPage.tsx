@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Navbar from "../components/landing/Navbar";
 import Hero from "../components/landing/Hero";
 import Services from "../components/landing/Services";
@@ -10,26 +10,11 @@ import LoginModal from "../components/landing/LoginModal";
 
 export default function LandingPage() {
   const [loginOpen, setLoginOpen] = useState(false);
-  const [lang, setLang] = useState<"fr" | "ar">("fr");
-
-  useEffect(() => {
-    const html = document.documentElement;
-    if (lang === "ar") {
-      html.dir = "rtl";
-      html.lang = "ar";
-      document.body.classList.add("rtl");
-    } else {
-      html.dir = "ltr";
-      html.lang = "fr";
-      document.body.classList.remove("rtl");
-    }
-  }, [lang]);
-
   const openLogin = () => setLoginOpen(true);
 
   return (
     <>
-      <Navbar onLogin={openLogin} lang={lang} setLang={setLang} />
+      <Navbar onLogin={openLogin} showLanguageSelector />
       <Hero onLogin={openLogin} />
       <Services />
       <HowItWorks />

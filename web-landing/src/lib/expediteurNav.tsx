@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { LayoutDashboard, PackagePlus, Package, Receipt, Wallet, User } from "lucide-react";
+import { LayoutDashboard, PackagePlus, Package, Receipt, User } from "lucide-react";
 
 export type NavItem = { label: string; icon: ReactNode; path: string };
 export type NavGroup = { title: string; items: NavItem[] };
@@ -9,7 +9,7 @@ export type NavGroup = { title: string; items: NavItem[] };
 /**
  * Navigation de l'espace expéditeur.
  * Hook (et non constante) : les libellés sont traduits et doivent changer
- * immédiatement quand l'utilisateur bascule FR / DE.
+ * immédiatement quand l'utilisateur bascule DE / EN.
  */
 export function useExpediteurNav(): NavGroup[] {
   const { t } = useTranslation("expediteur");
@@ -28,7 +28,7 @@ export function useExpediteurNav(): NavGroup[] {
         title: t("nav.groupFinance"),
         items: [
           { label: t("nav.invoices"), icon: <Receipt size={19} />, path: "/expediteur/invoices" },
-          { label: t("nav.cod"), icon: <Wallet size={19} />, path: "/expediteur/cod" },
+          // v2 : entrée COD masquée (paiement à la livraison supprimé, wallet à venir)
         ],
       },
       {

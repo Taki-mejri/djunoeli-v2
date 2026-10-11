@@ -180,7 +180,7 @@ export default function InventoryPage() {
                     <Check size={15} />
                     <div>
                       <b className="mono-cell">{v.trackingNumber}</b>
-                      {/* Gouvernorats : non traduits */}
+                      {/* Quartiers : non traduits */}
                       <span>{v.receiverName} · {v.deliveryCity}</span>
                     </div>
                   </div>

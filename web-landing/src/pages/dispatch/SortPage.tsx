@@ -5,14 +5,7 @@ import ScanStation from "../../components/dispatch/ScanStation";
 import { axiosMessage, type ScanFeedback } from "../../lib/scanFeedback";
 import { useScanSort } from "../../lib/dispatcherQueries";
 import { dateLocaleTag } from "../../lib/dateLocale";
-
-/** Les 24 gouvernorats tunisiens — noms propres, JAMAIS traduits. */
-const TUNISIA_GOUVERNORATS = [
-  "Tunis", "Ariana", "Ben Arous", "Manouba", "Nabeul", "Zaghouan",
-  "Bizerte", "Béja", "Jendouba", "Le Kef", "Siliana", "Sousse",
-  "Monastir", "Mahdia", "Sfax", "Kairouan", "Kasserine", "Sidi Bouzid",
-  "Gabès", "Médenine", "Tataouine", "Gafsa", "Tozeur", "Kébili",
-];
+import { DORTMUND_DISTRICTS } from "../../lib/dortmund";
 
 type RecentSort = {
   trackingNumber: string;
@@ -99,8 +92,8 @@ export default function SortPage() {
           style={{ width: "100%", maxWidth: 340 }}
         >
           <option value="">{t("sorting.chooseGov")}</option>
-          {/* Gouvernorats : noms propres, non traduits */}
-          {TUNISIA_GOUVERNORATS.map((g) => (
+          {/* Quartiers : noms propres, non traduits */}
+          {DORTMUND_DISTRICTS.map((g) => (
             <option key={g} value={g}>{g}</option>
           ))}
         </select>

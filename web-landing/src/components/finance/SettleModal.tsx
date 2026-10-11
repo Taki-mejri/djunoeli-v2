@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { X, Wallet } from "lucide-react";
 import { isAxiosError } from "axios";
+import { formatEUR } from "../../lib/money";
 
 type Props = {
   open: boolean;
@@ -73,7 +74,7 @@ export default function SettleModal({
 
         <div className="fin-amount-display">
           <span>{allowPartial && partial ? t("settle.amountToRemit") : t("settle.totalAmount")}</span>
-          <b>{(allowPartial && partial ? Number(amount) || 0 : defaultAmount).toFixed(0)} DT</b>
+          <b>{formatEUR(allowPartial && partial ? Number(amount) || 0 : defaultAmount)}</b>
         </div>
 
         {allowPartial && (
@@ -85,7 +86,7 @@ export default function SettleModal({
 
         {allowPartial && partial && (
           <div className="set-field">
-            <label>{t("settle.amountMax", { max: defaultAmount.toFixed(0) })}</label>
+            <label>{t("settle.amountMax", { max: formatEUR(defaultAmount) })}</label>
             <input
               type="number" min="1" max={defaultAmount} step="1"
               value={amount} onChange={(e) => setAmount(e.target.value)}

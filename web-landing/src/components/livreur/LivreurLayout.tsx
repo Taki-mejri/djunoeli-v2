@@ -1,13 +1,13 @@
 import { Outlet, NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Home, ClipboardList, Wallet, User } from "lucide-react";
+import { Home, ClipboardList, User } from "lucide-react";
 import Logo from "../shared/Logo";
 import LanguageSelector from "../shared/LanguageSelector";
 
 const NAV = [
   { to: "/livreur", labelKey: "nav.home", icon: <Home size={22} />, end: true },
   { to: "/livreur/jobs", labelKey: "nav.jobs", icon: <ClipboardList size={22} /> },
-  { to: "/livreur/cod", labelKey: "nav.cod", icon: <Wallet size={22} /> },
+  // v2 : onglet COD masqué (paiement à la livraison supprimé, wallet à venir)
   { to: "/livreur/profile", labelKey: "nav.profile", icon: <User size={22} /> },
 ];
 
@@ -17,7 +17,7 @@ export default function LivreurLayout() {
   return (
     <div className="liv-shell">
       {/* Barre du haut de la PWA : présente sur TOUS les écrans livreur, elle
-          porte le sélecteur de langue (le livreur peut basculer FR/DE depuis
+          porte le sélecteur de langue (le livreur peut basculer DE/EN depuis
           n'importe quelle page, y compris la liste des courses et le détail). */}
       <header className="liv-topbar">
         <Logo variant="icon" height={26} className="liv-topbar-logo" />

@@ -16,20 +16,19 @@ export default function About() {
       <div className="wrap about-grid">
         <div ref={text} className="about-text reveal">
           <div className="sec-kicker">À propos de Djunoeli</div>
-          <h2>La logistique tunisienne, enfin moderne</h2>
+          <h2>La livraison locale à Dortmund, enfin moderne</h2>
           <p>
-            Djunoeli est née d'un constat simple : les entreprises tunisiennes méritent
+            Djunoeli est née d'un constat simple : les commerces de Dortmund méritent
             un service de livraison fiable, transparent et entièrement numérique. Fini
             les appels pour savoir où est un colis.
           </p>
           <p>
             Nous connectons expéditeurs, livreurs et clients sur une seule plateforme,
-            avec une gestion rigoureuse du paiement à la livraison — un enjeu clé du
-            marché tunisien.
+            avec une livraison le jour même dans toute la ville.
           </p>
           <ul className="check-list">
-            <li><Check /> Disponible en arabe et en français</li>
-            <li><Check /> Réconciliation COD transparente et traçable</li>
+            <li><Check /> Disponible en allemand et en anglais</li>
+            <li><Check /> Facturation transparente et traçable en euros</li>
             <li><Check /> Données sécurisées et sauvegardées chaque jour</li>
           </ul>
         </div>

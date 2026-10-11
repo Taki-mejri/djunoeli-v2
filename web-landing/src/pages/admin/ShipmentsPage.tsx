@@ -13,6 +13,7 @@ import {
   type ShipmentDTO,
   type ListShipmentsParams,
 } from "../../lib/shipmentQueries";
+import { formatEUR } from "../../lib/money";
 
 /** Statuts proposés au filtre — la valeur envoyée à l'API, le libellé vient de `common` */
 const STATUS_FILTERS: ListShipmentsParams["status"][] = [
@@ -89,7 +90,7 @@ export default function ShipmentsPage() {
       key: "price",
       label: t("shipments.columns.price"),
       align: "right",
-      render: (r) => <span className="num-cell">{Number(r.deliveryPrice).toFixed(0)} DT</span>,
+      render: (r) => <span className="num-cell">{formatEUR(r.deliveryPrice)}</span>,
     },
     {
       key: "cod",
@@ -97,7 +98,7 @@ export default function ShipmentsPage() {
       align: "right",
       render: (r) => {
         const amount = Number(r.codAmount);
-        return amount > 0 ? <span className="num-cell">{amount.toFixed(0)} DT</span> : <span className="cell-sub">—</span>;
+        return amount > 0 ? <span className="num-cell">{formatEUR(amount)}</span> : <span className="cell-sub">—</span>;
       },
     },
     {

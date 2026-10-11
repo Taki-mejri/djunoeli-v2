@@ -5,9 +5,10 @@ import {
   ArrowRight, Banknote, Coins,
 } from "lucide-react";
 import { useFinancialOverview } from "../../lib/financeQueries";
+import { formatEUR } from "../../lib/money";
 
 function money(n: number) {
-  return `${n.toLocaleString("fr-FR")} DT`;
+  return formatEUR(n);
 }
 
 export default function FinanceHome() {

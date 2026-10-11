@@ -6,20 +6,14 @@ import LanguageSelector from "../shared/LanguageSelector";
 
 type Props = {
   onLogin: () => void;
-  /** Toggle FR/ع de la landing. Optionnel : absent sur les pages publiques
-      autres que la landing (ex. /track), qui utilisent le sélecteur FR/DE. */
-  lang?: "fr" | "ar";
-  setLang?: (l: "fr" | "ar") => void;
   /** Force le style "barre blanche" (pages sans hero marine derrière, ex. /track). */
   solid?: boolean;
-  /** Affiche le sélecteur de langue FR/DE (i18next) à côté du bouton de connexion. */
+  /** Affiche le sélecteur de langue DE/EN (i18next) à côté du bouton de connexion. */
   showLanguageSelector?: boolean;
 };
 
 export default function Navbar({
   onLogin,
-  lang,
-  setLang,
   solid = false,
   showLanguageSelector = false,
 }: Props) {
@@ -59,12 +53,6 @@ export default function Navbar({
             <li><a href={anchor("#contact")}>Contact</a></li>
           </ul>
           <div className="nav-right">
-            {lang && setLang && (
-              <div className="lang">
-                <span className={lang === "fr" ? "active" : ""} onClick={() => setLang("fr")}>FR</span>
-                <span className={lang === "ar" ? "active" : ""} onClick={() => setLang("ar")}>ع</span>
-              </div>
-            )}
             {showLanguageSelector && <LanguageSelector />}
             <button className="btn btn-primary" onClick={onLogin}>
               Se connecter

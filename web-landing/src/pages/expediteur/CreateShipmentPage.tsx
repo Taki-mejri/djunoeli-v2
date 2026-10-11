@@ -13,16 +13,15 @@ import {
   type DeliveryType,
 } from "../../lib/shipmentQueries";
 import { useMyExpediteurProfile } from "../../lib/expediteurQueries";
+import { formatEUR } from "../../lib/money";
+import { DORTMUND_DISTRICTS } from "../../lib/dortmund";
 
 /**
- * Les 24 gouvernorats tunisiens — noms propres, JAMAIS traduits.
+ * v2 Dortmund : plus de paiement à la livraison (remplacé par le wallet à
+ * une étape ultérieure). Le champ COD est masqué et codAmount forcé à 0 ;
+ * le code est conservé pour être retiré proprement avec le module COD.
  */
-const TUNISIA_CITIES = [
-  "Tunis", "Ariana", "Ben Arous", "Manouba", "Nabeul", "Zaghouan",
-  "Bizerte", "Béja", "Jendouba", "Le Kef", "Siliana", "Sousse",
-  "Monastir", "Mahdia", "Sfax", "Kairouan", "Kasserine", "Sidi Bouzid",
-  "Gabès", "Médenine", "Tataouine", "Gafsa", "Tozeur", "Kébili",
-];
+const COD_ENABLED = false;
 
 /**
  * Erreur affichée : soit une CLÉ i18n (re-traduite si l'utilisateur change de
@@ -117,7 +116,7 @@ export default function CreateShipmentPage() {
       description: form.description.trim() || undefined,
       deliveryType: form.deliveryType,
       isFragile: form.isFragile,
-      codAmount: form.codAmount ? Number(form.codAmount) : 0,
+      codAmount: COD_ENABLED && form.codAmount ? Number(form.codAmount) : 0,
       ...(form.usePickupOverride
         ? {
             pickupAddress: form.pickupAddress.trim(),
@@ -226,8 +225,8 @@ export default function CreateShipmentPage() {
                   onChange={(e) => update("deliveryCity", e.target.value)}
                 >
                   <option value="">{t("create.placeholders.chooseCity")}</option>
-                  {/* Gouvernorats : noms propres, non traduits */}
-                  {TUNISIA_CITIES.map((c) => (
+                  {/* Quartiers : noms propres, non traduits */}
+                  {DORTMUND_DISTRICTS.map((c) => (
                     <option key={c} value={c}>{c}</option>
                   ))}
                 </select>
@@ -253,7 +252,7 @@ export default function CreateShipmentPage() {
                     <span className="stc-name">{t("create.standard.name")}</span>
                   </div>
                   <p className="stc-desc">{t("create.standard.desc")}</p>
-                  <span className="stc-price">8 DT</span>
+                  <span className="stc-price">{formatEUR(8)}</span>
                 </label>
                 <label className={`ship-type-card ${form.deliveryType === "EXPRESS" ? "selected express" : ""}`}>
                   <input
@@ -267,7 +266,7 @@ export default function CreateShipmentPage() {
                     <span className="stc-name">{t("create.express.name")}</span>
                   </div>
                   <p className="stc-desc">{t("create.express.desc")}</p>
-                  <span className="stc-price">12 DT</span>
+                  <span className="stc-price">{formatEUR(12)}</span>
                 </label>
               </div>
 
@@ -285,7 +284,8 @@ export default function CreateShipmentPage() {
               </label>
             </div>
 
-            {/* Section COD */}
+            {/* Section COD — masquée en v2 (voir COD_ENABLED) */}
+            {COD_ENABLED && (
             <div className="ship-section">
               <div className="ship-section-head">
                 <span className="ship-section-ic"><Wallet size={17} /></span>
@@ -306,6 +306,7 @@ export default function CreateShipmentPage() {
                 )}
               </div>
             </div>
+            )}
 
             {/* Section Description */}
             <div className="ship-section">
@@ -364,7 +365,7 @@ export default function CreateShipmentPage() {
                       onChange={(e) => update("pickupCity", e.target.value)}
                     >
                       <option value="">{t("create.placeholders.chooseCity")}</option>
-                      {TUNISIA_CITIES.map((c) => (
+                      {DORTMUND_DISTRICTS.map((c) => (
                         <option key={c} value={c}>{c}</option>
                       ))}
                     </select>
@@ -385,12 +386,12 @@ export default function CreateShipmentPage() {
               </div>
               <div className="ship-sum-row">
                 <span>{t("create.summary.base")}</span>
-                <b>{estimate?.basePrice ?? (form.deliveryType === "EXPRESS" ? 12 : 8)} DT</b>
+                <b>{formatEUR(estimate?.basePrice ?? (form.deliveryType === "EXPRESS" ? 12 : 8))}</b>
               </div>
               {form.isFragile && (
                 <div className="ship-sum-row">
                   <span>{t("create.summary.fragileFee")}</span>
-                  <b>+{estimate?.fragileFee ?? 3} DT</b>
+                  <b>+{formatEUR(estimate?.fragileFee ?? 3)}</b>
                 </div>
               )}
 
@@ -398,14 +399,14 @@ export default function CreateShipmentPage() {
 
               <div className="ship-sum-total">
                 <span>{t("create.summary.total")}</span>
-                <b>{estimate?.total ?? (form.deliveryType === "EXPRESS" ? 12 : 8)} DT</b>
+                <b>{formatEUR(estimate?.total ?? (form.deliveryType === "EXPRESS" ? 12 : 8))}</b>
               </div>
 
-              {Number(form.codAmount) > 0 && (
+              {COD_ENABLED && Number(form.codAmount) > 0 && (
                 <div className="ship-cod-info">
                   <Wallet size={14} />
                   <div>
-                    <b>{Number(form.codAmount).toFixed(0)} DT</b>
+                    <b>{formatEUR(form.codAmount)}</b>
                     <span>{t("create.summary.codNote")}</span>
                   </div>
                 </div>

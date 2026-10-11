@@ -13,6 +13,7 @@ import {
 } from "../../lib/shipmentQueries";
 import CancelShipmentModal from "../../components/expediteur/CancelShipmentModal";
 import { dateLocaleTag } from "../../lib/dateLocale";
+import { formatEUR } from "../../lib/money";
 
 /** Statuts proposés dans le filtre (libellés pris dans le namespace common) */
 const FILTER_STATUSES = [
@@ -64,7 +65,7 @@ export default function MyShipmentsPage() {
     {
       key: "ville",
       label: t("table.city"),
-      // Gouvernorats tunisiens : jamais traduits
+      // Quartiers de Dortmund : jamais traduits
       render: (r) => r.deliveryCity,
     },
     {
@@ -87,16 +88,7 @@ export default function MyShipmentsPage() {
       key: "price",
       label: t("table.price"),
       align: "right",
-      render: (r) => <span className="num-cell">{Number(r.deliveryPrice).toFixed(0)} DT</span>,
-    },
-    {
-      key: "cod",
-      label: t("table.cod"),
-      align: "right",
-      render: (r) => {
-        const amount = Number(r.codAmount);
-        return amount > 0 ? <span className="num-cell">{amount.toFixed(0)} DT</span> : <span className="cell-sub">—</span>;
-      },
+      render: (r) => <span className="num-cell">{formatEUR(r.deliveryPrice)}</span>,
     },
     {
       key: "status",

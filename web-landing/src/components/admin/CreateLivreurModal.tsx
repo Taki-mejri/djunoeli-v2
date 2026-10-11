@@ -88,11 +88,11 @@ export default function CreateLivreurModal({ open, onClose }: Props) {
           <div className="set-row">
             <div className="set-field">
               <label>{t("livreurs.form.emailRequired")}</label>
-              <input type="email" required value={form.email} onChange={update("email")} placeholder="livreur@djunoeli.tn" />
+              <input type="email" required value={form.email} onChange={update("email")} placeholder="fahrer@djunoeli.de" />
             </div>
             <div className="set-field">
               <label>{t("livreurs.form.phone")}</label>
-              <input value={form.phone} onChange={update("phone")} placeholder="+216 22 145 887" />
+              <input value={form.phone} onChange={update("phone")} placeholder="+49 176 1234567" />
             </div>
           </div>
 

@@ -41,17 +41,7 @@ export default function LivreurHome() {
         }
       />
 
-      <div className="liv-cod-held">
-        <div>
-          <span className="lch-lbl">{t("home.cashInHand")}</span>
-          <span className="lch-val">
-            {profile ? `${Number(profile.codBalance).toFixed(0)} DT` : "— DT"}
-          </span>
-        </div>
-        <Link to="/livreur/cod" className="lch-link">
-          {t("home.see")} <ChevronRight size={16} />
-        </Link>
-      </div>
+      {/* v2 : carte « espèces en main » (COD) masquée — wallet à venir */}
 
       <div className="liv-stats">
         <div className="liv-stat">

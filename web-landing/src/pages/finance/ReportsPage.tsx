@@ -4,8 +4,9 @@ import {
   BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend,
 } from "recharts";
 import { useFinancialOverview, useStatusBreakdown } from "../../lib/financeQueries";
+import { formatEUR } from "../../lib/money";
 
-function money(n: number) { return `${n.toLocaleString("fr-FR")} DT`; }
+function money(n: number) { return formatEUR(n); }
 
 const PIE_COLORS = ["#1fc4a0", "#2563c9", "#b76e09", "#6d4bd0", "#0b7a63", "#d23744", "#8a99a8", "#e0a52e"];
 

@@ -102,15 +102,15 @@
       "phone": "Telefon *",
       "email": "E-Mail (optional)",
       "fullAddress": "Vollständige Adresse *",
-      "city": "Stadt (Gouvernorat) *",
-      "codAmount": "Bei Zustellung einzuziehender Betrag (DT)"
+      "city": "Stadtteil *",
+      "codAmount": "Bei Zustellung einzuziehender Betrag (€)"
     },
     "placeholders": {
       "name": "Ahmed Karoui",
-      "phone": "+216 22 100 200",
-      "email": "ahmed@email.tn",
-      "address": "12 Rue de Carthage, Immeuble Salem, Apt 3B",
-      "chooseCity": "Stadt auswählen...",
+      "phone": "+49 170 1234567",
+      "email": "max@email.de",
+      "address": "Kampstraße 12, 44137 Dortmund",
+      "chooseCity": "Stadtteil auswählen...",
       "codAmount": "0 = keine Nachnahme",
       "description": "Z. B.: Smartphone iPhone 13 + Ladegerät, in Originalverpackung"
     },
@@ -120,11 +120,11 @@
     },
     "express": {
       "name": "Express",
-      "desc": "Noch am selben Tag (Region Tunis)"
+      "desc": "Noch am selben Tag (ganz Dortmund)"
     },
     "fragile": {
       "title": "Zerbrechliche Sendung",
-      "desc": "Sorgfältige Behandlung · +3 DT"
+      "desc": "Sorgfältige Behandlung · +3,00 €"
     },
     "pickup": {
       "toggleTitle": "Abweichende Abholadresse",

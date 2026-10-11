@@ -97,11 +97,11 @@ export default function CreateExpediteurModal({ open, onClose }: Props) {
           <div className="set-row">
             <div className="set-field">
               <label>{t("expediteurs.form.emailRequired")}</label>
-              <input type="email" required value={form.email} onChange={update("email")} placeholder="contact@medina.tn" />
+              <input type="email" required value={form.email} onChange={update("email")} placeholder="contact@medina.de" />
             </div>
             <div className="set-field">
               <label>{t("expediteurs.form.phone")}</label>
-              <input value={form.phone} onChange={update("phone")} placeholder="+216 ..." />
+              <input value={form.phone} onChange={update("phone")} placeholder="+49 ..." />
             </div>
           </div>
 
@@ -120,7 +120,7 @@ export default function CreateExpediteurModal({ open, onClose }: Props) {
           <div className="set-row">
             <div className="set-field">
               <label>{t("expediteurs.form.city")}</label>
-              <input value={form.city} onChange={update("city")} placeholder="Tunis" />
+              <input value={form.city} onChange={update("city")} placeholder="Innenstadt-West" />
             </div>
             <div className="set-field">
               <label>{t("expediteurs.form.taxNumber")}</label>
