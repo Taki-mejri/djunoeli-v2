@@ -1,0 +1,145 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "jobs": "Courses",
+    "cod": "COD",
+    "profile": "Profil"
+  },
+  "header": {
+    "back": "Retour"
+  },
+  "jobs": {
+    "title": "Mes courses",
+    "subtitle": "Vos colis à livrer.",
+    "activeCount_one": "{{count}} course active",
+    "activeCount_other": "{{count}} courses actives",
+    "empty": "Aucune course pour le moment",
+    "emptyHint": "Vos colis à livrer apparaîtront ici dès qu'un dépôt vous en assigne."
+  },
+  "detail": {
+    "back": "Mes courses",
+    "backToJobs": "Retour aux courses",
+    "receiver": "Destinataire",
+    "package": "Colis",
+    "pickup": "Ramassage",
+    "sender": "Expéditeur",
+    "senderLine": "Expéditeur : {{name}}",
+    "tracking": "Suivi",
+    "call": "Appeler",
+    "logCall": "Noter l'appel",
+    "map": "Carte",
+    "codToCollect": "À encaisser à la livraison",
+    "trackingTitle": "Suivi",
+    "terminalDelivered": "Course terminée — colis livré",
+    "terminalFailed": "Course terminée — échec de livraison"
+  },
+  "actions": {
+    "start": "Démarrer la course",
+    "enRoute": "En route",
+    "arrived": "Arrivé — en livraison",
+    "markDelivered": "Marquer comme livré",
+    "reportFailure": "Signaler un échec"
+  },
+  "call": {
+    "title": "Résultat de l'appel",
+    "question": "Comment s'est passé l'appel avec {{name}} ?",
+    "answered": "A répondu",
+    "noAnswer": "Pas de réponse",
+    "rescheduled": "Reporté",
+    "wrongNumber": "Mauvais numéro",
+    "recorded": "Appel enregistré"
+  },
+  "delivery": {
+    "title": "Confirmer la livraison",
+    "question": "Colis remis à {{name}} ?",
+    "amountToCollect": "Montant à encaisser",
+    "codWarning": "En confirmant, vous attestez avoir encaissé {{amount}} DT en espèces. Ce montant sera ajouté à votre solde à reverser.",
+    "confirmWithCod": "Livré · {{amount}} DT encaissés",
+    "confirm": "Confirmer la livraison",
+    "validating": "Validation...",
+    "success": "Colis livré ! Bravo."
+  },
+  "failure": {
+    "title": "Échec de livraison",
+    "subtitle": "Indiquez la raison. Le colis sera marqué comme non livré.",
+    "reasonAbsent": "Destinataire absent",
+    "reasonAddress": "Adresse introuvable",
+    "reasonPhone": "Numéro incorrect",
+    "reasonRefused": "Client refuse le colis",
+    "reasonRescheduled": "Reporté à la demande du client",
+    "detailsPlaceholder": "Détails supplémentaires (optionnel si une raison est choisie ci-dessus)",
+    "confirm": "Confirmer l'échec",
+    "saving": "Enregistrement...",
+    "recorded": "Échec enregistré."
+  },
+  "tags": {
+    "express": "Express",
+    "fragile": "Fragile",
+    "standard": "Standard"
+  },
+  "cod": {
+    "myBalance": "Mon solde COD",
+    "toRemit": "À reverser",
+    "history": "Historique des reversements",
+    "noBalance": "Aucun solde à reverser",
+    "title": "Mon COD",
+    "subtitle": "Suivi des espèces",
+    "cashToRemit": "Espèces en main à reverser",
+    "remitToOffice": "Reverser au bureau",
+    "toCollect": "À encaisser ({{amount}} DT)",
+    "collectedToday": "Collecté aujourd'hui"
+  },
+  "banner": {
+    "statusUpdated": "Statut : {{status}}"
+  },
+  "home": {
+    "greeting": "Bonjour, {{name}} 👋",
+    "fallbackName": "Livreur",
+    "cashInHand": "Espèces en main (COD)",
+    "see": "Voir",
+    "statusTitle": "Statut",
+    "seeMyJobs": "Voir mes courses",
+    "availability": {
+      "available": "Dispo",
+      "busy": "Occupé",
+      "offline": "Hors ligne"
+    },
+    "stats": {
+      "toDeliver": "À livrer",
+      "enRoute": "En route",
+      "deliveredTotal": "Livrés (tot.)",
+      "rating": "Note"
+    },
+    "statusText": {
+      "available": "Vous êtes disponible pour recevoir de nouvelles courses. Le système vous assignera automatiquement les colis proches de votre position.",
+      "busy": "Vous êtes actuellement en cours de livraison. Finissez vos courses en cours avant de prendre les suivantes.",
+      "offline": "Vous êtes hors ligne. Activez votre disponibilité pour recevoir des courses."
+    }
+  },
+  "profile": {
+    "title": "Mon profil",
+    "role": "Livreur",
+    "stats": {
+      "deliveries": "Livraisons",
+      "rating": "Note",
+      "successRate": "Réussite"
+    },
+    "rows": {
+      "availability": "Disponibilité",
+      "availabilityDesc": "Recevoir de nouvelles courses",
+      "zone": "Zone de couverture",
+      "vehicle": "Véhicule",
+      "vehicleValue": "Moto · 188 TUN 2024",
+      "notifications": "Notifications",
+      "notificationsOn": "Activées",
+      "language": "Langue"
+    },
+    "logout": "Se déconnecter"
+  },
+  "errors": {
+    "load": "Erreur de chargement",
+    "jobNotFound": "Course introuvable",
+    "generic": "Erreur",
+    "callFailed": "Impossible d'enregistrer l'appel."
+  }
+}

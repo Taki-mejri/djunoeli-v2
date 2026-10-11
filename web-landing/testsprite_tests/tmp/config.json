@@ -1,0 +1,19 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:5173/admin/login",
+  "loginUser": "admin@djunoeli.tn",
+  "loginPassword": "Djunoeli2026",
+  "executionArgs": {
+    "projectName": "web-landing",
+    "projectPath": "C:\\Users\\taki\\Desktop\\livraison\\web-landing",
+    "testIds": [],
+    "additionalInstruction": "The test plan's {{LOGIN_USER}}/{{LOGIN_PASSWORD}} placeholders must be replaced with different real credentials depending on which login route the test navigates to (this app has 5 separate role-scoped login pages, not one shared login):\n- /admin/login -> admin@djunoeli.tn / Djunoeli2026 (SUPER_ADMIN)\n- /expediteur/login -> tech@test.tn / TechZone2026 (EXPEDITEUR)\n- /livreur/login -> skander@test.tn / Skander2026 (LIVREUR)\n- /dispatch/login -> ali@djunoeli.tn / Ali2026 (DISPATCHER)\n- /finance/login -> farah@djunoeli.tn / Farah2026 (FINANCE_MANAGER)\n\nNote: the backend has a rate limiter of 5 login attempts per 15 minutes per account (in-memory, express-rate-limit). Avoid logging into the same account more than 4-5 times in a short span; reuse an existing authenticated session/token for a role across multiple test cases when possible instead of re-logging in every time.",
+    "serverMode": "development",
+    "envs": {
+      "API_KEY": "sk-user-5BJDB7qqpTK3Gcv0Aqpg3je_W4znqTqfDvcTrFxyU4MwUNifBDyCdMIHiFZSYlJAKufeaNjcseAY7-qxN21xHf990ICH9iH5RtH8spMlMS8jK2PuImKVdlhLFEFrV4xaXJs"
+    }
+  },
+  "serverPort": 64301
+}

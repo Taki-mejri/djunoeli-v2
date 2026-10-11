@@ -1,0 +1,60 @@
+{
+  "menuLink": "Suivi",
+  "title": "Suivez votre colis",
+  "subtitle": "Entrez votre numéro de suivi pour voir où en est votre livraison.",
+  "placeholder": "Ex : TRK-2026-00012",
+  "trackBtn": "Suivre",
+  "trackingNumber": "Numéro de suivi",
+  "destination": "Destination",
+  "type": "Type",
+  "handling": "Manutention",
+  "standard": "Standard",
+  "express": "Express",
+  "fragile": "Fragile",
+  "notFoundTitle": "Colis introuvable",
+  "notFoundHint": "Aucun colis ne correspond au numéro {{code}}. Vérifiez le code et réessayez.",
+  "errorTitle": "Une erreur est survenue",
+  "errorHint": "Impossible de récupérer le suivi pour le moment. Réessayez dans un instant.",
+  "privacyNote": "Pour votre sécurité, seules les informations de livraison sont affichées. Les détails personnels restent protégés.",
+  "steps": {
+    "CREATED": "Colis créé",
+    "PICKED_UP": "Ramassé",
+    "AT_WAREHOUSE": "Au dépôt",
+    "IN_TRANSIT": "En route",
+    "OUT_FOR_DELIVERY": "En livraison",
+    "DELIVERED": "Livré"
+  },
+  "special": {
+    "FAILED": "Échec de livraison",
+    "CANCELLED": "Annulé",
+    "RETURNED": "Retourné"
+  },
+  "specialHint": {
+    "FAILED": "La livraison a échoué. Notre équipe va vous recontacter.",
+    "CANCELLED": "Ce colis a été annulé.",
+    "RETURNED": "Ce colis a été retourné à l'expéditeur."
+  },
+  "tabs": {
+    "byCode": "Par numéro de suivi",
+    "byPhone": "Par téléphone"
+  },
+  "otp": {
+    "phoneTitle": "Suivi par téléphone",
+    "phoneSubtitle": "Entrez le numéro de téléphone utilisé pour la livraison. Vous recevrez un code de vérification.",
+    "phonePlaceholder": "Ex : 20 123 456",
+    "sendCode": "Recevoir un code",
+    "sending": "Envoi...",
+    "codeTitle": "Entrez le code",
+    "codeSubtitle": "Un code à 6 chiffres a été envoyé au {{phone}}.",
+    "verify": "Vérifier",
+    "verifying": "Vérification...",
+    "resend": "Renvoyer le code",
+    "simulatedHint": "Mode démo : le code s'affiche dans les logs du serveur (aucun SMS envoyé).",
+    "privacyNote": "Nous n'affichons que vos informations de livraison, jamais vos données personnelles.",
+    "resultTitle": "Vos colis",
+    "resultCount_one": "{{count}} colis trouvé",
+    "resultCount_other": "{{count}} colis trouvés",
+    "otherNumber": "Autre numéro",
+    "noShipments": "Aucun colis associé à ce numéro."
+  }
+}

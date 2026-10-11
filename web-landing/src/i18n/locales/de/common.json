@@ -1,0 +1,101 @@
+{
+  "app": {
+    "name": "Djunoeli"
+  },
+  "nav": {
+    "dashboard": "Übersicht",
+    "shipments": "Sendungen",
+    "expediteurs": "Versender",
+    "livreurs": "Fahrer",
+    "finance": "Finanzen",
+    "reception": "Wareneingang",
+    "sorting": "Sortierung",
+    "verification": "Überprüfung",
+    "assignment": "Zuweisung",
+    "remoteAssign": "Ferndispatch",
+    "livreurBalances": "Fahrer-Salden",
+    "expediteurCod": "Nachnahme Versender",
+    "invoices": "Rechnungen",
+    "reports": "Berichte",
+    "myShipments": "Meine Sendungen",
+    "createShipment": "Sendung erstellen",
+    "jobs": "Meine Aufträge"
+  },
+  "actions": {
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
+    "close": "Schließen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "add": "Hinzufügen",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "view": "Ansehen",
+    "manage": "Verwalten",
+    "start": "Starten",
+    "logout": "Abmelden",
+    "loading": "Wird geladen...",
+    "seeMore": "Mehr anzeigen"
+  },
+  "status": {
+    "PENDING": "Ausstehend",
+    "AWAITING_PICKUP": "Abzuholen",
+    "AT_WAREHOUSE": "Im Lager",
+    "PICKED_UP": "Abgeholt",
+    "IN_TRANSIT": "Unterwegs",
+    "OUT_FOR_DELIVERY": "In Zustellung",
+    "DELIVERED": "Zugestellt",
+    "FAILED_DELIVERY": "Fehlgeschlagen",
+    "RETURNED": "Zurückgesendet",
+    "CANCELLED": "Storniert"
+  },
+  "livreurStatus": {
+    "AVAILABLE": "Verfügbar",
+    "BUSY": "Beschäftigt",
+    "OFFLINE": "Offline"
+  },
+  "common": {
+    "yes": "Ja",
+    "no": "Nein",
+    "all": "Alle",
+    "none": "Keine",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "noData": "Keine Daten",
+    "required": "Erforderlich",
+    "optional": "Optional"
+  },
+  "language": {
+    "select": "Sprache",
+    "fr": "Französisch",
+    "de": "Deutsch"
+  },
+  "topbar": {
+    "search": "Sendung oder Fahrer suchen...",
+    "menu": "Menü",
+    "notifications": "Benachrichtigungen",
+    "myProfile": "Mein Profil",
+    "logout": "Abmelden",
+    "loggingOut": "Wird abgemeldet..."
+  },
+  "table": {
+    "empty": "Keine Ergebnisse.",
+    "searchPlaceholder": "Suchen..."
+  },
+  "pagination": {
+    "previous": "Vorherige",
+    "next": "Nächste"
+  },
+  "serverNotes": {
+    "created": "Sendung erstellt",
+    "pickedUp": "Abgeholt",
+    "inTransit": "Unterwegs",
+    "outForDelivery": "In Zustellung",
+    "delivered": "Zugestellt",
+    "failed": "Zustellung fehlgeschlagen",
+    "unassigned": "Vom Fahrer abgemeldet"
+  }
+}

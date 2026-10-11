@@ -1,0 +1,1868 @@
+[
+  {
+    "id": "TC001",
+    "title": "Create a shipment with live pricing and see it recorded",
+    "description": "This verifies that an expediteur can enter shipment details, see the price estimate update, and submit a new shipment successfully.",
+    "category": "Expediteur shipment creation",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /expediteur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to create a new shipment"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the recipient details"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the delivery address details"
+      },
+      {
+        "type": "action",
+        "description": "Choose a shipment type"
+      },
+      {
+        "type": "action",
+        "description": "Enable the fragile option"
+      },
+      {
+        "type": "action",
+        "description": "Submit the shipment form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the live price estimate is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new shipment is recorded"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "Create a shipment successfully",
+    "description": "This verifies that an expediteur can submit a new shipment and see it created in their shipment workspace.",
+    "category": "Expediteur shipment creation and tracking",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /expediteur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /expediteur/new"
+      },
+      {
+        "type": "action",
+        "description": "Fill in shipment sender and recipient details into the form"
+      },
+      {
+        "type": "action",
+        "description": "Fill in valid package details into the form"
+      },
+      {
+        "type": "action",
+        "description": "Select valid origin and destination values"
+      },
+      {
+        "type": "action",
+        "description": "Submit the shipment creation form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a shipment creation confirmation is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC003",
+    "title": "Login as expediteur and reach the shipment workspace",
+    "description": "This verifies that an expediteur can sign in through the role-specific page and land in the correct workspace.",
+    "category": "Role-based user login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /expediteur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the expediteur workspace is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC004",
+    "title": "Progress a delivery through successful completion",
+    "description": "This verifies that a driver can record a call outcome, advance a job through its delivery stages, and finish with the shipment marked delivered after COD confirmation if prompted.",
+    "category": "Driver job management and delivery flow",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /livreur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /livreur/jobs"
+      },
+      {
+        "type": "action",
+        "description": "Open an assigned job"
+      },
+      {
+        "type": "action",
+        "description": "Record a successful call outcome"
+      },
+      {
+        "type": "action",
+        "description": "Advance the job through the next delivery stages"
+      },
+      {
+        "type": "action",
+        "description": "Confirm delivery"
+      },
+      {
+        "type": "action",
+        "description": "Confirm COD collection when prompted"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the job is marked delivered"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC005",
+    "title": "Login as livreur and reach the delivery workspace",
+    "description": "This verifies that a livreur can sign in through the role-specific page and land in the correct workspace.",
+    "category": "Role-based user login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /livreur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the livreur workspace is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC006",
+    "title": "Receive a scanned shipment into the warehouse",
+    "description": "This verifies that a dispatcher can scan a shipment at reception and see it recorded as received in the warehouse.",
+    "category": "Dispatcher warehouse scanning",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dispatch/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /dispatch/reception"
+      },
+      {
+        "type": "action",
+        "description": "Scan a valid tracking number into the reception scanner"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the shipment is shown as received in the warehouse"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC007",
+    "title": "Login as dispatcher and reach the warehouse workspace",
+    "description": "This verifies that a dispatcher can sign in through the role-specific page and land in the correct workspace.",
+    "category": "Role-based user login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dispatch/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the dispatch workspace is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC008",
+    "title": "Create a shipment with a live price estimate",
+    "description": "This verifies that an expediteur can open the new shipment form, enter shipment details, and see a live price estimate before submitting.",
+    "category": "Expediteur shipment creation and tracking",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /expediteur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /expediteur/new"
+      },
+      {
+        "type": "action",
+        "description": "Fill in shipment sender and recipient details into the form"
+      },
+      {
+        "type": "action",
+        "description": "Fill in valid package details into the form"
+      },
+      {
+        "type": "action",
+        "description": "Select valid origin and destination values"
+      },
+      {
+        "type": "action",
+        "description": "Verify a live price estimate is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC009",
+    "title": "Filter invoices to unpaid and mark one as paid",
+    "description": "This verifies that a finance user can find an unpaid invoice, pay it, and see its status change to paid.",
+    "category": "Invoice generation and payment",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /finance/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to manage invoices"
+      },
+      {
+        "type": "action",
+        "description": "Filter the invoice list to unpaid invoices"
+      },
+      {
+        "type": "action",
+        "description": "Open the payment action for an unpaid invoice"
+      },
+      {
+        "type": "action",
+        "description": "Select a payment method"
+      },
+      {
+        "type": "action",
+        "description": "Fill a payment reference into the reference field"
+      },
+      {
+        "type": "action",
+        "description": "Confirm the payment"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the invoice status is shown as paid"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated invoice remains visible in the list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC010",
+    "title": "Login as finance manager and reach the finance workspace",
+    "description": "This verifies that a finance user can sign in through the role-specific page and land in the correct workspace.",
+    "category": "Role-based user login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /finance/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the finance workspace is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC011",
+    "title": "Login as admin and reach the back-office workspace",
+    "description": "This verifies that an admin can sign in through the role-specific page and land in the correct workspace.",
+    "category": "Role-based user login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the admin workspace is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC012",
+    "title": "Assign a scanned shipment to a driver",
+    "description": "This verifies that a dispatcher can select an available driver, scan a shipment, and see the shipment assigned to that driver.",
+    "category": "Dispatcher warehouse scanning",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dispatch/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /dispatch/assignation"
+      },
+      {
+        "type": "action",
+        "description": "Select an available driver"
+      },
+      {
+        "type": "action",
+        "description": "Scan a valid tracking number into the assignment scanner"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the shipment is shown as assigned to the selected driver"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC013",
+    "title": "Cancel a shipment from shipment detail as an admin",
+    "description": "This verifies that an admin can cancel an existing shipment from its detail page and see the shipment become cancelled.",
+    "category": "Admin shipment supervision",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the shipments navigation item"
+      },
+      {
+        "type": "action",
+        "description": "Open a shipment from the list"
+      },
+      {
+        "type": "action",
+        "description": "Cancel the shipment"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the shipment is shown as cancelled"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the cancellation confirmation is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC014",
+    "title": "Generate an invoice for an expediteur",
+    "description": "This verifies that a finance user can generate a flat invoice for an expediteur and see it added to the invoice list.",
+    "category": "Invoice generation and payment",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /finance/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to manage invoices"
+      },
+      {
+        "type": "action",
+        "description": "Select an expediteur for invoicing"
+      },
+      {
+        "type": "action",
+        "description": "Select an optional period"
+      },
+      {
+        "type": "action",
+        "description": "Generate the invoice"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a newly created invoice is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the invoice list is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC015",
+    "title": "Create an express fragile shipment with a higher estimate",
+    "description": "This verifies that choosing express delivery and fragile handling updates the estimate and allows the shipment to be created.",
+    "category": "Expediteur shipment creation",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /expediteur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to create a new shipment"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the required shipment details"
+      },
+      {
+        "type": "action",
+        "description": "Choose express delivery"
+      },
+      {
+        "type": "action",
+        "description": "Enable the fragile option"
+      },
+      {
+        "type": "action",
+        "description": "Submit the shipment form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the live price estimate is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new shipment is recorded"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC016",
+    "title": "Sort a received shipment by governorate",
+    "description": "This verifies that a dispatcher can choose a sorting bin, scan a shipment, and see it marked as sorted to the selected governorate.",
+    "category": "Dispatcher warehouse scanning",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dispatch/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /dispatch/tri"
+      },
+      {
+        "type": "action",
+        "description": "Select a governorate bin"
+      },
+      {
+        "type": "action",
+        "description": "Scan a valid tracking number into the sorting scanner"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the shipment is shown as sorted"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC017",
+    "title": "Settle a driver's full COD balance",
+    "description": "This verifies that a finance user can fully settle a driver's COD balance and see it cleared to zero.",
+    "category": "Driver COD settlement",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /finance/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to view driver COD balances"
+      },
+      {
+        "type": "action",
+        "description": "Open the settlement action for a driver with an outstanding balance"
+      },
+      {
+        "type": "action",
+        "description": "Choose to settle the full balance"
+      },
+      {
+        "type": "action",
+        "description": "Select a payment method"
+      },
+      {
+        "type": "action",
+        "description": "Fill a payment reference into the reference field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the settlement"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the driver's balance is cleared"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the settlement history is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC018",
+    "title": "Cancel a pending shipment",
+    "description": "This verifies that an expediteur can cancel a shipment while it is still pending and see the cancellation reflected in the shipment detail view.",
+    "category": "Expediteur shipment creation and tracking",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /expediteur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /expediteur/shipments"
+      },
+      {
+        "type": "action",
+        "description": "Open a pending shipment from the list"
+      },
+      {
+        "type": "action",
+        "description": "Cancel the shipment"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the shipment is marked as canceled"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC019",
+    "title": "Cancel a pending shipment from its detail view",
+    "description": "This verifies that an expediteur can cancel a shipment while it is still pending and see the updated status.",
+    "category": "Expediteur shipment tracking and cancellation",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /expediteur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to view shipments"
+      },
+      {
+        "type": "action",
+        "description": "Open a pending shipment detail"
+      },
+      {
+        "type": "action",
+        "description": "Choose to cancel the shipment"
+      },
+      {
+        "type": "action",
+        "description": "Enter an optional cancellation reason"
+      },
+      {
+        "type": "action",
+        "description": "Confirm the cancellation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the shipment is marked as cancelled"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify cancellation controls are no longer available"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC020",
+    "title": "Settle part of a driver's COD balance",
+    "description": "This verifies that a finance user can record a partial COD settlement and see the driver's balance decrease afterward.",
+    "category": "Driver COD settlement",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /finance/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to view driver COD balances"
+      },
+      {
+        "type": "action",
+        "description": "Open the settlement action for a driver with an outstanding balance"
+      },
+      {
+        "type": "action",
+        "description": "Fill an optional partial settlement amount into the amount field"
+      },
+      {
+        "type": "action",
+        "description": "Select a payment method"
+      },
+      {
+        "type": "action",
+        "description": "Fill a payment reference into the reference field"
+      },
+      {
+        "type": "action",
+        "description": "Fill an optional note into the note field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the settlement"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the driver's remaining balance is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a settlement history entry is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC021",
+    "title": "Mark a delivery as failed with a reason",
+    "description": "This verifies that a driver can enter a failure reason and complete a failed delivery outcome successfully.",
+    "category": "Driver job management and delivery flow",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /livreur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /livreur/jobs"
+      },
+      {
+        "type": "action",
+        "description": "Open an assigned job"
+      },
+      {
+        "type": "action",
+        "description": "Choose to mark the delivery as failed"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a failure reason into the reason field"
+      },
+      {
+        "type": "action",
+        "description": "Confirm the failed delivery outcome"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the job is marked failed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC022",
+    "title": "Review delivery details for an assigned job",
+    "description": "This verifies that a driver can open a job detail page and see recipient contact and shipment payment information needed for delivery.",
+    "category": "Driver job management and delivery flow",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /livreur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /livreur/jobs"
+      },
+      {
+        "type": "action",
+        "description": "Open an assigned job"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify recipient details and COD information are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC023",
+    "title": "Review driver COD balances and open a settlement",
+    "description": "This verifies that a finance user can view driver COD balances and start a settlement for a selected driver.",
+    "category": "Driver COD settlement",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /finance/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to view driver COD balances"
+      },
+      {
+        "type": "action",
+        "description": "Open the settlement action for a driver with an outstanding balance"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the driver settlement view is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the outstanding balance details are visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC024",
+    "title": "View and inspect all shipments as an admin",
+    "description": "This verifies that an admin can open the shipment list and inspect a shipment’s detail view with its expediteur information and timeline.",
+    "category": "Admin shipment supervision",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the shipments navigation item"
+      },
+      {
+        "type": "action",
+        "description": "Open a shipment from the list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the shipment detail view is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the shipment timeline is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC025",
+    "title": "View the finance overview KPIs",
+    "description": "This verifies that a finance user can open the finance home page and see the main business metrics and shipment breakdown.",
+    "category": "Finance overview and reports",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /finance/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /finance"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify revenue, cash held by drivers, and unpaid invoice metrics are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a shipment status breakdown is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC026",
+    "title": "Open the assigned jobs list as a driver",
+    "description": "This verifies that a driver can log in and open the list of assigned delivery jobs.",
+    "category": "Driver job management and delivery flow",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /livreur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /livreur/jobs"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify assigned jobs are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC027",
+    "title": "View the driver list and create, edit, and remove a driver account",
+    "description": "This verifies that an admin can manage driver accounts through the paginated driver list with create, edit, and soft-delete actions.",
+    "category": "Admin driver and expediteur management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the drivers navigation item"
+      },
+      {
+        "type": "action",
+        "description": "Create a new driver account"
+      },
+      {
+        "type": "action",
+        "description": "Edit the newly created driver account"
+      },
+      {
+        "type": "action",
+        "description": "Soft-delete the newly created driver account"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the driver list is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the driver account no longer appears as active"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC028",
+    "title": "Review shipment list and open a shipment detail",
+    "description": "This verifies that an expediteur can view their shipments list and open a shipment detail to see its timeline.",
+    "category": "Expediteur shipment tracking and cancellation",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /expediteur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to view shipments"
+      },
+      {
+        "type": "action",
+        "description": "Open a shipment detail"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the shipment list is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the shipment timeline is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC029",
+    "title": "Open shipment tracking details",
+    "description": "This verifies that an expediteur can open a shipment detail page and review the shipment timeline and tracking status.",
+    "category": "Expediteur shipment creation and tracking",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /expediteur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /expediteur/shipments"
+      },
+      {
+        "type": "action",
+        "description": "Open a shipment from the list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify shipment tracking details are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC030",
+    "title": "Settle expediteur COD due and confirm history",
+    "description": "This verifies that a finance user can record a full expediteur COD settlement and see the settlement appear in history.",
+    "category": "Expediteur COD settlement",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /finance/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to view expediteur COD balances"
+      },
+      {
+        "type": "action",
+        "description": "Open the settlement action for an expediteur with COD due"
+      },
+      {
+        "type": "action",
+        "description": "Select a payment method"
+      },
+      {
+        "type": "action",
+        "description": "Fill a payment reference into the reference field"
+      },
+      {
+        "type": "action",
+        "description": "Fill an optional note into the note field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the settlement"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the expediteur due amount is cleared"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a settlement history entry is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC031",
+    "title": "View the expediteur shipment list",
+    "description": "This verifies that an expediteur can open their shipment list and see their created shipments.",
+    "category": "Expediteur shipment creation and tracking",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /expediteur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /expediteur/shipments"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify shipment list entries are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC032",
+    "title": "Review expediteur COD due and open a settlement",
+    "description": "This verifies that a finance user can inspect merchant COD due amounts and start a settlement for a selected expediteur.",
+    "category": "Expediteur COD settlement",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /finance/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to view expediteur COD balances"
+      },
+      {
+        "type": "action",
+        "description": "Open the settlement action for an expediteur with COD due"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the expediteur settlement view is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the due amount details are visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC033",
+    "title": "Review finance reports",
+    "description": "This verifies that a finance user can open reports and view shipment status and revenue summaries.",
+    "category": "Finance overview and reports",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /finance/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /finance/rapports"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify shipment status report data is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify revenue summary data is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC034",
+    "title": "Prevent receiving the same shipment twice",
+    "description": "This verifies that scanning a shipment already received at reception shows the duplicate validation message instead of creating a second receipt.",
+    "category": "Dispatcher warehouse scanning",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dispatch/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /dispatch/reception"
+      },
+      {
+        "type": "action",
+        "description": "Scan a valid tracking number into the reception scanner"
+      },
+      {
+        "type": "action",
+        "description": "Scan the same tracking number again into the reception scanner"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an already-received validation message is visible"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC035",
+    "title": "Reject an invalid delivery status skip",
+    "description": "This verifies that a driver cannot jump ahead in the delivery workflow and sees the attempted transition rejected.",
+    "category": "Driver job management and delivery flow",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /livreur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /livreur/jobs"
+      },
+      {
+        "type": "action",
+        "description": "Open an assigned job"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to advance the job past the next allowed status"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an invalid transition message is visible"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC036",
+    "title": "Warn when a shipment is sorted to the wrong governorate",
+    "description": "This verifies that sorting a shipment into a governorate different from its destination shows a mismatch warning while still keeping the sorting context visible.",
+    "category": "Dispatcher warehouse scanning",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dispatch/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /dispatch/tri"
+      },
+      {
+        "type": "action",
+        "description": "Select a governorate bin that differs from the shipment destination"
+      },
+      {
+        "type": "action",
+        "description": "Scan a valid tracking number into the sorting scanner"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a governorate mismatch warning is visible"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC037",
+    "title": "View driver COD balance",
+    "description": "This verifies that a driver can open the COD page and see their current balance information.",
+    "category": "Driver job management and delivery flow",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /livreur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /livreur/cod"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the COD balance is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC038",
+    "title": "View expediteur COD balance",
+    "description": "This verifies that an expediteur can open the COD page and see their COD balance or history.",
+    "category": "Expediteur shipment creation and tracking",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /expediteur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /expediteur/cod"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify COD balance information is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC039",
+    "title": "View the dispatch scan history",
+    "description": "This verifies that a dispatcher can open the scan history page and review previously recorded scan events.",
+    "category": "Dispatcher warehouse scanning",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dispatch/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /dispatch/historique"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify scan history entries are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC040",
+    "title": "Require a failure reason before submitting a failed delivery",
+    "description": "This verifies that the driver cannot submit a failed delivery without providing the required reason.",
+    "category": "Driver job management and delivery flow",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /livreur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /livreur/jobs"
+      },
+      {
+        "type": "action",
+        "description": "Open an assigned job"
+      },
+      {
+        "type": "action",
+        "description": "Choose to mark the delivery as failed"
+      },
+      {
+        "type": "action",
+        "description": "Confirm the failed delivery outcome without entering a reason"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a failure reason validation message is visible"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC041",
+    "title": "Reject invalid finance login credentials",
+    "description": "This verifies that invalid credentials on the finance login page are rejected and the user stays on the login screen.",
+    "category": "Role-based user login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /finance/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with invalid credentials"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with invalid credentials"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an invalid credentials message is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the login page is still displayed"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC042",
+    "title": "View expediteur invoices",
+    "description": "This verifies that an expediteur can open the invoices page and review their invoice history.",
+    "category": "Expediteur shipment creation and tracking",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /expediteur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /expediteur/invoices"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify invoice records are displayed"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC043",
+    "title": "Prevent paying a paid invoice again",
+    "description": "This verifies that a finance user cannot pay an invoice that is already marked as paid.",
+    "category": "Invoice generation and payment",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /finance/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to manage invoices"
+      },
+      {
+        "type": "action",
+        "description": "Open a paid invoice"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to open the payment action again"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the payment action is rejected"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the invoice remains marked as paid"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC044",
+    "title": "Prevent cancellation of a shipment that is no longer pending",
+    "description": "This verifies that an expediteur cannot cancel a shipment after it has moved beyond the pending state.",
+    "category": "Expediteur shipment tracking and cancellation",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /expediteur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to view shipments"
+      },
+      {
+        "type": "action",
+        "description": "Open a non-pending shipment detail"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify cancellation is not available"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC045",
+    "title": "See dispatch summary metrics",
+    "description": "This verifies that a dispatcher can open the dispatch home page and view the warehouse activity summary for the day.",
+    "category": "Dispatcher warehouse scanning",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dispatch/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /dispatch"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify today shipment summary metrics are displayed"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC046",
+    "title": "Check driver availability profile",
+    "description": "This verifies that a driver can open the profile page and view their availability status.",
+    "category": "Driver job management and delivery flow",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /livreur/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill in {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /livreur/profile"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify driver availability status is displayed"
+      }
+    ],
+    "priority": "Low"
+  }
+]

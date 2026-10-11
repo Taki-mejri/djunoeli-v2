@@ -1,0 +1,145 @@
+{
+  "nav": {
+    "home": "Start",
+    "jobs": "Aufträge",
+    "cod": "Nachnahme",
+    "profile": "Profil"
+  },
+  "header": {
+    "back": "Zurück"
+  },
+  "jobs": {
+    "title": "Meine Aufträge",
+    "subtitle": "Ihre zuzustellenden Sendungen.",
+    "activeCount_one": "{{count}} aktiver Auftrag",
+    "activeCount_other": "{{count}} aktive Aufträge",
+    "empty": "Noch keine Aufträge",
+    "emptyHint": "Ihre zuzustellenden Sendungen erscheinen hier, sobald ein Lager sie Ihnen zuweist."
+  },
+  "detail": {
+    "back": "Meine Aufträge",
+    "backToJobs": "Zurück zu den Aufträgen",
+    "receiver": "Empfänger",
+    "package": "Sendung",
+    "pickup": "Abholung",
+    "sender": "Versender",
+    "senderLine": "Versender: {{name}}",
+    "tracking": "Sendungsnr.",
+    "call": "Anrufen",
+    "logCall": "Anruf notieren",
+    "map": "Karte",
+    "codToCollect": "Bei Lieferung einzuziehen",
+    "trackingTitle": "Verfolgung",
+    "terminalDelivered": "Auftrag abgeschlossen — Sendung zugestellt",
+    "terminalFailed": "Auftrag abgeschlossen — Zustellung fehlgeschlagen"
+  },
+  "actions": {
+    "start": "Auftrag starten",
+    "enRoute": "Unterwegs",
+    "arrived": "Angekommen — in Zustellung",
+    "markDelivered": "Als zugestellt markieren",
+    "reportFailure": "Fehler melden"
+  },
+  "call": {
+    "title": "Anrufergebnis",
+    "question": "Wie verlief der Anruf mit {{name}}?",
+    "answered": "Hat geantwortet",
+    "noAnswer": "Keine Antwort",
+    "rescheduled": "Verschoben",
+    "wrongNumber": "Falsche Nummer",
+    "recorded": "Anruf gespeichert"
+  },
+  "delivery": {
+    "title": "Zustellung bestätigen",
+    "question": "Sendung an {{name}} übergeben?",
+    "amountToCollect": "Einzuziehender Betrag",
+    "codWarning": "Mit der Bestätigung bestätigen Sie, {{amount}} DT in bar eingezogen zu haben. Dieser Betrag wird Ihrem abzuführenden Saldo hinzugefügt.",
+    "confirmWithCod": "Zugestellt · {{amount}} DT eingezogen",
+    "confirm": "Zustellung bestätigen",
+    "validating": "Wird bestätigt...",
+    "success": "Sendung zugestellt! Gut gemacht."
+  },
+  "failure": {
+    "title": "Zustellung fehlgeschlagen",
+    "subtitle": "Geben Sie den Grund an. Die Sendung wird als nicht zugestellt markiert.",
+    "reasonAbsent": "Empfänger abwesend",
+    "reasonAddress": "Adresse nicht auffindbar",
+    "reasonPhone": "Falsche Nummer",
+    "reasonRefused": "Kunde verweigert die Sendung",
+    "reasonRescheduled": "Auf Kundenwunsch verschoben",
+    "detailsPlaceholder": "Zusätzliche Angaben (optional, wenn oben ein Grund gewählt wurde)",
+    "confirm": "Fehler bestätigen",
+    "saving": "Wird gespeichert...",
+    "recorded": "Fehler gespeichert."
+  },
+  "tags": {
+    "express": "Express",
+    "fragile": "Zerbrechlich",
+    "standard": "Standard"
+  },
+  "cod": {
+    "myBalance": "Mein Nachnahme-Saldo",
+    "toRemit": "Abzuführen",
+    "history": "Verlauf der Abführungen",
+    "noBalance": "Kein abzuführender Saldo",
+    "title": "Meine Nachnahme",
+    "subtitle": "Bargeld-Übersicht",
+    "cashToRemit": "Abzuführendes Bargeld",
+    "remitToOffice": "Im Büro abführen",
+    "toCollect": "Einzuziehen ({{amount}} DT)",
+    "collectedToday": "Heute eingesammelt"
+  },
+  "banner": {
+    "statusUpdated": "Status: {{status}}"
+  },
+  "home": {
+    "greeting": "Guten Tag, {{name}} 👋",
+    "fallbackName": "Fahrer",
+    "cashInHand": "Bargeld dabei (Nachnahme)",
+    "see": "Ansehen",
+    "statusTitle": "Status",
+    "seeMyJobs": "Meine Aufträge ansehen",
+    "availability": {
+      "available": "Verfügbar",
+      "busy": "Beschäftigt",
+      "offline": "Offline"
+    },
+    "stats": {
+      "toDeliver": "Zuzustellen",
+      "enRoute": "Unterwegs",
+      "deliveredTotal": "Zugestellt (ges.)",
+      "rating": "Bewertung"
+    },
+    "statusText": {
+      "available": "Sie sind verfügbar für neue Aufträge. Das System weist Ihnen automatisch Sendungen in Ihrer Nähe zu.",
+      "busy": "Sie sind gerade in Zustellung. Schließen Sie Ihre laufenden Aufträge ab, bevor Sie neue annehmen.",
+      "offline": "Sie sind offline. Aktivieren Sie Ihre Verfügbarkeit, um Aufträge zu erhalten."
+    }
+  },
+  "profile": {
+    "title": "Mein Profil",
+    "role": "Fahrer",
+    "stats": {
+      "deliveries": "Zustellungen",
+      "rating": "Bewertung",
+      "successRate": "Erfolgsquote"
+    },
+    "rows": {
+      "availability": "Verfügbarkeit",
+      "availabilityDesc": "Neue Aufträge erhalten",
+      "zone": "Liefergebiet",
+      "vehicle": "Fahrzeug",
+      "vehicleValue": "Motorrad · 188 TUN 2024",
+      "notifications": "Benachrichtigungen",
+      "notificationsOn": "Aktiviert",
+      "language": "Sprache"
+    },
+    "logout": "Abmelden"
+  },
+  "errors": {
+    "load": "Fehler beim Laden",
+    "jobNotFound": "Auftrag nicht gefunden",
+    "generic": "Fehler",
+    "callFailed": "Anruf konnte nicht gespeichert werden."
+  }
+}

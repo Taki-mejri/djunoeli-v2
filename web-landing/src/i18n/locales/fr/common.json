@@ -1,0 +1,101 @@
+{
+  "app": {
+    "name": "Djunoeli"
+  },
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "shipments": "Colis",
+    "expediteurs": "Expéditeurs",
+    "livreurs": "Livreurs",
+    "finance": "Finance",
+    "reception": "Réception",
+    "sorting": "Tri",
+    "verification": "Vérification",
+    "assignment": "Assignation",
+    "remoteAssign": "Assignation à distance",
+    "livreurBalances": "Soldes livreurs",
+    "expediteurCod": "COD expéditeurs",
+    "invoices": "Factures",
+    "reports": "Rapports",
+    "myShipments": "Mes colis",
+    "createShipment": "Créer un colis",
+    "jobs": "Mes courses"
+  },
+  "actions": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "close": "Fermer",
+    "back": "Retour",
+    "next": "Suivant",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "add": "Ajouter",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "view": "Voir",
+    "manage": "Gérer",
+    "start": "Commencer",
+    "logout": "Déconnexion",
+    "loading": "Chargement...",
+    "seeMore": "Voir plus"
+  },
+  "status": {
+    "PENDING": "En attente",
+    "AWAITING_PICKUP": "À ramasser",
+    "AT_WAREHOUSE": "Au dépôt",
+    "PICKED_UP": "Ramassé",
+    "IN_TRANSIT": "En route",
+    "OUT_FOR_DELIVERY": "En livraison",
+    "DELIVERED": "Livré",
+    "FAILED_DELIVERY": "Échec",
+    "RETURNED": "Retourné",
+    "CANCELLED": "Annulé"
+  },
+  "livreurStatus": {
+    "AVAILABLE": "Disponible",
+    "BUSY": "Occupé",
+    "OFFLINE": "Hors ligne"
+  },
+  "common": {
+    "yes": "Oui",
+    "no": "Non",
+    "all": "Tous",
+    "none": "Aucun",
+    "error": "Erreur",
+    "success": "Succès",
+    "noData": "Aucune donnée",
+    "required": "Requis",
+    "optional": "Optionnel"
+  },
+  "language": {
+    "select": "Langue",
+    "fr": "Français",
+    "de": "Allemand"
+  },
+  "topbar": {
+    "search": "Rechercher un colis, un livreur...",
+    "menu": "Menu",
+    "notifications": "Notifications",
+    "myProfile": "Mon profil",
+    "logout": "Se déconnecter",
+    "loggingOut": "Déconnexion..."
+  },
+  "table": {
+    "empty": "Aucun résultat.",
+    "searchPlaceholder": "Rechercher..."
+  },
+  "pagination": {
+    "previous": "Précédent",
+    "next": "Suivant"
+  },
+  "serverNotes": {
+    "created": "Colis créé",
+    "pickedUp": "Ramassé",
+    "inTransit": "En route",
+    "outForDelivery": "En livraison",
+    "delivered": "Livré",
+    "failed": "Échec de livraison",
+    "unassigned": "Désassigné du livreur"
+  }
+}

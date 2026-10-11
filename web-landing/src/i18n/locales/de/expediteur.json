@@ -1,0 +1,310 @@
+{
+  "nav": {
+    "groupSpace": "Mein Bereich",
+    "groupFinance": "Finanzen",
+    "groupAccount": "Konto",
+    "dashboard": "Übersicht",
+    "create": "Sendung erstellen",
+    "shipments": "Meine Sendungen",
+    "invoices": "Rechnungen",
+    "cod": "Nachnahme-Saldo",
+    "profile": "Mein Profil"
+  },
+  "layout": {
+    "roleLabel": "Versender",
+    "fallbackName": "Versender",
+    "helpTitle": "Brauchen Sie Hilfe?",
+    "helpDesc": "Support rund um die Uhr erreichbar"
+  },
+  "dashboard": {
+    "greeting": "Guten Tag, {{name}} 👋",
+    "subtitle": "Hier ist ein Überblick über Ihre heutige Aktivität.",
+    "createCta": "+ Sendung erstellen",
+    "kpi": {
+      "monthly": "Sendungen diesen Monat",
+      "inProgress": "Unterwegs",
+      "delivered": "Zugestellt",
+      "codPending": "Offene Nachnahme"
+    },
+    "chart": {
+      "title": "Meine Sendungen diese Woche",
+      "tag": "Letzte 7 Tage",
+      "series": "Sendungen"
+    },
+    "codPanel": {
+      "title": "Nachnahme-Saldo",
+      "toRemit": "An Sie auszuzahlen",
+      "collected": "Eingesammelt",
+      "remittedMonth": "Ausgezahlt (Monat)",
+      "detail": "Details ansehen"
+    },
+    "recent": {
+      "title": "Meine letzten Sendungen",
+      "seeAll": "Alle ansehen"
+    },
+    "days": {
+      "mon": "Mo",
+      "tue": "Di",
+      "wed": "Mi",
+      "thu": "Do",
+      "fri": "Fr",
+      "sat": "Sa",
+      "sun": "So"
+    }
+  },
+  "table": {
+    "tracking": "Sendungsnr.",
+    "receiver": "Empfänger",
+    "city": "Stadt",
+    "status": "Status",
+    "type": "Art",
+    "price": "Preis",
+    "cod": "Nachnahme",
+    "date": "Datum",
+    "createdAt": "Erstellt",
+    "amount": "Betrag"
+  },
+  "shipmentType": {
+    "standard": "Standard",
+    "express": "Express",
+    "fragile": "Zerbrechlich"
+  },
+  "list": {
+    "title": "Meine Sendungen",
+    "subtitle": "{{total}} versendete Sendungen. Sie können eine Sendung stornieren, solange sie ausstehend ist.",
+    "createCta": "Sendung erstellen",
+    "searchPlaceholder": "Sendungsnr., Empfänger, Stadt...",
+    "allStatuses": "Alle Status",
+    "loadError": "Ihre Sendungen konnten nicht geladen werden: {{message}}",
+    "unknownError": "unbekannter Fehler",
+    "view": "Ansehen →",
+    "cancelTitle": "Sendung stornieren",
+    "results": "{{total}} Ergebnisse",
+    "page": "Seite",
+    "empty": {
+      "title": "Noch keine Sendungen",
+      "desc": "Erstellen Sie Ihre erste Sendung, um Djunoeli zu nutzen.",
+      "cta": "Meine erste Sendung erstellen"
+    }
+  },
+  "create": {
+    "title": "Sendung erstellen",
+    "subtitle": "Geben Sie die Empfängerdaten ein und wählen Sie die Versandart.",
+    "sections": {
+      "receiver": "Empfänger",
+      "address": "Lieferadresse",
+      "deliveryType": "Versandart",
+      "cod": "Nachnahme (optional)",
+      "description": "Sendungsbeschreibung (optional)"
+    },
+    "fields": {
+      "fullName": "Vollständiger Name *",
+      "phone": "Telefon *",
+      "email": "E-Mail (optional)",
+      "fullAddress": "Vollständige Adresse *",
+      "city": "Stadt (Gouvernorat) *",
+      "codAmount": "Bei Zustellung einzuziehender Betrag (DT)"
+    },
+    "placeholders": {
+      "name": "Ahmed Karoui",
+      "phone": "+216 22 100 200",
+      "email": "ahmed@email.tn",
+      "address": "12 Rue de Carthage, Immeuble Salem, Apt 3B",
+      "chooseCity": "Stadt auswählen...",
+      "codAmount": "0 = keine Nachnahme",
+      "description": "Z. B.: Smartphone iPhone 13 + Ladegerät, in Originalverpackung"
+    },
+    "standard": {
+      "name": "Standard",
+      "desc": "Zustellung in 24-48 Std."
+    },
+    "express": {
+      "name": "Express",
+      "desc": "Noch am selben Tag (Region Tunis)"
+    },
+    "fragile": {
+      "title": "Zerbrechliche Sendung",
+      "desc": "Sorgfältige Behandlung · +3 DT"
+    },
+    "pickup": {
+      "toggleTitle": "Abweichende Abholadresse",
+      "default": "Standard: {{address}}, {{city}}",
+      "none": "Keine Standardadresse in Ihrem Profil",
+      "address": "Abholadresse *",
+      "addressPlaceholder": "Genaue Adresse",
+      "city": "Abholstadt *"
+    },
+    "summary": {
+      "title": "Zusammenfassung",
+      "type": "Versandart",
+      "base": "Grundpreis",
+      "fragileFee": "Zuschlag zerbrechlich",
+      "total": "Gesamtbetrag",
+      "codNote": "beim Empfänger einzuziehen"
+    },
+    "submit": "Bestätigen und Sendung erstellen",
+    "submitting": "Wird erstellt...",
+    "fineprint": "Preis serverseitig berechnet und geprüft. Sie zahlen nicht mehr.",
+    "validation": {
+      "nameRequired": "Name erforderlich",
+      "phoneInvalid": "Ungültige Telefonnummer",
+      "addressTooShort": "Adresse zu kurz",
+      "cityRequired": "Stadt erforderlich",
+      "codInvalid": "Ungültiger Nachnahmebetrag"
+    },
+    "errors": {
+      "noPickup": "Sie haben keine Abholadresse in Ihrem Profil. Aktivieren Sie „Abweichende Abholadresse“ und füllen Sie sie aus, oder aktualisieren Sie Ihr Profil.",
+      "create": "Fehler beim Erstellen.",
+      "network": "Netzwerkfehler."
+    }
+  },
+  "detail": {
+    "loadError": "Fehler: {{message}}",
+    "notFound": "Sendung nicht gefunden",
+    "cancelCta": "Sendung stornieren",
+    "sections": {
+      "delivery": "Zustellung",
+      "expediteur": "Versender",
+      "pickup": "Abholung",
+      "receiver": "Empfänger",
+      "content": "Inhalt",
+      "cod": "Nachnahme",
+      "livreur": "Zugewiesener Fahrer",
+      "dates": "Termine",
+      "journal": "Detailliertes Protokoll"
+    },
+    "type": "Art",
+    "pricePaid": "Bezahlter Preis",
+    "fragileNote": "Zerbrechliche Sendung — sorgfältige Behandlung",
+    "company": "Firma",
+    "contact": "Kontakt",
+    "noDescription": "Keine Beschreibung",
+    "codNote": "Bei der Zustellung beim Empfänger einzuziehen.",
+    "createdAt": "Erstellt am",
+    "pickedUpAt": "Abgeholt am",
+    "deliveredAt": "Zugestellt am"
+  },
+  "timeline": {
+    "steps": {
+      "CREATED": "Erstellt",
+      "PICKED_UP": "Abgeholt",
+      "AT_WAREHOUSE": "Im Lager",
+      "IN_TRANSIT": "Unterwegs",
+      "OUT_FOR_DELIVERY": "In Zustellung",
+      "DELIVERED": "Zugestellt"
+    },
+    "hints": {
+      "inProgress": "läuft…",
+      "failed": "fehlgeschlagen",
+      "returned": "zurückgesendet"
+    },
+    "banner": {
+      "cancelled": "Diese Sendung wurde storniert",
+      "failed": "Zustellung fehlgeschlagen — Details im Protokoll"
+    },
+    "log": {
+      "empty": "Keine Ereignisse erfasst.",
+      "by": "von {{name}}"
+    }
+  },
+  "cancel": {
+    "title": "Sendung stornieren?",
+    "descPrefix": "Die Sendung",
+    "descSuffix": "wird als storniert markiert. Diese Aktion ist endgültig.",
+    "reasonLabel": "Grund (optional)",
+    "reasonPlaceholder": "Eingabefehler, Meinungsänderung...",
+    "keep": "Sendung behalten",
+    "confirm": "Stornierung bestätigen",
+    "pending": "Wird storniert...",
+    "errors": {
+      "cancel": "Fehler bei der Stornierung.",
+      "network": "Netzwerkfehler."
+    }
+  },
+  "cod": {
+    "title": "Mein Nachnahme-Saldo",
+    "subtitle": "Von unseren Fahrern für Ihre Sendungen eingezogene Beträge.",
+    "cards": {
+      "pending": "Auszahlung ausstehend",
+      "remittedMonth": "Diesen Monat ausgezahlt",
+      "totalToDate": "Gesamt bis heute"
+    },
+    "searchPlaceholder": "Nach Sendungsnr. suchen...",
+    "allStatuses": "Alle Status",
+    "status": {
+      "collected": "Eingesammelt",
+      "remitted": "Ausgezahlt"
+    },
+    "footer": "{{total}} Transaktionen"
+  },
+  "invoices": {
+    "title": "Meine Rechnungen",
+    "subtitle": "Laden Sie Ihre Rechnungen herunter und verfolgen Sie Ihre Zahlungen.",
+    "searchPlaceholder": "Rechnung suchen...",
+    "table": {
+      "number": "Rechnungsnr.",
+      "period": "Zeitraum",
+      "issuedAt": "Ausgestellt am",
+      "amount": "Betrag",
+      "status": "Status"
+    },
+    "download": "PDF herunterladen",
+    "status": {
+      "paid": "Bezahlt",
+      "pending": "Ausstehend",
+      "late": "Überfällig"
+    },
+    "footer": "{{total}} Rechnungen"
+  },
+  "profile": {
+    "title": "Mein Konto",
+    "subtitle": "Verwalten Sie Ihre Daten und Einstellungen.",
+    "tabs": {
+      "profile": "Mein Profil",
+      "pickup": "Abholadresse",
+      "notifications": "Benachrichtigungen"
+    },
+    "fields": {
+      "company": "Firmenname",
+      "contact": "Kontakt",
+      "phone": "Telefon",
+      "email": "E-Mail",
+      "vat": "USt-IdNr."
+    },
+    "pickup": {
+      "note": "Die Adresse, an der unsere Fahrer Ihre Sendungen abholen.",
+      "address": "Adresse",
+      "city": "Stadt",
+      "zip": "Postleitzahl"
+    },
+    "notifications": {
+      "smsDesc": "Bei jedem Zustellschritt eine SMS erhalten.",
+      "whatsappDesc": "Updates über WhatsApp Business.",
+      "emailDesc": "Rechnungen und Zusammenfassungen."
+    }
+  },
+  "mock": {
+    "shipmentStatus": {
+      "pending": "Ausstehend",
+      "picked_up": "Übernommen",
+      "in_transit": "Unterwegs",
+      "out_for_delivery": "In Zustellung",
+      "delivered": "Zugestellt",
+      "failed": "Fehlgeschlagen"
+    },
+    "months": {
+      "1": "Januar",
+      "2": "Februar",
+      "3": "März",
+      "4": "April",
+      "5": "Mai",
+      "6": "Juni",
+      "7": "Juli",
+      "8": "August",
+      "9": "September",
+      "10": "Oktober",
+      "11": "November",
+      "12": "Dezember"
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "menuLink": "Sendungsverfolgung",
+  "title": "Verfolgen Sie Ihre Sendung",
+  "subtitle": "Geben Sie Ihre Sendungsnummer ein, um den Status Ihrer Lieferung zu sehen.",
+  "placeholder": "z. B. TRK-2026-00012",
+  "trackBtn": "Verfolgen",
+  "trackingNumber": "Sendungsnummer",
+  "destination": "Ziel",
+  "type": "Art",
+  "handling": "Handhabung",
+  "standard": "Standard",
+  "express": "Express",
+  "fragile": "Zerbrechlich",
+  "notFoundTitle": "Sendung nicht gefunden",
+  "notFoundHint": "Keine Sendung entspricht der Nummer {{code}}. Bitte überprüfen Sie den Code und versuchen Sie es erneut.",
+  "errorTitle": "Ein Fehler ist aufgetreten",
+  "errorHint": "Die Verfolgung kann momentan nicht abgerufen werden. Bitte versuchen Sie es gleich noch einmal.",
+  "privacyNote": "Zu Ihrer Sicherheit werden nur Lieferinformationen angezeigt. Persönliche Daten bleiben geschützt.",
+  "steps": {
+    "CREATED": "Sendung erstellt",
+    "PICKED_UP": "Abgeholt",
+    "AT_WAREHOUSE": "Im Lager",
+    "IN_TRANSIT": "Unterwegs",
+    "OUT_FOR_DELIVERY": "In Zustellung",
+    "DELIVERED": "Zugestellt"
+  },
+  "special": {
+    "FAILED": "Zustellung fehlgeschlagen",
+    "CANCELLED": "Storniert",
+    "RETURNED": "Zurückgesendet"
+  },
+  "specialHint": {
+    "FAILED": "Die Zustellung ist fehlgeschlagen. Unser Team wird Sie kontaktieren.",
+    "CANCELLED": "Diese Sendung wurde storniert.",
+    "RETURNED": "Diese Sendung wurde an den Versender zurückgesendet."
+  },
+  "tabs": {
+    "byCode": "Per Sendungsnummer",
+    "byPhone": "Per Telefon"
+  },
+  "otp": {
+    "phoneTitle": "Verfolgung per Telefon",
+    "phoneSubtitle": "Geben Sie die für die Lieferung verwendete Telefonnummer ein. Sie erhalten einen Bestätigungscode.",
+    "phonePlaceholder": "z. B. 20 123 456",
+    "sendCode": "Code erhalten",
+    "sending": "Wird gesendet...",
+    "codeTitle": "Code eingeben",
+    "codeSubtitle": "Ein 6-stelliger Code wurde an {{phone}} gesendet.",
+    "verify": "Überprüfen",
+    "verifying": "Wird überprüft...",
+    "resend": "Code erneut senden",
+    "simulatedHint": "Demo-Modus: Der Code erscheint in den Server-Logs (kein SMS gesendet).",
+    "privacyNote": "Wir zeigen nur Ihre Lieferinformationen an, niemals Ihre persönlichen Daten.",
+    "resultTitle": "Ihre Sendungen",
+    "resultCount_one": "{{count}} Sendung gefunden",
+    "resultCount_other": "{{count}} Sendungen gefunden",
+    "otherNumber": "Andere Nummer",
+    "noShipments": "Keine Sendung mit dieser Nummer verknüpft."
+  }
+}

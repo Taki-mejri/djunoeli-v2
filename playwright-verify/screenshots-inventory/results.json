@@ -1,0 +1,82 @@
+[
+  {
+    "id": "PREREQ",
+    "ok": true,
+    "detail": "3 colis AT_WAREHOUSE : TRK-2026-00009, TRK-2026-00001, TRK-2026-00008"
+  },
+  {
+    "id": "LOGIN",
+    "ok": true,
+    "detail": "Connecté → http://localhost:5173/dispatch"
+  },
+  {
+    "id": "NAV",
+    "ok": true,
+    "detail": "Entrée \"Vérification\" présente dans la sidebar"
+  },
+  {
+    "id": "a",
+    "ok": true,
+    "detail": "Écran de démarrage : \"3 colis au dépôt\" + bouton \"Ouvrir une session\""
+  },
+  {
+    "id": "b",
+    "ok": true,
+    "detail": "Progression 0/3, barre 0%, scan auto-focus=true, Vérifiés vide, Manquants=3"
+  },
+  {
+    "id": "b-focus",
+    "ok": true,
+    "detail": "Champ de scan auto-focus OK"
+  },
+  {
+    "id": "c",
+    "ok": true,
+    "detail": "Toast vert \"Colis TRK-2026-00001 vérifié (1/3).\" · compteur 1/3 · barre 33% · TRK-2026-00001 passé Manquants→Vérifiés"
+  },
+  {
+    "id": "d",
+    "ok": true,
+    "detail": "Toast vert · compteur 2/3 · barre 67%"
+  },
+  {
+    "id": "e",
+    "ok": true,
+    "detail": "Toast orange \"Colis TRK-2026-00008 déjà vérifié dans cette session.\" · compteur inchangé 2/3"
+  },
+  {
+    "id": "f",
+    "ok": true,
+    "detail": "Toast orange \"Le colis TRK-2026-00010 n'est pas au dépôt (statut : PENDING). Il ne fait pas partie de l'inventaire.\" · compteur inchangé"
+  },
+  {
+    "id": "g",
+    "ok": true,
+    "detail": "Toast rouge \"Colis TRK-9999-XXXXX introuvable\" · compteur inchangé"
+  },
+  {
+    "id": "h",
+    "ok": true,
+    "detail": "Vérifiés (2) : TRK-2026-00008, TRK-2026-00001 | Manquants (1) : TRK-2026-00009"
+  },
+  {
+    "id": "k",
+    "ok": true,
+    "detail": "Colonnes empilées verticalement · contenu de la page dans la largeur · 0 débordement imputable à .inv-wrap"
+  },
+  {
+    "id": "i",
+    "ok": true,
+    "detail": "Toast \"Inventaire clôturé : 2 vérifiés, 1 manquant(s) ⚠️\" · retour à l'écran de démarrage (info pré-clôture : \"1 colis non vérifié(s) seront marqués manquants.\")"
+  },
+  {
+    "id": "j",
+    "ok": true,
+    "detail": "Historique (4 ligne(s)) — dernière : \"Clôturé Ali Ben Salah 2/3 vérifiés · 1 manquant(s) 02 août, 17:14\""
+  },
+  {
+    "id": "l-console",
+    "ok": true,
+    "detail": "Aucune erreur console applicative (4 log(s) réseau attendus filtrés), aucun 5xx"
+  }
+]

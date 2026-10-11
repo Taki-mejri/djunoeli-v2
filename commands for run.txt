@@ -1,0 +1,7 @@
+npx prisma studio --url "postgresql://djunoeli:djunoeli_dev_2026@localhost:5432/djunoeli"
+docker run 
+docker start djunoelidb
+
+ADMIN DASHBOARD:
+- Email: admin@djunoeli.tn
+- Password: Djunoeli2026

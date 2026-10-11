@@ -1,0 +1,97 @@
+[
+  {
+    "id": "PREREQ",
+    "ok": true,
+    "detail": "TRK-2026-00010 état initial = PENDING|none"
+  },
+  {
+    "id": "a",
+    "ok": true,
+    "detail": "Sidebar OK · page avec explication + boutons \"Nouvelle assignation\" et \"Commencer\""
+  },
+  {
+    "id": "b",
+    "ok": true,
+    "detail": "Modale ouverte à l'étape 1 · champ de recherche présent · 10 colis listés"
+  },
+  {
+    "id": "c-filtre",
+    "ok": true,
+    "detail": "Liste filtrée par ville : 10 → 1 colis, TRK-2026-00010 présent"
+  },
+  {
+    "id": "c",
+    "ok": true,
+    "detail": "Clic sur TRK-2026-00010 → passage à l'étape 2"
+  },
+  {
+    "id": "d-tri",
+    "ok": true,
+    "detail": "2 livreurs, 2 statuts distincts, ordre dispo→occupé→hors ligne respecté : Disponible < Hors ligne"
+  },
+  {
+    "id": "d-changer",
+    "ok": true,
+    "detail": "Le bouton \"Changer\" ramène bien à l'étape 1"
+  },
+  {
+    "id": "d",
+    "ok": true,
+    "detail": "Clic sur \"Skander Trabelsi\" → passage à l'étape 3"
+  },
+  {
+    "id": "e-recap",
+    "ok": true,
+    "detail": "Récap : TRK-2026-00010 → Skander Trabelsi · téléphone cliquable (tel:+216 25 111 111)"
+  },
+  {
+    "id": "e-disabled-0",
+    "ok": true,
+    "detail": "Bouton Assigner désactivé (raison vide + case non cochée)"
+  },
+  {
+    "id": "e-disabled-1",
+    "ok": true,
+    "detail": "Raison saisie mais case non cochée → toujours désactivé"
+  },
+  {
+    "id": "e-enabled",
+    "ok": true,
+    "detail": "Case cochée → le bouton Assigner s'ACTIVE"
+  },
+  {
+    "id": "e",
+    "ok": true,
+    "detail": "Assignation OK · modale fermée · bannière verte : \"Colis TRK-2026-00010 assigné à distance à Skander Trabelsi. Il est prêt à livrer.\""
+  },
+  {
+    "id": "f",
+    "ok": true,
+    "detail": "TRK-2026-00010 : PENDING → PICKED_UP, livreur = skander@test.tn"
+  },
+  {
+    "id": "i",
+    "ok": true,
+    "detail": "Sans case → désactivé · raison vide → désactivé · aucun POST /remote-assign déclenché"
+  },
+  {
+    "id": "j",
+    "ok": true,
+    "detail": "Modale dans la largeur · récap empilé en vertical · bouton Assigner utilisable · 0 débordement"
+  },
+  {
+    "id": "g",
+    "ok": true,
+    "detail": "Bouton \"Assigner à distance\" présent dans le page-head → ouvre la modale"
+  },
+  {
+    "id": "h",
+    "ok": true,
+    "detail": "Sidebar + page dispatcher OK · modale ouverte · 10 colis chargés (API autorise DISPATCHER)"
+  },
+  {
+    "id": "k-console",
+    "ok": true,
+    "detail": "Aucune erreur console applicative (2 log(s) réseau filtrés), aucun 5xx"
+  }
+]

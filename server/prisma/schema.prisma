@@ -1,0 +1,782 @@
+// =====================================================
+// DJUNOELI — Schéma Prisma complet
+// Plateforme SaaS de livraison & logistique (Tunisie)
+// =====================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// =====================================================
+// ENUMS
+// =====================================================
+
+enum UserRole {
+  SUPER_ADMIN
+  OPERATIONS_MANAGER
+  FINANCE_MANAGER
+  WAREHOUSE_MANAGER
+  CUSTOMER_SUPPORT
+  EXPEDITEUR
+  LIVREUR
+  DISPATCHER
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  PENDING
+}
+
+enum ShipmentStatus {
+  PENDING            // En attente
+  AWAITING_PICKUP    // En attente de ramassage
+  PICKED_UP          // Pris en charge
+  AT_WAREHOUSE       // À l'entrepôt
+  IN_TRANSIT         // En transit
+  OUT_FOR_DELIVERY   // En cours de livraison
+  DELIVERED          // Livré
+  FAILED_DELIVERY    // Échec de livraison
+  RETURNED           // Retourné
+  CANCELLED          // Annulé
+}
+
+enum DeliveryType {
+  STANDARD
+  EXPRESS
+}
+
+enum LivreurStatus {
+  AVAILABLE
+  BUSY
+  OFFLINE
+}
+
+enum VehicleType {
+  MOTO
+  VOITURE
+  CAMIONNETTE
+  CAMION
+}
+
+enum InvoiceStatus {
+  DRAFT
+  PENDING
+  UNPAID
+  PAID
+  OVERDUE
+  CANCELLED
+}
+
+enum PaymentMethod {
+  CASH
+  BANK_TRANSFER
+  CARD
+  CHECK
+}
+
+enum CodStatus {
+  COLLECTED   // Collecté par le livreur
+  HELD        // Reversé au bureau, en attente
+  SETTLED     // Reversé à l'expéditeur
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum TicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum NotificationChannel {
+  IN_APP
+  EMAIL
+  SMS
+  WHATSAPP
+}
+
+// =====================================================
+// AUTH & UTILISATEURS
+// =====================================================
+
+model User {
+  id             String     @id @default(cuid())
+  email          String     @unique
+  phone          String?    @unique
+  passwordHash   String
+  firstName      String?
+  lastName       String?
+  role           UserRole
+  status         UserStatus @default(ACTIVE)
+  lastLoginAt    DateTime?
+  emailVerified  Boolean    @default(false)
+  twoFactorSecret String?
+
+  warehouseId String?
+  warehouse   Warehouse? @relation("WarehouseDispatchers", fields: [warehouseId], references: [id], onDelete: SetNull)
+
+  // Relations 1:1 selon le rôle
+  expediteurProfile  Expediteur?
+  livreurProfile     Livreur?
+
+  // Liens
+  refreshTokens      RefreshToken[]
+  notifications      Notification[]
+  notificationPrefs  NotificationPreference?
+  ticketsCreated     Ticket[]               @relation("TicketAuthor")
+  ticketsAssigned    Ticket[]               @relation("TicketAssignee")
+  ticketMessages     TicketMessage[]
+  auditLogs          AuditLog[]
+  shipmentStatusChanges ShipmentStatusHistory[] @relation("StatusChangedBy")
+  livreurSettlementsRecorded LivreurCodSettlement[] @relation("LivreurSettlementsRecorded")
+  expSettlementsRecorded CodSettlement[] @relation("ExpSettlementsRecorded")
+  invoicesCreated    Invoice[] @relation("InvoicesCreated")
+  inventorySessionsStarted InventorySession[] @relation("InventorySessionsStarted")
+  shipmentsVerified        Shipment[]         @relation("ShipmentsVerified")
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@index([role, status])
+  @@index([deletedAt])
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String   @unique
+  expiresAt DateTime
+  revoked   Boolean  @default(false)
+  userAgent String?
+  ipAddress String?
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+// =====================================================
+// EXPÉDITEURS (entreprises clientes qui envoient des colis)
+// =====================================================
+
+model Expediteur {
+  id             String   @id @default(cuid())
+  userId         String   @unique
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  companyName    String
+  contactPerson  String?
+  taxNumber      String?  // Matricule fiscal
+  businessAddress String?
+  city           String?
+  postalCode     String?
+
+  // Adresse par défaut de ramassage
+  pickupAddress  String?
+  pickupCity     String?
+  pickupLat      Float?
+  pickupLng      Float?
+
+  // Finance
+  balance        Decimal  @default(0) @db.Decimal(12, 3) // en DT
+  creditLimit    Decimal  @default(0) @db.Decimal(12, 3)
+
+  pricingPlanId  String?
+  pricingPlan    PricingPlan? @relation(fields: [pricingPlanId], references: [id])
+
+  shipments      Shipment[]
+  invoices       Invoice[]
+  codSettlements CodSettlement[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@index([companyName])
+  @@index([deletedAt])
+}
+
+// =====================================================
+// LIVREURS
+// =====================================================
+
+model Livreur {
+  id             String         @id @default(cuid())
+  userId         String         @unique
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  cin            String?        @unique // Carte d'identité tunisienne
+  vehicleType    VehicleType
+  vehiclePlate   String?
+
+  zoneId         String?
+  zone           Zone?          @relation(fields: [zoneId], references: [id])
+
+  status         LivreurStatus  @default(OFFLINE)
+  rating         Float          @default(5.0)
+  totalDeliveries Int           @default(0)
+  successRate    Float          @default(100.0)
+
+  // Solde COD en main (cash que le livreur détient)
+  codBalance     Decimal        @default(0) @db.Decimal(12, 3)
+
+  // Position GPS actuelle
+  currentLat     Float?
+  currentLng     Float?
+  lastSeenAt     DateTime?
+
+  shipments      Shipment[]
+  locations      LivreurLocation[]
+  codCollections CodCollection[]
+  codSettlements LivreurCodSettlement[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@index([status])
+  @@index([zoneId])
+  @@index([deletedAt])
+}
+
+model LivreurLocation {
+  id         String   @id @default(cuid())
+  livreurId  String
+  livreur    Livreur  @relation(fields: [livreurId], references: [id], onDelete: Cascade)
+  latitude   Float
+  longitude  Float
+  accuracy   Float?
+  recordedAt DateTime @default(now())
+
+  @@index([livreurId, recordedAt])
+}
+
+// =====================================================
+// SHIPMENTS (cœur métier — les colis)
+// =====================================================
+
+model Shipment {
+  id              String         @id @default(cuid())
+  trackingNumber  String         @unique  // TRK-9921
+
+  // Acteurs
+  expediteurId    String
+  expediteur      Expediteur     @relation(fields: [expediteurId], references: [id])
+  livreurId       String?
+  livreur         Livreur?       @relation(fields: [livreurId], references: [id])
+  warehouseId     String?
+  warehouse       Warehouse?     @relation(fields: [warehouseId], references: [id])
+  invoiceId       String?
+  invoice         Invoice?       @relation(fields: [invoiceId], references: [id])
+
+  // Expéditeur (snapshot — sécurise si l'expéditeur modifie son profil après)
+  senderName      String
+  senderPhone     String
+  pickupAddress   String
+  pickupCity      String
+  pickupLat       Float?
+  pickupLng       Float?
+
+  // Destinataire
+  receiverName    String
+  receiverPhone   String
+  deliveryAddress String
+  deliveryCity    String
+  deliveryLat     Float?
+  deliveryLng     Float?
+  receiverEmail   String?
+
+  // Colis
+  description     String?
+  weight          Decimal        @db.Decimal(6, 2)  // en kg
+  dimensions      String?
+  isFragile       Boolean        @default(false)
+
+  // Prix & COD
+  deliveryType    DeliveryType   @default(STANDARD)
+  deliveryPrice   Decimal        @db.Decimal(8, 3)  // ce que paie l'expéditeur
+  codAmount       Decimal        @default(0) @db.Decimal(10, 3) // ce qu'on collecte du destinataire
+  insuranceFee    Decimal        @default(0) @db.Decimal(8, 3)
+
+  // Statut
+  status          ShipmentStatus @default(PENDING)
+  statusReason    String?
+
+  // Dates importantes
+  pickedUpAt        DateTime?
+  deliveredAt       DateTime?
+  expectedDeliveryDate DateTime?
+  expediteurCodSettledAt DateTime? // COD reversé à l'expéditeur (colis COD)
+
+  // Preuve de livraison
+  proofPhotoUrl     String?
+  signatureUrl      String?
+
+  // Inventaire dépôt — dernière vérification physique
+  verifiedAt      DateTime?
+  verifiedById    String?
+  verifiedBy      User?          @relation("ShipmentsVerified", fields: [verifiedById], references: [id])
+
+  // Relations
+  statusHistory   ShipmentStatusHistory[]
+  attempts        ShipmentAttempt[]
+  warehouseScans  WarehouseScan[]
+  codCollection   CodCollection?
+  invoiceItems    InvoiceItem[]
+  inventoryItems  InventoryItem[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@index([status, createdAt])
+  @@index([expediteurId])
+  @@index([invoiceId])
+  @@index([livreurId])
+  @@index([trackingNumber])
+}
+
+model ShipmentStatusHistory {
+  id          String         @id @default(cuid())
+  shipmentId  String
+  shipment    Shipment       @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  status      ShipmentStatus
+  note        String?
+  location    String?
+  latitude    Float?
+  longitude   Float?
+  changedById String?
+  changedBy   User?          @relation("StatusChangedBy", fields: [changedById], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([shipmentId, createdAt])
+}
+
+model ShipmentAttempt {
+  id            String   @id @default(cuid())
+  shipmentId    String
+  shipment      Shipment @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  attemptNumber Int
+  reason        String
+  proofPhotoUrl String?
+  note          String?
+
+  createdAt DateTime @default(now())
+
+  @@index([shipmentId])
+}
+
+// =====================================================
+// ENTREPÔTS
+// =====================================================
+
+model Warehouse {
+  id          String   @id @default(cuid())
+  name        String
+  code        String?
+  address     String
+  city        String
+  governorate String?
+  country     String?  @default("TN")
+  phone       String?
+  latitude    Float?
+  longitude   Float?
+  capacity    Int      @default(0)
+  managerId   String?
+  isActive    Boolean  @default(true)
+
+  shipments   Shipment[]
+  scans       WarehouseScan[]
+  dispatchers User[]   @relation("WarehouseDispatchers")
+  inventorySessions InventorySession[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model WarehouseScan {
+  id           String    @id @default(cuid())
+  warehouseId  String
+  warehouse    Warehouse @relation(fields: [warehouseId], references: [id])
+  shipmentId   String
+  shipment     Shipment  @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  scannedById  String?
+  location     String?   // Emplacement dans l'entrepôt (ex : "Rack A-12")
+
+  scannedAt DateTime @default(now())
+
+  @@index([warehouseId, scannedAt])
+  @@index([shipmentId])
+}
+
+// =====================================================
+// INVENTAIRE DÉPÔT (vérification physique des colis)
+// =====================================================
+
+model InventorySession {
+  id            String   @id @default(cuid())
+  warehouseId   String?
+  startedById   String                        // le dispatcher qui fait l'inventaire
+  status        String   @default("OPEN")     // OPEN | CLOSED
+  expectedCount Int      @default(0)          // colis attendus au moment de l'ouverture
+  verifiedCount Int      @default(0)          // colis scannés/vérifiés
+  missingCount  Int      @default(0)          // calculé à la clôture
+  note          String?
+  startedAt     DateTime @default(now())
+  closedAt      DateTime?
+
+  warehouse     Warehouse? @relation(fields: [warehouseId], references: [id])
+  startedBy     User       @relation("InventorySessionsStarted", fields: [startedById], references: [id])
+  items         InventoryItem[]
+
+  @@index([status, startedAt])
+  @@index([warehouseId])
+}
+
+model InventoryItem {
+  id          String   @id @default(cuid())
+  sessionId   String
+  shipmentId  String
+  verifiedAt  DateTime @default(now())
+
+  session     InventorySession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  shipment    Shipment         @relation(fields: [shipmentId], references: [id])
+
+  @@unique([sessionId, shipmentId])   // un colis scanné une seule fois par session
+  @@index([shipmentId])
+}
+
+// =====================================================
+// ZONES & TARIFICATION
+// =====================================================
+
+model Zone {
+  id            String   @id @default(cuid())
+  name          String   @unique
+  cities        String[] // ["Tunis", "Ariana", ...]
+  priceModifier Decimal  @default(1.0) @db.Decimal(4, 2)
+
+  livreurs      Livreur[]
+  pricingRulesFrom PricingRule[] @relation("PricingFromZone")
+  pricingRulesTo   PricingRule[] @relation("PricingToZone")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PricingPlan {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  basePrice   Decimal  @db.Decimal(8, 3)
+  pricePerKg  Decimal  @default(0) @db.Decimal(8, 3)
+  pricePerKm  Decimal  @default(0) @db.Decimal(8, 3)
+  active      Boolean  @default(true)
+
+  expediteurs Expediteur[]
+  rules       PricingRule[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PricingRule {
+  id            String      @id @default(cuid())
+  pricingPlanId String
+  pricingPlan   PricingPlan @relation(fields: [pricingPlanId], references: [id], onDelete: Cascade)
+  fromZoneId    String?
+  fromZone      Zone?       @relation("PricingFromZone", fields: [fromZoneId], references: [id])
+  toZoneId      String?
+  toZone        Zone?       @relation("PricingToZone", fields: [toZoneId], references: [id])
+  weightMin     Decimal?    @db.Decimal(6, 2)
+  weightMax     Decimal?    @db.Decimal(6, 2)
+  price         Decimal     @db.Decimal(8, 3)
+
+  @@index([pricingPlanId])
+}
+
+// =====================================================
+// COD (Cash on Delivery — critique en Tunisie)
+// =====================================================
+
+model CodCollection {
+  id          String     @id @default(cuid())
+  shipmentId  String     @unique
+  shipment    Shipment   @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  livreurId   String
+  livreur     Livreur    @relation(fields: [livreurId], references: [id])
+  amount      Decimal    @db.Decimal(10, 3)
+  status      CodStatus  @default(COLLECTED)
+
+  collectedAt DateTime   @default(now())
+  heldAt      DateTime?  // Quand le livreur reverse au bureau
+  settledAt   DateTime?  // Quand le bureau reverse à l'expéditeur
+
+  settlementId String?
+  settlement   CodSettlement? @relation(fields: [settlementId], references: [id])
+
+  @@index([livreurId, status])
+  @@index([status])
+}
+
+// Reversement du COD encaissé par les livreurs vers l'expéditeur, net de
+// la commission de livraison (grossCod - commission = netAmount).
+model CodSettlement {
+  id            String         @id @default(cuid())
+  expediteurId  String
+  expediteur    Expediteur     @relation(fields: [expediteurId], references: [id])
+
+  grossCod      Decimal        @db.Decimal(12, 3) // total COD encaissé sur la période
+  commission    Decimal        @db.Decimal(12, 3) // frais de livraison déduits
+  netAmount     Decimal        @db.Decimal(12, 3) // grossCod - commission, ce qui est reversé
+
+  periodFrom    DateTime
+  periodTo      DateTime
+  status        InvoiceStatus  @default(PENDING)
+  paymentMethod PaymentMethod?
+  reference     String?
+  note          String?
+  paidAt        DateTime?
+
+  settledById   String
+  settledBy     User           @relation("ExpSettlementsRecorded", fields: [settledById], references: [id])
+
+  collections   CodCollection[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([expediteurId, status])
+}
+
+// Reversement cash d'un livreur vers le bureau (distinct de CodSettlement
+// ci-dessus, qui concerne la réconciliation périodique côté expéditeur).
+model LivreurCodSettlement {
+  id          String        @id @default(cuid())
+  livreurId   String
+  livreur     Livreur       @relation(fields: [livreurId], references: [id])
+  amount      Decimal       @db.Decimal(12, 3)
+  method      PaymentMethod @default(CASH)
+  reference   String?
+  note        String?
+  settledById String
+  settledBy   User          @relation("LivreurSettlementsRecorded", fields: [settledById], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([livreurId, createdAt])
+}
+
+// =====================================================
+// FACTURATION & PAIEMENTS
+// =====================================================
+
+model Invoice {
+  id            String         @id @default(cuid())
+  number        String         @unique  // INV-2026-00001
+  expediteurId  String
+  expediteur    Expediteur     @relation(fields: [expediteurId], references: [id])
+
+  amount        Decimal        @db.Decimal(12, 3) // total frais de livraison facturés
+  status        InvoiceStatus  @default(UNPAID)
+
+  periodStart      DateTime?
+  periodEnd        DateTime?
+  paidAt           DateTime?
+  paymentMethod    PaymentMethod?
+  paymentReference String?
+  note             String?
+
+  createdById   String
+  createdBy     User           @relation("InvoicesCreated", fields: [createdById], references: [id])
+
+  shipments     Shipment[]
+  items         InvoiceItem[]
+  payments      Payment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([expediteurId, status])
+  @@index([status])
+}
+
+model InvoiceItem {
+  id          String   @id @default(cuid())
+  invoiceId   String
+  invoice     Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  shipmentId  String?
+  shipment    Shipment? @relation(fields: [shipmentId], references: [id])
+  description String
+  quantity    Int      @default(1)
+  unitPrice   Decimal  @db.Decimal(8, 3)
+  amount      Decimal  @db.Decimal(10, 3)
+
+  @@index([invoiceId])
+}
+
+model Payment {
+  id        String        @id @default(cuid())
+  invoiceId String
+  invoice   Invoice       @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  amount    Decimal       @db.Decimal(12, 3)
+  method    PaymentMethod
+  reference String?
+  paidAt    DateTime      @default(now())
+
+  @@index([invoiceId])
+}
+
+model Expense {
+  id          String   @id @default(cuid())
+  category    String   // "Carburant", "Maintenance", "Salaires"...
+  description String
+  amount      Decimal  @db.Decimal(12, 3)
+  date        DateTime
+
+  createdAt DateTime @default(now())
+
+  @@index([category, date])
+}
+
+// =====================================================
+// SUPPORT (tickets)
+// =====================================================
+
+model Ticket {
+  id           String          @id @default(cuid())
+  ticketNumber String          @unique  // T-204
+  authorId     String
+  author       User            @relation("TicketAuthor", fields: [authorId], references: [id])
+  assignedToId String?
+  assignedTo   User?           @relation("TicketAssignee", fields: [assignedToId], references: [id])
+
+  subject      String
+  priority     TicketPriority  @default(MEDIUM)
+  status       TicketStatus    @default(OPEN)
+
+  messages     TicketMessage[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status, priority])
+}
+
+model TicketMessage {
+  id         String   @id @default(cuid())
+  ticketId   String
+  ticket     Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  senderId   String
+  sender     User     @relation(fields: [senderId], references: [id])
+  message    String   @db.Text
+  attachments String[] // URLs
+
+  createdAt DateTime @default(now())
+
+  @@index([ticketId, createdAt])
+}
+
+// =====================================================
+// NOTIFICATIONS
+// =====================================================
+
+model Notification {
+  id      String              @id @default(cuid())
+  userId  String
+  user    User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  channel NotificationChannel @default(IN_APP)
+  type    String              // "SHIPMENT_DELIVERED", "COD_SETTLED"...
+  title   String
+  message String              @db.Text
+  data    Json?
+  readAt  DateTime?
+
+  createdAt DateTime @default(now())
+
+  @@index([userId, readAt])
+}
+
+model NotificationPreference {
+  id              String  @id @default(cuid())
+  userId          String  @unique
+  user            User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  emailEnabled    Boolean @default(true)
+  smsEnabled      Boolean @default(true)
+  whatsappEnabled Boolean @default(false)
+  pushEnabled     Boolean @default(true)
+}
+
+// =====================================================
+// AUDIT & SYSTÈME
+// =====================================================
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action     String   // "SHIPMENT_CREATED", "DRIVER_ASSIGNED"...
+  entity     String   // "Shipment", "Invoice"...
+  entityId   String?
+  oldValue   Json?
+  newValue   Json?
+  ipAddress  String?
+  userAgent  String?
+
+  createdAt DateTime @default(now())
+
+  @@index([entity, entityId])
+  @@index([userId, createdAt])
+}
+
+model CompanySetting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value Json
+
+  updatedAt DateTime @updatedAt
+}
+
+model Integration {
+  id          String   @id @default(cuid())
+  name        String   @unique  // "twilio_sms", "stripe", "smtp"...
+  type        String              // "SMS", "EMAIL", "PAYMENT", "WHATSAPP"
+  credentials Json                // CHIFFRÉ côté app avant stockage
+  enabled     Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// =====================================================
+// OTP — suivi public par telephone
+// Le code n'est JAMAIS stocke en clair : on garde son hash bcrypt.
+// =====================================================
+
+model OtpCode {
+  id          String   @id @default(cuid())
+  phone       String                      // numero normalise (voir otp.service.ts)
+  codeHash    String                      // le code est HASHE (jamais en clair)
+  purpose     String   @default("TRACK")  // usage (TRACK pour le suivi public)
+  attempts    Int      @default(0)        // tentatives de verification
+  consumedAt  DateTime?                   // rempli quand l'OTP est valide/annule
+  expiresAt   DateTime                    // expiration (+5 min)
+  createdAt   DateTime @default(now())
+
+  @@index([phone, purpose])
+  @@index([expiresAt])
+}
