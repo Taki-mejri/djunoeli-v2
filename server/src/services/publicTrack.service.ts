@@ -28,6 +28,7 @@ const PUBLIC_STEPS = [
 function stepIndexForStatus(status: string): number {
   switch (status) {
     case "PENDING":
+    case "ASSIGNED": // v2 : assigné, pas encore ramassé
     case "AWAITING_PICKUP":
       return 0; // Créé
     case "PICKED_UP":

@@ -4,7 +4,6 @@ import { asyncH, unauthorized } from "../middleware/errorHandler.js";
 import { paginationSchema } from "../lib/pagination.js";
 import {
   estimateSchema,
-  createShipmentSchema,
   cancelShipmentSchema,
   listShipmentFiltersSchema,
 } from "../schemas/shipment.schema.js";
@@ -16,6 +15,7 @@ import {
   createShipment,
   cancelShipment,
 } from "../services/shipment.service.js";
+import { createShipmentV2Schema } from "../schemas/createShipmentV2.schema.js";
 
 /* =====================================================
    /api/v1/admin/shipments  (réservé aux admins)
@@ -76,7 +76,9 @@ expediteurShipmentsRouter.post(
   "/",
   asyncH(async (req, res) => {
     if (!req.user) throw unauthorized();
-    const data = createShipmentSchema.parse(req.body);
+    // v2 : le prix éventuellement envoyé par le client est ignoré (clé inconnue
+    // retirée par Zod) ; le serveur recalcule et débite le wallet.
+    const data = createShipmentV2Schema.parse(req.body);
     const shipment = await createShipment(req.user.sub, data);
     res.status(201).json(shipment);
   })

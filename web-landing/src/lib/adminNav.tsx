@@ -13,7 +13,7 @@ export type NavGroup = { title: string; items: NavItem[] };
  * Navigation de l'espace administrateur.
  *
  * Hook (et non constante) comme dispatchNav/financeNav : les libellés sont
- * traduits au rendu, donc ils suivent la bascule FR / DE sans rechargement.
+ * traduits au rendu, donc ils suivent la bascule DE / EN sans rechargement.
  * Les intitulés partagés viennent de `common` (nav.*), les autres d'`admin`.
  *
  * Le type NavGroup reste exporté ici : c'est celui qu'attendent Sidebar et
@@ -48,6 +48,7 @@ export function useAdminNav(): NavGroup[] {
         title: t("nav.groupFinance"),
         items: [
           { label: tc("nav.finance"), icon: <Wallet size={19} />, path: "/admin/finance" },
+          { label: t("wallet:nav.wallets"), icon: <Wallet size={19} />, path: "/admin/wallets" },
         ],
       },
       {

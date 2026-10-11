@@ -1,17 +1,25 @@
 import { Router } from "express";
 import { requireAuth, requireRole } from "../middleware/auth.js";
 import { asyncH, unauthorized } from "../middleware/errorHandler.js";
-import { paginationSchema } from "../lib/pagination.js";
-import { assignLivreurSchema, unassignSchema } from "../schemas/dispatch.schema.js";
+import { unassignSchema } from "../schemas/dispatch.schema.js";
 import {
-  assignLivreurToShipment,
   unassignLivreurFromShipment,
   suggestBestLivreur,
-  listLivreurJobs,
   getLivreurJob,
 } from "../services/dispatch.service.js";
-import { livreurTargetStatusSchema, logCallSchema } from "../schemas/livreurJob.schema.js";
-import { advanceJobStatus, logCall } from "../services/livreurJob.service.js";
+import { logCallSchema } from "../schemas/livreurJob.schema.js";
+import { logCall } from "../services/livreurJob.service.js";
+import {
+  assignToLivreurSchema,
+  pickupScanSchema,
+  advanceDeliverySchema,
+} from "../schemas/deliveryV2.schema.js";
+import {
+  assignToLivreur,
+  pickupByScan,
+  advanceDelivery,
+  getMyJobs,
+} from "../services/deliveryV2.service.js";
 
 const ADMIN_ROLES = ["SUPER_ADMIN", "OPERATIONS_MANAGER", "CUSTOMER_SUPPORT"] as const;
 
@@ -26,14 +34,16 @@ adminDispatchRouter.post(
   "/:id/assign",
   asyncH(async (req, res) => {
     if (!req.user) throw unauthorized();
-    const data = assignLivreurSchema.parse(req.body);
-    const updated = await assignLivreurToShipment({
-      actorUserId: req.user.sub,
-      shipmentId: req.params.id as string,
-      livreurId: data.livreurId,
-      note: data.note,
-    });
-    res.json(updated);
+    // v2 : → ASSIGNED (le livreur ramassera par scan au magasin)
+    const data = assignToLivreurSchema.parse(req.body);
+    res.json(
+      await assignToLivreur({
+        actorUserId: req.user.sub,
+        shipmentId: req.params.id as string,
+        livreurId: data.livreurId,
+        note: data.note,
+      })
+    );
   })
 );
 
@@ -66,13 +76,12 @@ export const livreurJobsRouter = Router();
 
 livreurJobsRouter.use(requireAuth, requireRole("LIVREUR"));
 
+/** GET /livreur/jobs — courses actives (ASSIGNED / PICKED_UP / OUT_FOR_DELIVERY), Express d'abord */
 livreurJobsRouter.get(
   "/",
   asyncH(async (req, res) => {
     if (!req.user) throw unauthorized();
-    const pagination = paginationSchema.parse(req.query);
-    const status = typeof req.query.status === "string" ? req.query.status : undefined;
-    res.json(await listLivreurJobs(req.user.sub, pagination, { status }));
+    res.json(await getMyJobs(req.user.sub));
   })
 );
 
@@ -84,20 +93,20 @@ livreurJobsRouter.get(
   })
 );
 
-/** PATCH /livreur/jobs/:id/status — le livreur fait avancer sa course */
+/** PATCH /livreur/jobs/:id/status { status, reason? } — v2, sans COD */
 livreurJobsRouter.patch(
   "/:id/status",
   asyncH(async (req, res) => {
     if (!req.user) throw unauthorized();
-    const data = livreurTargetStatusSchema.parse(req.body);
-    const result = await advanceJobStatus({
-      livreurUserId: req.user.sub,
-      shipmentId: req.params.id as string,
-      target: data.status,
-      note: data.note,
-      codCollected: data.codCollected,
-    });
-    res.json(result);
+    const data = advanceDeliverySchema.parse(req.body);
+    res.json(
+      await advanceDelivery({
+        livreurUserId: req.user.sub,
+        shipmentId: req.params.id as string,
+        target: data.status,
+        reason: data.reason,
+      })
+    );
   })
 );
 
@@ -109,5 +118,22 @@ livreurJobsRouter.post(
     const data = logCallSchema.parse(req.body);
     const result = await logCall(req.user.sub, req.params.id as string, data.outcome, data.note);
     res.json(result);
+  })
+);
+
+/* =====================================================
+   /api/v1/livreur/pickup — ramassage par scan au magasin (v2)
+   ===================================================== */
+export const livreurPickupRouter = Router();
+
+livreurPickupRouter.use(requireAuth, requireRole("LIVREUR"));
+
+/** POST /livreur/pickup { trackingNumber } → PICKED_UP (+ chrono si Express) */
+livreurPickupRouter.post(
+  "/",
+  asyncH(async (req, res) => {
+    if (!req.user) throw unauthorized();
+    const data = pickupScanSchema.parse(req.body);
+    res.json(await pickupByScan(req.user.sub, data.trackingNumber));
   })
 );

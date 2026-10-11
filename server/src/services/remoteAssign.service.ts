@@ -1,6 +1,6 @@
 import type { Prisma } from "@prisma/client";
 import { prisma } from "../lib/prisma.js";
-import { notFound, badRequest } from "../middleware/errorHandler.js";
+import { assignAndPickupRemote } from "./deliveryV2.service.js";
 
 /* Statuts qui interdisent l'assignation (colis déjà terminé) */
 const NON_ASSIGNABLE = ["DELIVERED", "CANCELLED", "RETURNED"] as const;
@@ -95,36 +95,9 @@ type RemoteAssignInput = {
 };
 
 export async function remoteAssign(input: RemoteAssignInput) {
-  // Le colis
-  const shipment = await prisma.shipment.findFirst({
-    where: { id: input.shipmentId, deletedAt: null },
-    select: {
-      id: true, trackingNumber: true, status: true,
-      receiverName: true, livreurId: true, pickedUpAt: true,
-    },
-  });
-  if (!shipment) throw notFound("Colis introuvable");
-
-  if (NON_ASSIGNABLE.includes(shipment.status as typeof NON_ASSIGNABLE[number])) {
-    throw badRequest(
-      `Le colis ${shipment.trackingNumber} est ${shipment.status.toLowerCase()} — il ne peut plus être assigné.`
-    );
-  }
-
-  // Le livreur
-  const livreur = await prisma.livreur.findFirst({
-    where: { id: input.livreurId, deletedAt: null },
-    select: {
-      id: true, status: true,
-      user: { select: { firstName: true, lastName: true } },
-    },
-  });
-  if (!livreur) throw notFound("Livreur introuvable");
-
-  const livreurName =
-    [livreur.user.firstName, livreur.user.lastName].filter(Boolean).join(" ") || "le livreur";
-
-  // Qui fait l'action (pour la trace)
+  // v2 : le livreur a déjà le colis en main (confirmé par téléphone) →
+  // ASSIGNED puis PICKED_UP via le flux v2, ce qui lance le chrono Express
+  // (avant : passage direct en PICKED_UP, sans chrono).
   const actor = await prisma.user.findFirst({
     where: { id: input.actorUserId },
     select: { firstName: true, lastName: true, role: true },
@@ -132,68 +105,17 @@ export async function remoteAssign(input: RemoteAssignInput) {
   const actorName =
     [actor?.firstName, actor?.lastName].filter(Boolean).join(" ") || "un opérateur";
 
-  const now = new Date();
-
-  const result = await prisma.$transaction(async (tx) => {
-    // Si le colis était assigné à un autre livreur, on libère l'ancien
-    const previousLivreurId = shipment.livreurId;
-
-    // Met à jour le colis → PICKED_UP + livreur + horodatage ramassage
-    const updated = await tx.shipment.update({
-      where: { id: shipment.id },
-      data: {
-        status: "PICKED_UP",
-        livreurId: input.livreurId,
-        pickedUpAt: shipment.pickedUpAt ?? now,
-        // Sort du dépôt → le flag de vérification inventaire n'a plus lieu d'être
-        verifiedAt: null,
-        verifiedById: null,
-      },
-      select: {
-        id: true, trackingNumber: true, status: true,
-        receiverName: true, deliveryCity: true, codAmount: true,
-      },
-    });
-
-    // Trace dans l'historique
-    await tx.shipmentStatusHistory.create({
-      data: {
-        shipmentId: shipment.id,
-        status: "PICKED_UP",
-        note: `Assignation à distance à ${livreurName} par ${actorName} (${actor?.role ?? "?"}). Confirmé par téléphone. Raison : ${input.reason}`,
-        changedById: input.actorUserId,
-      },
-    });
-
-    // Met le livreur en BUSY
-    await tx.livreur.update({
-      where: { id: input.livreurId },
-      data: { status: "BUSY" },
-    });
-
-    // Libère l'ancien livreur s'il n'a plus de courses actives
-    if (previousLivreurId && previousLivreurId !== input.livreurId) {
-      const activeCount = await tx.shipment.count({
-        where: {
-          livreurId: previousLivreurId,
-          deletedAt: null,
-          status: { in: ["AWAITING_PICKUP", "PICKED_UP", "AT_WAREHOUSE", "IN_TRANSIT", "OUT_FOR_DELIVERY"] },
-        },
-      });
-      if (activeCount === 0) {
-        await tx.livreur.update({
-          where: { id: previousLivreurId },
-          data: { status: "AVAILABLE" },
-        });
-      }
-    }
-
-    return updated;
+  const result = await assignAndPickupRemote({
+    shipmentId: input.shipmentId,
+    livreurId: input.livreurId,
+    actorUserId: input.actorUserId,
+    note: `Assignation à distance par ${actorName} (${actor?.role ?? "?"}). Raison : ${input.reason}`,
   });
 
   return {
-    shipment: result,
-    livreurName,
-    message: `Colis ${shipment.trackingNumber} assigné à distance à ${livreurName}. Il est prêt à livrer.`,
+    shipment: result.shipment,
+    livreurName: result.livreurName,
+    message: `Colis ${result.shipment.trackingNumber} assigné à distance à ${result.livreurName}. Il est prêt à livrer.`
+      + (result.isExpress ? ` Express : chrono ${Math.round((Date.parse(result.slaDeadlineAt ?? "") - Date.now()) / 60000)} min lancé.` : ""),
   };
 }

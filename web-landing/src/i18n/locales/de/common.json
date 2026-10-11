@@ -42,6 +42,7 @@
   },
   "status": {
     "PENDING": "Ausstehend",
+    "ASSIGNED": "Zugewiesen",
     "AWAITING_PICKUP": "Abzuholen",
     "AT_WAREHOUSE": "Im Lager",
     "PICKED_UP": "Abgeholt",

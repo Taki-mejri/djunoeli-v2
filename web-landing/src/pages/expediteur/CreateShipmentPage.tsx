@@ -1,140 +1,96 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { isAxiosError } from "axios";
 import {
-  Package, MapPin, User, Truck, Zap, AlertTriangle, Wallet,
-  Check, ArrowLeft, ArrowRight,
+  User, Phone, MapPin, Home, Zap, Truck, AlertTriangle,
+  Wallet, Check, Info, Loader2,
 } from "lucide-react";
-import {
-  useCreateMyShipment,
-  useEstimatePrice,
-  type CreateShipmentInput,
-  type DeliveryType,
-} from "../../lib/shipmentQueries";
-import { useMyExpediteurProfile } from "../../lib/expediteurQueries";
-import { formatEUR } from "../../lib/money";
 import { DORTMUND_DISTRICTS } from "../../lib/dortmund";
-
-/**
- * v2 Dortmund : plus de paiement à la livraison (remplacé par le wallet à
- * une étape ultérieure). Le champ COD est masqué et codAmount forcé à 0 ;
- * le code est conservé pour être retiré proprement avec le module COD.
- */
-const COD_ENABLED = false;
-
-/**
- * Erreur affichée : soit une CLÉ i18n (re-traduite si l'utilisateur change de
- * langue), soit un message brut renvoyé par le backend.
- */
-type ServerError = { key: string } | { raw: string };
-
-type FormState = {
-  receiverName: string;
-  receiverPhone: string;
-  receiverEmail: string;
-  deliveryAddress: string;
-  deliveryCity: string;
-  description: string;
-  deliveryType: DeliveryType;
-  isFragile: boolean;
-  codAmount: string;
-  usePickupOverride: boolean;
-  pickupAddress: string;
-  pickupCity: string;
-};
-
-const emptyForm: FormState = {
-  receiverName: "",
-  receiverPhone: "",
-  receiverEmail: "",
-  deliveryAddress: "",
-  deliveryCity: "",
-  description: "",
-  deliveryType: "STANDARD",
-  isFragile: false,
-  codAmount: "",
-  usePickupOverride: false,
-  pickupAddress: "",
-  pickupCity: "",
-};
+import { useEstimatePrice, useCreateShipment, type PriceEstimate } from "../../lib/createShipmentQueries";
+import { useMyWallet } from "../../lib/walletQueries";
+import { formatEUR } from "../../lib/money";
+import { dateLocaleTag } from "../../lib/dateLocale";
 
 export default function CreateShipmentPage() {
-  const navigate = useNavigate();
-  const { t } = useTranslation("expediteur");
+  const { t, i18n } = useTranslation("expediteur");
   const { t: tc } = useTranslation("common");
-  const [form, setForm] = useState<FormState>(emptyForm);
-  const [serverError, setServerError] = useState<ServerError | null>(null);
+  const navigate = useNavigate();
 
-  const { data: profile } = useMyExpediteurProfile();
-  const create = useCreateMyShipment();
+  const [receiverName, setReceiverName] = useState("");
+  const [receiverPhone, setReceiverPhone] = useState("");
+  const [quartier, setQuartier] = useState("");
+  const [address, setAddress] = useState("");
+  const [type, setType] = useState<"SIMPLE" | "EXPRESS">("SIMPLE");
+  const [isFragile, setIsFragile] = useState(false);
+  const [description, setDescription] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
-  const { data: estimate } = useEstimatePrice({
-    deliveryType: form.deliveryType,
-    isFragile: form.isFragile,
-  });
+  const [estimate, setEstimate] = useState<PriceEstimate | null>(null);
+  const estimateMut = useEstimatePrice();
+  const createMut = useCreateShipment();
+  const { data: wallet } = useMyWallet();
 
-  const update = <K extends keyof FormState>(k: K, v: FormState[K]) =>
-    setForm((f) => ({ ...f, [k]: v }));
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // N° de la dernière demande d'estimation : une réponse plus ancienne qui
+  // arriverait en retard est ignorée (sinon le prix affiché ≠ prix débité).
+  const estimateSeq = useRef(0);
+  // Vrai entre une saisie (quartier/adresse) et la réponse correspondante
+  const [estimating, setEstimating] = useState(false);
 
-  // La validation stocke des CLÉS i18n, jamais des libellés figés
-  const validation = useMemo(() => {
-    const errs: Partial<Record<keyof FormState, string>> = {};
-    if (form.receiverName.trim().length < 2) errs.receiverName = "create.validation.nameRequired";
-    if (!/^\+?[0-9\s-]{7,20}$/.test(form.receiverPhone)) errs.receiverPhone = "create.validation.phoneInvalid";
-    if (form.deliveryAddress.trim().length < 5) errs.deliveryAddress = "create.validation.addressTooShort";
-    if (!form.deliveryCity) errs.deliveryCity = "create.validation.cityRequired";
-    if (form.codAmount && (isNaN(Number(form.codAmount)) || Number(form.codAmount) < 0)) {
-      errs.codAmount = "create.validation.codInvalid";
-    }
-    if (form.usePickupOverride) {
-      if (form.pickupAddress.trim().length < 5) errs.pickupAddress = "create.validation.addressTooShort";
-      if (!form.pickupCity) errs.pickupCity = "create.validation.cityRequired";
-    }
-    return errs;
-  }, [form]);
-
-  const isValid = Object.keys(validation).length === 0;
-  const profileHasPickup = !!profile?.pickupAddress && !!profile?.pickupCity;
-  const needsOverride = !profileHasPickup && !form.usePickupOverride;
-
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setServerError(null);
-
-    if (needsOverride) {
-      setServerError({ key: "create.errors.noPickup" });
-      return;
-    }
-
-    const payload: CreateShipmentInput = {
-      receiverName: form.receiverName.trim(),
-      receiverPhone: form.receiverPhone.trim(),
-      receiverEmail: form.receiverEmail.trim() || undefined,
-      deliveryAddress: form.deliveryAddress.trim(),
-      deliveryCity: form.deliveryCity,
-      description: form.description.trim() || undefined,
-      deliveryType: form.deliveryType,
-      isFragile: form.isFragile,
-      codAmount: COD_ENABLED && form.codAmount ? Number(form.codAmount) : 0,
-      ...(form.usePickupOverride
-        ? {
-            pickupAddress: form.pickupAddress.trim(),
-            pickupCity: form.pickupCity,
-          }
-        : {}),
-    };
-
-    try {
-      const created = await create.mutateAsync(payload);
-      navigate(`/expediteur/shipments/${created.id}`);
-    } catch (err) {
-      if (isAxiosError(err)) {
-        const msg = (err.response?.data as { error?: { message?: string } } | undefined)?.error?.message;
-        setServerError(msg ? { raw: msg } : { key: "create.errors.create" });
-      } else {
-        setServerError({ key: "create.errors.network" });
+  // Estimation live (debounce) dès qu'un quartier est choisi
+  useEffect(() => {
+    const seq = ++estimateSeq.current;
+    if (!quartier) { setEstimate(null); setEstimating(false); return; }
+    setEstimating(true);
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(async () => {
+      try {
+        const res = await estimateMut.mutateAsync({ quartier, address: address.trim() || undefined });
+        if (seq === estimateSeq.current) setEstimate(res);
+      } catch {
+        if (seq === estimateSeq.current) setEstimate(null);
+      } finally {
+        if (seq === estimateSeq.current) setEstimating(false);
       }
+    }, 500);
+    return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quartier, address]);
+
+  const chosenPrice = estimate ? (type === "SIMPLE" ? estimate.prices.simple : estimate.prices.express) : null;
+  const balance = wallet?.balance ?? 0;
+  const insufficient = chosenPrice != null && balance < chosenPrice;
+  const canSubmit =
+    receiverName.trim().length >= 2 &&
+    receiverPhone.trim().length >= 5 &&
+    quartier &&
+    address.trim().length >= 5 &&
+    chosenPrice != null &&
+    !estimating && // prix à jour avant de payer
+    !insufficient &&
+    !createMut.isPending;
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!canSubmit) return;
+    setError(null);
+    try {
+      const res = await createMut.mutateAsync({
+        receiverName: receiverName.trim(),
+        receiverPhone: receiverPhone.trim(),
+        deliveryCity: quartier,
+        deliveryAddress: address.trim(),
+        deliveryType: type,
+        isFragile,
+        description: description.trim() || undefined,
+      });
+      navigate("/expediteur/shipments", { state: { created: res.trackingNumber, pickupRound: res.pickupRound } });
+    } catch (err) {
+      const msg = isAxiosError(err)
+        ? (err.response?.data as { error?: { message?: string } } | undefined)?.error?.message
+        : null;
+      setError(msg ?? tc("common.error"));
     }
   };
 
@@ -142,301 +98,136 @@ export default function CreateShipmentPage() {
     <>
       <div className="ds-page-head">
         <div>
-          <button className="auth-back" onClick={() => navigate(-1)} style={{ marginBottom: 8 }}>
-            <ArrowLeft size={14} /> {tc("actions.back")}
-          </button>
           <h1>{t("create.title")}</h1>
           <p>{t("create.subtitle")}</p>
         </div>
+        {wallet && (
+          <div className="cs-wallet-chip">
+            <Wallet size={15} />
+            <span>{t("create.balance")}</span>
+            <b>{formatEUR(balance)}</b>
+          </div>
+        )}
       </div>
 
-      <form onSubmit={onSubmit} className="ship-form">
-        <div className="ship-grid">
-          {/* ===== Colonne gauche : formulaire ===== */}
-          <div className="ship-col-form">
-            {/* Section Destinataire */}
-            <div className="ship-section">
-              <div className="ship-section-head">
-                <span className="ship-section-ic"><User size={17} /></span>
-                <h3>{t("create.sections.receiver")}</h3>
+      <form className="cs-form" onSubmit={submit}>
+        <div className="cs-grid">
+          {/* Colonne gauche : infos */}
+          <div className="cs-col">
+            {/* Destinataire */}
+            <div className="cs-card">
+              <h3>{t("create.sectionReceiver")}</h3>
+              <div className="cs-field">
+                <label><User size={14} /> {t("create.receiverName")}</label>
+                <input value={receiverName} onChange={(e) => setReceiverName(e.target.value)} placeholder={t("create.receiverNamePlaceholder")} />
               </div>
-              <div className="set-row">
-                <div className="set-field">
-                  <label>{t("create.fields.fullName")}</label>
-                  <input
-                    required
-                    value={form.receiverName}
-                    onChange={(e) => update("receiverName", e.target.value)}
-                    placeholder={t("create.placeholders.name")}
-                  />
-                  {form.receiverName.length > 0 && validation.receiverName && (
-                    <span className="auth-err">{t(validation.receiverName)}</span>
-                  )}
-                </div>
-                <div className="set-field">
-                  <label>{t("create.fields.phone")}</label>
-                  <input
-                    required
-                    value={form.receiverPhone}
-                    onChange={(e) => update("receiverPhone", e.target.value)}
-                    placeholder={t("create.placeholders.phone")}
-                  />
-                  {form.receiverPhone.length > 0 && validation.receiverPhone && (
-                    <span className="auth-err">{t(validation.receiverPhone)}</span>
-                  )}
-                </div>
-              </div>
-              <div className="set-field">
-                <label>{t("create.fields.email")}</label>
-                <input
-                  type="email"
-                  value={form.receiverEmail}
-                  onChange={(e) => update("receiverEmail", e.target.value)}
-                  placeholder={t("create.placeholders.email")}
-                />
+              <div className="cs-field">
+                <label><Phone size={14} /> {t("create.receiverPhone")}</label>
+                <input value={receiverPhone} onChange={(e) => setReceiverPhone(e.target.value)} placeholder="+49 ..." />
               </div>
             </div>
 
-            {/* Section Adresse de livraison */}
-            <div className="ship-section">
-              <div className="ship-section-head">
-                <span className="ship-section-ic"><MapPin size={17} /></span>
-                <h3>{t("create.sections.address")}</h3>
-              </div>
-              <div className="set-field">
-                <label>{t("create.fields.fullAddress")}</label>
-                <input
-                  required
-                  value={form.deliveryAddress}
-                  onChange={(e) => update("deliveryAddress", e.target.value)}
-                  placeholder={t("create.placeholders.address")}
-                />
-                {form.deliveryAddress.length > 0 && validation.deliveryAddress && (
-                  <span className="auth-err">{t(validation.deliveryAddress)}</span>
-                )}
-              </div>
-              <div className="set-field">
-                <label>{t("create.fields.city")}</label>
-                <select
-                  className="tbl-select"
-                  style={{ width: "100%" }}
-                  required
-                  value={form.deliveryCity}
-                  onChange={(e) => update("deliveryCity", e.target.value)}
-                >
-                  <option value="">{t("create.placeholders.chooseCity")}</option>
-                  {/* Quartiers : noms propres, non traduits */}
-                  {DORTMUND_DISTRICTS.map((c) => (
-                    <option key={c} value={c}>{c}</option>
-                  ))}
+            {/* Livraison */}
+            <div className="cs-card">
+              <h3>{t("create.sectionDelivery")}</h3>
+              <div className="cs-field">
+                <label><MapPin size={14} /> {t("create.deliveryCity")}</label>
+                <select value={quartier} onChange={(e) => setQuartier(e.target.value)}>
+                  <option value="">{t("create.selectCity")}</option>
+                  {DORTMUND_DISTRICTS.map((d) => <option key={d} value={d}>{d}</option>)}
                 </select>
               </div>
+              <div className="cs-field">
+                <label><Home size={14} /> {t("create.deliveryAddress")}</label>
+                <input value={address} onChange={(e) => setAddress(e.target.value)} placeholder={t("create.deliveryAddressPlaceholder")} required />
+                <span className="cs-hint">{t("create.addressRequiredHint")}</span>
+              </div>
             </div>
 
-            {/* Section Type de livraison */}
-            <div className="ship-section">
-              <div className="ship-section-head">
-                <span className="ship-section-ic"><Truck size={17} /></span>
-                <h3>{t("create.sections.deliveryType")}</h3>
-              </div>
-              <div className="ship-types">
-                <label className={`ship-type-card ${form.deliveryType === "STANDARD" ? "selected" : ""}`}>
-                  <input
-                    type="radio"
-                    name="deliveryType"
-                    checked={form.deliveryType === "STANDARD"}
-                    onChange={() => update("deliveryType", "STANDARD")}
-                  />
-                  <div className="stc-head">
-                    <Truck size={18} />
-                    <span className="stc-name">{t("create.standard.name")}</span>
-                  </div>
-                  <p className="stc-desc">{t("create.standard.desc")}</p>
-                  <span className="stc-price">{formatEUR(8)}</span>
-                </label>
-                <label className={`ship-type-card ${form.deliveryType === "EXPRESS" ? "selected express" : ""}`}>
-                  <input
-                    type="radio"
-                    name="deliveryType"
-                    checked={form.deliveryType === "EXPRESS"}
-                    onChange={() => update("deliveryType", "EXPRESS")}
-                  />
-                  <div className="stc-head">
-                    <Zap size={18} />
-                    <span className="stc-name">{t("create.express.name")}</span>
-                  </div>
-                  <p className="stc-desc">{t("create.express.desc")}</p>
-                  <span className="stc-price">{formatEUR(12)}</span>
-                </label>
-              </div>
-
-              <label className="ship-fragile">
-                <input
-                  type="checkbox"
-                  checked={form.isFragile}
-                  onChange={(e) => update("isFragile", e.target.checked)}
-                />
-                <AlertTriangle size={16} />
-                <div>
-                  <b>{t("create.fragile.title")}</b>
-                  <span>{t("create.fragile.desc")}</span>
-                </div>
+            {/* Options */}
+            <div className="cs-card">
+              <h3>{t("create.sectionOptions")}</h3>
+              <label className="cs-check">
+                <input type="checkbox" checked={isFragile} onChange={(e) => setIsFragile(e.target.checked)} />
+                <span><AlertTriangle size={14} /> {t("create.fragile")} <small>{t("create.fragileHintNoCost")}</small></span>
               </label>
-            </div>
-
-            {/* Section COD — masquée en v2 (voir COD_ENABLED) */}
-            {COD_ENABLED && (
-            <div className="ship-section">
-              <div className="ship-section-head">
-                <span className="ship-section-ic"><Wallet size={17} /></span>
-                <h3>{t("create.sections.cod")}</h3>
+              <div className="cs-field">
+                <label>{t("create.description")} <span className="cs-opt">({tc("common.optional")})</span></label>
+                <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={2} placeholder={t("create.descriptionPlaceholder")} maxLength={300} />
               </div>
-              <div className="set-field">
-                <label>{t("create.fields.codAmount")}</label>
-                <input
-                  type="number"
-                  min="0"
-                  step="0.001"
-                  value={form.codAmount}
-                  onChange={(e) => update("codAmount", e.target.value)}
-                  placeholder={t("create.placeholders.codAmount")}
-                />
-                {validation.codAmount && (
-                  <span className="auth-err">{t(validation.codAmount)}</span>
-                )}
-              </div>
-            </div>
-            )}
-
-            {/* Section Description */}
-            <div className="ship-section">
-              <div className="ship-section-head">
-                <span className="ship-section-ic"><Package size={17} /></span>
-                <h3>{t("create.sections.description")}</h3>
-              </div>
-              <div className="set-field">
-                <textarea
-                  value={form.description}
-                  onChange={(e) => update("description", e.target.value)}
-                  placeholder={t("create.placeholders.description")}
-                  rows={3}
-                  maxLength={500}
-                />
-              </div>
-            </div>
-
-            {/* Section Ramassage (avancé) */}
-            <div className="ship-section">
-              <label className="ship-toggle-row">
-                <input
-                  type="checkbox"
-                  checked={form.usePickupOverride}
-                  onChange={(e) => update("usePickupOverride", e.target.checked)}
-                />
-                <div>
-                  <b>{t("create.pickup.toggleTitle")}</b>
-                  <span>
-                    {profileHasPickup
-                      ? t("create.pickup.default", { address: profile.pickupAddress, city: profile.pickupCity })
-                      : t("create.pickup.none")}
-                  </span>
-                </div>
-              </label>
-
-              {form.usePickupOverride && (
-                <div style={{ marginTop: 12 }}>
-                  <div className="set-field">
-                    <label>{t("create.pickup.address")}</label>
-                    <input
-                      value={form.pickupAddress}
-                      onChange={(e) => update("pickupAddress", e.target.value)}
-                      placeholder={t("create.pickup.addressPlaceholder")}
-                    />
-                    {form.pickupAddress.length > 0 && validation.pickupAddress && (
-                      <span className="auth-err">{t(validation.pickupAddress)}</span>
-                    )}
-                  </div>
-                  <div className="set-field">
-                    <label>{t("create.pickup.city")}</label>
-                    <select
-                      className="tbl-select"
-                      style={{ width: "100%" }}
-                      value={form.pickupCity}
-                      onChange={(e) => update("pickupCity", e.target.value)}
-                    >
-                      <option value="">{t("create.placeholders.chooseCity")}</option>
-                      {DORTMUND_DISTRICTS.map((c) => (
-                        <option key={c} value={c}>{c}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
 
-          {/* ===== Colonne droite : récap & prix ===== */}
-          <aside className="ship-col-summary">
-            <div className="ship-summary">
-              <h3>{t("create.summary.title")}</h3>
+          {/* Colonne droite : type + prix */}
+          <div className="cs-col">
+            <div className="cs-card cs-pricing">
+              <h3>{t("create.deliveryType")}</h3>
 
-              <div className="ship-sum-row">
-                <span>{t("create.summary.type")}</span>
-                <b>{form.deliveryType === "EXPRESS" ? t("create.express.name") : t("create.standard.name")}</b>
-              </div>
-              <div className="ship-sum-row">
-                <span>{t("create.summary.base")}</span>
-                <b>{formatEUR(estimate?.basePrice ?? (form.deliveryType === "EXPRESS" ? 12 : 8))}</b>
-              </div>
-              {form.isFragile && (
-                <div className="ship-sum-row">
-                  <span>{t("create.summary.fragileFee")}</span>
-                  <b>+{formatEUR(estimate?.fragileFee ?? 3)}</b>
+              {!quartier && <div className="cs-pick-hint"><Info size={15} /> {t("create.pickCityFirst")}</div>}
+
+              {quartier && estimating && !estimate && (
+                <div className="cs-estimating"><Loader2 size={16} className="cs-spin" /> {t("create.estimating")}</div>
+              )}
+
+              {/* Les 2 options avec prix live */}
+              <button type="button" className={`cs-type ${type === "SIMPLE" ? "active" : ""}`} onClick={() => setType("SIMPLE")} disabled={!estimate}>
+                <div className="cs-type-ic"><Truck size={20} /></div>
+                <div className="cs-type-info">
+                  <b>{t("create.simple")}</b>
+                  <span>{t("create.simpleDesc")}</span>
+                </div>
+                <div className="cs-type-price">{estimate ? formatEUR(estimate.prices.simple) : "—"}</div>
+              </button>
+
+              <button type="button" className={`cs-type ${type === "EXPRESS" ? "active" : ""}`} onClick={() => setType("EXPRESS")} disabled={!estimate}>
+                <div className="cs-type-ic express"><Zap size={20} /></div>
+                <div className="cs-type-info">
+                  <b>{t("create.express")}</b>
+                  <span>{t("create.expressDesc")}</span>
+                </div>
+                <div className="cs-type-price">{estimate ? formatEUR(estimate.prices.express) : "—"}</div>
+              </button>
+
+              {estimate && (
+                <div className="cs-distance">
+                  <MapPin size={13} /> {t("create.distance", { km: estimate.distanceKm.toLocaleString(dateLocaleTag(i18n.language), { maximumFractionDigits: 1 }) })}
+                  {estimate.geocodeSource === "quartier_fallback" && (
+                    <span className="cs-approx"> · {t("create.approxDistance")}</span>
+                  )}
                 </div>
               )}
 
-              <div className="ship-sum-divider" />
-
-              <div className="ship-sum-total">
-                <span>{t("create.summary.total")}</span>
-                <b>{formatEUR(estimate?.total ?? (form.deliveryType === "EXPRESS" ? 12 : 8))}</b>
-              </div>
-
-              {COD_ENABLED && Number(form.codAmount) > 0 && (
-                <div className="ship-cod-info">
-                  <Wallet size={14} />
-                  <div>
-                    <b>{formatEUR(form.codAmount)}</b>
-                    <span>{t("create.summary.codNote")}</span>
+              {/* Récap débit */}
+              {chosenPrice != null && (
+                <div className="cs-total">
+                  <div className="cs-total-row">
+                    <span>{t("create.toPay")}</span>
+                    <b>{formatEUR(chosenPrice)}</b>
+                  </div>
+                  <div className={`cs-total-row sub ${insufficient ? "err" : ""}`}>
+                    <span>{t("create.balanceAfter")}</span>
+                    <b>{formatEUR(balance - chosenPrice)}</b>
                   </div>
                 </div>
               )}
 
-              {serverError && (
-                <div className="auth-server-err" style={{ marginTop: 14 }}>
-                  {"key" in serverError ? t(serverError.key) : serverError.raw}
+              {insufficient && (
+                <div className="cs-insufficient">
+                  <AlertTriangle size={15} /> {t("create.insufficient")}
                 </div>
               )}
 
-              <button
-                type="submit"
-                className="ship-submit"
-                disabled={!isValid || create.isPending}
-              >
-                {create.isPending ? (
-                  t("create.submitting")
-                ) : (
-                  <>
-                    {t("create.submit")} <ArrowRight size={16} />
-                  </>
-                )}
+              {error && <div className="cs-error">{error}</div>}
+
+              <button type="submit" className="cs-submit" disabled={!canSubmit}>
+                {createMut.isPending
+                  ? t("create.submitting")
+                  : <><Check size={16} /> {t("create.submit")}</>}
               </button>
 
-              <p className="ship-fineprint">
-                <Check size={12} /> {t("create.fineprint")}
-              </p>
+              <p className="cs-prepaid-note">{t("create.prepaidNote")}</p>
             </div>
-          </aside>
+          </div>
         </div>
       </form>
     </>

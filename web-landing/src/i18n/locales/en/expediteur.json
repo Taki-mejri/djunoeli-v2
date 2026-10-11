@@ -89,7 +89,7 @@
   },
   "create": {
     "title": "Create shipment",
-    "subtitle": "Enter the recipient's details and choose the delivery type.",
+    "subtitle": "Enter the delivery details. The price is debited from your wallet.",
     "sections": {
       "receiver": "Recipient",
       "address": "Delivery address",
@@ -118,14 +118,8 @@
       "name": "Standard",
       "desc": "Delivery in 24-48 hrs"
     },
-    "express": {
-      "name": "Express",
-      "desc": "Same day (all of Dortmund)"
-    },
-    "fragile": {
-      "title": "Fragile shipment",
-      "desc": "Careful handling · +€3.00"
-    },
+    "express": "Express",
+    "fragile": "Fragile",
     "pickup": {
       "toggleTitle": "Different pickup address",
       "default": "Default: {{address}}, {{city}}",
@@ -142,7 +136,7 @@
       "total": "Total amount",
       "codNote": "to be collected from the recipient"
     },
-    "submit": "Confirm and create shipment",
+    "submit": "Create and pay",
     "submitting": "Creating...",
     "fineprint": "Price calculated and verified server-side. You will not pay more.",
     "validation": {
@@ -156,7 +150,38 @@
       "noPickup": "You have no pickup address in your profile. Enable “Different pickup address” and fill it in, or update your profile.",
       "create": "Error while creating.",
       "network": "Network error."
-    }
+    },
+    "balance": "Balance",
+    "sectionReceiver": "Recipient",
+    "sectionDelivery": "Delivery",
+    "sectionOptions": "Options",
+    "receiverName": "Recipient name",
+    "receiverNamePlaceholder": "e.g. Max Mustermann",
+    "receiverPhone": "Recipient phone",
+    "deliveryCity": "District",
+    "selectCity": "Select a district",
+    "deliveryAddress": "Delivery address",
+    "deliveryAddressPlaceholder": "Street and number",
+    "addressHint": "A precise address improves price accuracy.",
+    "fragileHintNoCost": "(note for the driver, no extra cost)",
+    "description": "Description",
+    "descriptionPlaceholder": "Contents, notes...",
+    "deliveryType": "Delivery type",
+    "simple": "Standard",
+    "simpleDesc": "Same-day delivery (round)",
+    "expressDesc": "Delivery within 90 minutes",
+    "distance": "Distance: {{km}} km",
+    "approxDistance": "approx.",
+    "estimating": "Calculating price...",
+    "pickCityFirst": "Select a district first to see prices.",
+    "toPay": "To pay",
+    "balanceAfter": "Balance after",
+    "insufficient": "Insufficient balance. Please top up your wallet.",
+    "prepaidNote": "The amount is debited from your wallet immediately.",
+    "cutoffToday": "Pickup today (created before 11:00).",
+    "cutoffTomorrow": "Pickup tomorrow (created after 11:00).",
+    "cutoffExpress": "Express: immediate pickup.",
+    "addressRequiredHint": "Required — the driver needs the exact address. Price may fall back to district."
   },
   "detail": {
     "loadError": "Error: {{message}}",

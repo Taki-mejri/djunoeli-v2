@@ -70,6 +70,7 @@ const livreurJobWithHistorySelect = {
 } satisfies Prisma.ShipmentSelect;
 
 const ACTIVE_STATUSES = [
+  "ASSIGNED", // v2
   "AWAITING_PICKUP",
   "PICKED_UP",
   "AT_WAREHOUSE",

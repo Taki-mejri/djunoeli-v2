@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { LayoutDashboard, PackagePlus, Package, Receipt, User } from "lucide-react";
+import { LayoutDashboard, PackagePlus, Package, Receipt, User, Wallet } from "lucide-react";
 
 export type NavItem = { label: string; icon: ReactNode; path: string };
 export type NavGroup = { title: string; items: NavItem[] };
@@ -27,8 +27,9 @@ export function useExpediteurNav(): NavGroup[] {
       {
         title: t("nav.groupFinance"),
         items: [
+          { label: t("wallet:nav.myWallet"), icon: <Wallet size={19} />, path: "/expediteur/wallet" },
           { label: t("nav.invoices"), icon: <Receipt size={19} />, path: "/expediteur/invoices" },
-          // v2 : entrée COD masquée (paiement à la livraison supprimé, wallet à venir)
+          // v2 : entrée COD masquée (paiement à la livraison supprimé, remplacé par le wallet)
         ],
       },
       {

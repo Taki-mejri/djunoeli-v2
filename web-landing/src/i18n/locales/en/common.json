@@ -42,6 +42,7 @@
   },
   "status": {
     "PENDING": "Pending",
+    "ASSIGNED": "Assigned",
     "AWAITING_PICKUP": "Awaiting pickup",
     "AT_WAREHOUSE": "At warehouse",
     "PICKED_UP": "Picked up",

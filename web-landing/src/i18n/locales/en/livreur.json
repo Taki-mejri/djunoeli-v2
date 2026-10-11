@@ -13,14 +13,16 @@
     "subtitle": "Your shipments to deliver.",
     "activeCount_one": "{{count}} active job",
     "activeCount_other": "{{count}} active jobs",
-    "empty": "No jobs yet",
-    "emptyHint": "Your shipments to deliver will appear here once a warehouse assigns them to you."
+    "empty": "No jobs",
+    "emptyHint": "Assigned shipments will appear here.",
+    "count_one": "{{count}} active job",
+    "count_other": "{{count}} active jobs"
   },
   "detail": {
     "back": "My jobs",
     "backToJobs": "Back to jobs",
     "receiver": "Recipient",
-    "package": "Shipment",
+    "package": "Package",
     "pickup": "Pickup",
     "sender": "Sender",
     "senderLine": "Sender: {{name}}",
@@ -30,15 +32,22 @@
     "map": "Map",
     "codToCollect": "To collect on delivery",
     "trackingTitle": "Tracking",
-    "terminalDelivered": "Job completed — shipment delivered",
-    "terminalFailed": "Job completed — delivery failed"
+    "terminalDelivered": "Job complete — delivered",
+    "terminalFailed": "Job complete — failed",
+    "pickupAt": "Pick up at",
+    "callStore": "Call store",
+    "nowOnTheWay": "On the way to {{name}}.",
+    "nowDelivered": "{{tracking}} delivered.",
+    "notFound": "Job not found or already completed."
   },
   "actions": {
     "start": "Start job",
     "enRoute": "On my way",
     "arrived": "Arrived — out for delivery",
     "markDelivered": "Mark as delivered",
-    "reportFailure": "Report failure"
+    "reportFailure": "Report failure",
+    "confirmPickup": "Confirm pickup",
+    "startDelivery": "Start delivery"
   },
   "call": {
     "title": "Call outcome",
@@ -141,5 +150,25 @@
     "jobNotFound": "Job not found",
     "generic": "Error",
     "callFailed": "Could not log the call."
+  },
+  "scan": {
+    "placeholder": "Scan tracking number to pick up...",
+    "pickup": "Pick up",
+    "done": "Picked up",
+    "doneTrk": "{{tracking}} picked up.",
+    "doneExpress": "{{tracking}} picked up — Express countdown running."
+  },
+  "express": {
+    "remaining": "Remaining",
+    "overdue": "Overdue by",
+    "deliveredOnTime": "Express delivered on time",
+    "deliveredLate": "Express delivered late"
+  },
+  "fail": {
+    "title": "Delivery failed",
+    "subtitle": "Provide the reason.",
+    "placeholder": "e.g. recipient not available",
+    "confirm": "Confirm failure",
+    "recorded": "Failure recorded."
   }
 }

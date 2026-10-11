@@ -34,6 +34,7 @@ enum UserStatus {
 
 enum ShipmentStatus {
   PENDING            // En attente
+  ASSIGNED           // v2 : assigné à un livreur par l'admin (avant ramassage au magasin)
   AWAITING_PICKUP    // En attente de ramassage
   PICKED_UP          // Pris en charge
   AT_WAREHOUSE       // À l'entrepôt
@@ -46,7 +47,8 @@ enum ShipmentStatus {
 }
 
 enum DeliveryType {
-  STANDARD
+  STANDARD // legacy v1 (ne plus utiliser)
+  SIMPLE   // v2 : tournée de 11h
   EXPRESS
 }
 
@@ -143,6 +145,7 @@ model User {
   invoicesCreated    Invoice[] @relation("InvoicesCreated")
   inventorySessionsStarted InventorySession[] @relation("InventorySessionsStarted")
   shipmentsVerified        Shipment[]         @relation("ShipmentsVerified")
+  walletTxCreated          WalletTransaction[] @relation("WalletTxCreated")
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -193,6 +196,11 @@ model Expediteur {
   // Finance
   balance        Decimal  @default(0) @db.Decimal(12, 3) // en DT
   creditLimit    Decimal  @default(0) @db.Decimal(12, 3)
+
+  // Wallet v2 (EUR) — crédité par l'admin, débité à la création de colis
+  walletBalance      Decimal             @default(0) @db.Decimal(12, 2)
+  firstTopupDone     Boolean             @default(false) // bonus de bienvenue (une seule fois)
+  walletTransactions WalletTransaction[]
 
   pricingPlanId  String?
   pricingPlan    PricingPlan? @relation(fields: [pricingPlanId], references: [id])
@@ -295,9 +303,10 @@ model Shipment {
   receiverPhone   String
   deliveryAddress String
   deliveryCity    String
-  deliveryLat     Float?
+  deliveryLat     Float?   // v2 : coords géocodées (ou centre du quartier)
   deliveryLng     Float?
   receiverEmail   String?
+  deliveryDistanceKm Decimal? @db.Decimal(6, 2) // v2 : distance au hub (vol d'oiseau)
 
   // Colis
   description     String?
@@ -319,6 +328,12 @@ model Shipment {
   pickedUpAt        DateTime?
   deliveredAt       DateTime?
   expectedDeliveryDate DateTime?
+  plannedPickupDate DateTime? // v2 : jour de tournée (règle 11h, Europe/Berlin)
+  assignedAt        DateTime?  // v2 : assignation admin → livreur
+  expressPickupAt   DateTime?  // v2 : ramassage d'un EXPRESS (départ du chrono)
+  slaDeadlineAt     DateTime?  // v2 : expressPickupAt + EXPRESS_SLA_MINUTES
+  slaBreached       Boolean?   // v2 : renseigné à la livraison d'un EXPRESS
+  pickupRound       String?   // v2 : "today" | "tomorrow" | "express"
   expediteurCodSettledAt DateTime? // COD reversé à l'expéditeur (colis COD)
 
   // Preuve de livraison
@@ -779,4 +794,27 @@ model OtpCode {
 
   @@index([phone, purpose])
   @@index([expiresAt])
+}
+
+/* =====================================================
+   WALLET EXPÉDITEUR (v2, EUR)
+   amount > 0 : crédit (CREDIT_ADMIN, REFUND, BONUS, TOPUP_CARD)
+   amount < 0 : débit (DEBIT_SHIPMENT)
+   balanceAfter : solde résultant, pour auditer l'historique
+   ===================================================== */
+model WalletTransaction {
+  id            String   @id @default(cuid())
+  expediteurId  String
+  type          String   // CREDIT_ADMIN | DEBIT_SHIPMENT | REFUND | BONUS | TOPUP_CARD
+  amount        Decimal  @db.Decimal(12, 2)
+  balanceAfter  Decimal  @db.Decimal(12, 2)
+  note          String?
+  shipmentId    String?  // pour un DEBIT_SHIPMENT (lien au colis)
+  createdById   String?  // l'admin qui a crédité (null si auto)
+  createdAt     DateTime @default(now())
+
+  expediteur    Expediteur @relation(fields: [expediteurId], references: [id])
+  createdBy     User?      @relation("WalletTxCreated", fields: [createdById], references: [id])
+
+  @@index([expediteurId, createdAt])
 }

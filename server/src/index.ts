@@ -8,7 +8,7 @@ import authRoutes from "./routes/auth.routes.js";
 import { adminExpediteursRouter, expediteurSelfRouter } from "./routes/expediteur.routes.js";
 import { adminLivreursRouter, livreurSelfRouter } from "./routes/livreur.routes.js";
 import { adminShipmentsRouter, expediteurShipmentsRouter } from "./routes/shipment.routes.js";
-import { adminDispatchRouter, livreurJobsRouter } from "./routes/dispatch.routes.js";
+import { adminDispatchRouter, livreurJobsRouter, livreurPickupRouter } from "./routes/dispatch.routes.js";
 import { dispatcherRouter } from "./routes/dispatcher.routes.js";
 import { inventoryRouter, inventoryHistoryRouter } from "./routes/inventory.routes.js";
 import { remoteAssignRouter } from "./routes/remoteAssign.routes.js";
@@ -16,6 +16,8 @@ import { financeRouter, livreurCodRouter } from "./routes/codSettlement.routes.j
 import { financeExtendedRouter } from "./routes/financeExtended.routes.js";
 import { publicRouter } from "./routes/publicTrack.routes.js";
 import { otpRouter } from "./routes/otp.routes.js";
+import { pricingRouter } from "./routes/pricing.routes.js";
+import { walletRouter, adminWalletRouter } from "./routes/wallet.routes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 
 const app = express();
@@ -53,6 +55,7 @@ app.use("/api/v1/expediteur/shipments", expediteurShipmentsRouter);
 // Dispatch (assign/unassign/suggest + livreur jobs)
 app.use("/api/v1/admin/shipments", adminDispatchRouter);
 app.use("/api/v1/livreur/jobs", livreurJobsRouter);
+app.use("/api/v1/livreur/pickup", livreurPickupRouter);
 // Assignation à distance (partagé admin + dispatcher) — monté avant /dispatch par cohérence d'ordre
 app.use("/api/v1/remote-assign", remoteAssignRouter);
 app.use("/api/v1/dispatch/inventory", inventoryRouter);
@@ -61,6 +64,9 @@ app.use("/api/v1/dispatch", dispatcherRouter);
 app.use("/api/v1/finance", financeRouter);
 app.use("/api/v1/finance", financeExtendedRouter);
 app.use("/api/v1/livreur/cod", livreurCodRouter);
+app.use("/api/v1/pricing", pricingRouter);
+app.use("/api/v1/wallet", walletRouter);
+app.use("/api/v1/admin/wallets", adminWalletRouter);
 
 app.use((_req, res) => {
   res.status(404).json({ error: { code: "NOT_FOUND", message: "Route introuvable" } });
@@ -78,10 +84,13 @@ app.listen(PORT, () => {
   console.log(`   Livreurs    : CRUD   /api/v1/admin/livreurs`);
   console.log(`   Shipments   : CRUD   /api/v1/admin/shipments`);
   console.log(`   Dispatch    : POST   /admin/shipments/:id/{assign,unassign}`);
+  console.log(`   Livraison v2: GET    /livreur/jobs · POST /livreur/pickup · PATCH /livreur/jobs/:id/status`);
   console.log(`   Dispatcher  : POST   /dispatch/scan/{receive,sort,assign}`);
   console.log(`   Inventaire  : GET    /dispatch/inventory/{expected,current,:id} · POST /open,:id/scan,:id/close`);
   console.log(`   Remote      : GET    /remote-assign/shipments · POST /remote-assign`);
   console.log(`   Finance     : GET    /finance/livreur-balances · POST /livreur-settle`);
+  console.log(`   Pricing     : POST   /api/v1/pricing/estimate { quartier, address?, type? }`);
+  console.log(`   Wallet      : GET    /api/v1/wallet/me · admin: GET /admin/wallets[/:id] · POST /:id/{credit,refund}`);
   console.log(`   Self exp.   : GET    /api/v1/expediteur/me  · CRUD /shipments`);
   console.log(`   Self liv.   : GET    /api/v1/livreur/me     · GET /jobs`);
 });

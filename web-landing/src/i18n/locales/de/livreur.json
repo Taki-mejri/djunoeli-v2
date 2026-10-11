@@ -13,8 +13,10 @@
     "subtitle": "Ihre zuzustellenden Sendungen.",
     "activeCount_one": "{{count}} aktiver Auftrag",
     "activeCount_other": "{{count}} aktive Aufträge",
-    "empty": "Noch keine Aufträge",
-    "emptyHint": "Ihre zuzustellenden Sendungen erscheinen hier, sobald ein Lager sie Ihnen zuweist."
+    "empty": "Keine Aufträge",
+    "emptyHint": "Zugewiesene Sendungen erscheinen hier.",
+    "count_one": "{{count}} aktiver Auftrag",
+    "count_other": "{{count}} aktive Aufträge"
   },
   "detail": {
     "back": "Meine Aufträge",
@@ -30,15 +32,22 @@
     "map": "Karte",
     "codToCollect": "Bei Lieferung einzuziehen",
     "trackingTitle": "Verfolgung",
-    "terminalDelivered": "Auftrag abgeschlossen — Sendung zugestellt",
-    "terminalFailed": "Auftrag abgeschlossen — Zustellung fehlgeschlagen"
+    "terminalDelivered": "Auftrag abgeschlossen — zugestellt",
+    "terminalFailed": "Auftrag abgeschlossen — fehlgeschlagen",
+    "pickupAt": "Abholen bei",
+    "callStore": "Geschäft anrufen",
+    "nowOnTheWay": "Unterwegs zu {{name}}.",
+    "nowDelivered": "{{tracking}} zugestellt.",
+    "notFound": "Auftrag nicht gefunden oder bereits abgeschlossen."
   },
   "actions": {
     "start": "Auftrag starten",
     "enRoute": "Unterwegs",
     "arrived": "Angekommen — in Zustellung",
     "markDelivered": "Als zugestellt markieren",
-    "reportFailure": "Fehler melden"
+    "reportFailure": "Fehler melden",
+    "confirmPickup": "Abholung bestätigen",
+    "startDelivery": "Zustellung starten"
   },
   "call": {
     "title": "Anrufergebnis",
@@ -141,5 +150,25 @@
     "jobNotFound": "Auftrag nicht gefunden",
     "generic": "Fehler",
     "callFailed": "Anruf konnte nicht gespeichert werden."
+  },
+  "scan": {
+    "placeholder": "Sendungsnummer scannen zum Abholen...",
+    "pickup": "Abholen",
+    "done": "Abgeholt",
+    "doneTrk": "{{tracking}} abgeholt.",
+    "doneExpress": "{{tracking}} abgeholt — Express-Countdown läuft."
+  },
+  "express": {
+    "remaining": "Verbleibend",
+    "overdue": "Überfällig seit",
+    "deliveredOnTime": "Express pünktlich zugestellt",
+    "deliveredLate": "Express verspätet zugestellt"
+  },
+  "fail": {
+    "title": "Zustellung fehlgeschlagen",
+    "subtitle": "Geben Sie den Grund an.",
+    "placeholder": "z. B. Empfänger nicht angetroffen",
+    "confirm": "Fehler bestätigen",
+    "recorded": "Fehler gespeichert."
   }
 }

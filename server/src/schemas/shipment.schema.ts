@@ -8,19 +8,7 @@ export const estimateSchema = z.object({
 
 export type EstimateInput = z.infer<typeof estimateSchema>;
 
-export const createShipmentSchema = z.object({
-  receiverName: z.string().min(2, "Nom du destinataire trop court").max(120),
-  receiverPhone: z.string().regex(/^\+?[0-9\s-]{7,20}$/, "Téléphone invalide"),
-  receiverEmail: z.string().email().optional(),
-  deliveryAddress: z.string().min(2).max(255),
-  deliveryCity: z.string().min(2).max(80),
-  deliveryType: z.nativeEnum(DeliveryType).default("STANDARD"),
-  isFragile: z.boolean().default(false),
-  codAmount: z.number().min(0).default(0),
-  description: z.string().max(255).optional(),
-});
-
-export type CreateShipmentInput = z.infer<typeof createShipmentSchema>;
+// Création de colis : voir createShipmentV2.schema.ts (v2 Dortmund, prix serveur + wallet)
 
 export const cancelShipmentSchema = z.object({
   reason: z.string().min(2, "Raison trop courte").max(255),

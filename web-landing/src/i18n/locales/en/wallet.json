@@ -1,0 +1,52 @@
+{
+  "nav": {
+    "myWallet": "My wallet",
+    "wallets": "Wallets"
+  },
+  "txType": {
+    "CREDIT_ADMIN": "Top-up",
+    "TOPUP_CARD": "Card top-up",
+    "BONUS": "Welcome bonus",
+    "REFUND": "Refund",
+    "DEBIT_SHIPMENT": "Shipment"
+  },
+  "exp": {
+    "title": "My wallet",
+    "subtitle": "Your balance and transactions.",
+    "currentBalance": "Current balance",
+    "topupNote": "To top up your wallet, contact the Djunoeli team. Online card top-up is coming soon.",
+    "history": "Transaction history",
+    "noTx": "No transactions yet.",
+    "loadError": "Could not load wallet."
+  },
+  "admin": {
+    "title": "Shipper wallets",
+    "subtitle": "Manage shipper balances (top-up and refund).",
+    "totalBalance": "Total balance",
+    "shippers": "Shippers",
+    "noTopupYet": "No first top-up",
+    "balance": "Balance",
+    "credit": "Top up",
+    "refund": "Refund",
+    "bonusPending": "Bonus pending",
+    "empty": "No shippers",
+    "loadError": "Failed to load."
+  },
+  "modal": {
+    "creditTitle": "Top up wallet",
+    "refundTitle": "Refund wallet",
+    "currentBalance": "Current balance",
+    "amount": "Amount",
+    "note": "Note",
+    "notePlaceholderCredit": "e.g. bank transfer received",
+    "notePlaceholderRefund": "e.g. express delay",
+    "bonusHint": "First top-up: +€20 welcome bonus will be added automatically.",
+    "confirmCredit": "Confirm top-up",
+    "confirmRefund": "Confirm refund",
+    "invalidAmount": "Invalid amount",
+    "done": "Done",
+    "creditDone": "{{amount}} topped up. New balance: {{balance}}.",
+    "creditDoneBonus": "{{amount}} topped up + {{bonus}} welcome bonus. New balance: {{balance}}.",
+    "refundDone": "{{amount}} refunded. New balance: {{balance}}."
+  }
+}

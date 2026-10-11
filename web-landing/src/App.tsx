@@ -23,6 +23,7 @@ import ReportsPage from "./pages/admin/ReportsPage";
 import AdminFinanceOverviewPage from "./pages/admin/AdminFinanceOverviewPage";
 import SupportPage from "./pages/admin/SupportPage";
 import SettingsPage from "./pages/admin/SettingsPage";
+import WalletsPage from "./pages/admin/WalletsPage";
 
 // Expediteur pages
 import ExpediteurDashboard from "./pages/expediteur/ExpediteurDashboard";
@@ -32,6 +33,7 @@ import ShipmentDetailPageExpediteur from "./pages/expediteur/ShipmentDetailPage"
 import ExpInvoicesPage from "./pages/expediteur/ExpInvoicesPage";
 import ExpCodPage from "./pages/expediteur/ExpCodPage";
 import ProfilePage from "./pages/expediteur/ProfilePage";
+import WalletPage from "./pages/expediteur/WalletPage";
 import ExpediteurLayout from "./components/expediteur/ExpediteurLayout";
 import DispatchLayout from "./components/dispatch/DispatchLayout";
 
@@ -103,6 +105,7 @@ export default function App() {
           <Route path="invoices" element={<InvoicesPage />} />
           <Route path="reports" element={<ReportsPage />} />
           <Route path="finance" element={<AdminFinanceOverviewPage />} />
+          <Route path="wallets" element={<WalletsPage />} />
           <Route path="support" element={<SupportPage />} />
           <Route path="settings" element={<SettingsPage />} />
         </Route>
@@ -115,6 +118,7 @@ export default function App() {
           <Route path="new" element={<CreateShipmentPage />} />
           <Route path="shipments" element={<MyShipmentsPage />} />
           <Route path="shipments/:id" element={<ShipmentDetailPageExpediteur />} />
+          <Route path="wallet" element={<WalletPage />} />
           <Route path="invoices" element={<ExpInvoicesPage />} />
           <Route path="cod" element={<ExpCodPage />} />
           <Route path="profile" element={<ProfilePage />} />

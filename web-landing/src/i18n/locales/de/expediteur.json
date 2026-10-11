@@ -89,7 +89,7 @@
   },
   "create": {
     "title": "Sendung erstellen",
-    "subtitle": "Geben Sie die Empfängerdaten ein und wählen Sie die Versandart.",
+    "subtitle": "Geben Sie die Lieferdaten ein. Der Preis wird von Ihrem Guthaben abgebucht.",
     "sections": {
       "receiver": "Empfänger",
       "address": "Lieferadresse",
@@ -118,14 +118,8 @@
       "name": "Standard",
       "desc": "Zustellung in 24-48 Std."
     },
-    "express": {
-      "name": "Express",
-      "desc": "Noch am selben Tag (ganz Dortmund)"
-    },
-    "fragile": {
-      "title": "Zerbrechliche Sendung",
-      "desc": "Sorgfältige Behandlung · +3,00 €"
-    },
+    "express": "Express",
+    "fragile": "Zerbrechlich",
     "pickup": {
       "toggleTitle": "Abweichende Abholadresse",
       "default": "Standard: {{address}}, {{city}}",
@@ -142,7 +136,7 @@
       "total": "Gesamtbetrag",
       "codNote": "beim Empfänger einzuziehen"
     },
-    "submit": "Bestätigen und Sendung erstellen",
+    "submit": "Sendung erstellen und bezahlen",
     "submitting": "Wird erstellt...",
     "fineprint": "Preis serverseitig berechnet und geprüft. Sie zahlen nicht mehr.",
     "validation": {
@@ -156,7 +150,38 @@
       "noPickup": "Sie haben keine Abholadresse in Ihrem Profil. Aktivieren Sie „Abweichende Abholadresse“ und füllen Sie sie aus, oder aktualisieren Sie Ihr Profil.",
       "create": "Fehler beim Erstellen.",
       "network": "Netzwerkfehler."
-    }
+    },
+    "balance": "Guthaben",
+    "sectionReceiver": "Empfänger",
+    "sectionDelivery": "Lieferung",
+    "sectionOptions": "Optionen",
+    "receiverName": "Name des Empfängers",
+    "receiverNamePlaceholder": "z. B. Max Mustermann",
+    "receiverPhone": "Telefon des Empfängers",
+    "deliveryCity": "Stadtteil",
+    "selectCity": "Stadtteil auswählen",
+    "deliveryAddress": "Lieferadresse",
+    "deliveryAddressPlaceholder": "Straße und Hausnummer",
+    "addressHint": "Genaue Adresse verbessert die Preisberechnung.",
+    "fragileHintNoCost": "(Hinweis für den Fahrer, kein Aufpreis)",
+    "description": "Beschreibung",
+    "descriptionPlaceholder": "Inhalt, Anmerkungen...",
+    "deliveryType": "Lieferart",
+    "simple": "Standard",
+    "simpleDesc": "Zustellung am selben Tag (Tour)",
+    "expressDesc": "Zustellung in 90 Minuten",
+    "distance": "Entfernung: {{km}} km",
+    "approxDistance": "ungefähr",
+    "estimating": "Preis wird berechnet...",
+    "pickCityFirst": "Wählen Sie zuerst einen Stadtteil, um die Preise zu sehen.",
+    "toPay": "Zu zahlen",
+    "balanceAfter": "Guthaben danach",
+    "insufficient": "Unzureichendes Guthaben. Bitte laden Sie Ihr Guthaben auf.",
+    "prepaidNote": "Der Betrag wird sofort von Ihrem Guthaben abgebucht.",
+    "cutoffToday": "Abholung heute (vor 11:00 erstellt).",
+    "cutoffTomorrow": "Abholung morgen (nach 11:00 erstellt).",
+    "cutoffExpress": "Express: sofortige Abholung.",
+    "addressRequiredHint": "Pflicht — der Fahrer benötigt die genaue Adresse. Preis ggf. auf Stadtteil-Basis."
   },
   "detail": {
     "loadError": "Fehler: {{message}}",

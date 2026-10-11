@@ -2,14 +2,16 @@ import type { Prisma } from "@prisma/client";
 import { prisma } from "../lib/prisma.js";
 import { getPriceBreakdown } from "../lib/pricing.js";
 import { buildTrackingNumber } from "../lib/tracking.js";
+import { computeShipmentPricing, computePlannedPickup } from "../lib/shipmentPricing.js";
+import { debitForShipment } from "./wallet.service.js";
 import { badRequest, notFound, forbidden } from "../middleware/errorHandler.js";
 import { makePaginated, parseSort, type Paginated } from "../lib/pagination.js";
 import type {
   EstimateInput,
-  CreateShipmentInput,
   CancelShipmentInput,
   ListShipmentFilters,
 } from "../schemas/shipment.schema.js";
+import type { CreateShipmentV2Input } from "../schemas/createShipmentV2.schema.js";
 
 /* =====================================================
    Select — liste (sans historique pour la perf)
@@ -57,6 +59,11 @@ const shipmentDetailSelect = {
   pickedUpAt: true,
   deliveredAt: true,
   expectedDeliveryDate: true,
+  deliveryDistanceKm: true,
+  deliveryLat: true,
+  deliveryLng: true,
+  plannedPickupDate: true,
+  pickupRound: true,
   statusHistory: {
     orderBy: { createdAt: "desc" as const },
     select: {
@@ -172,11 +179,13 @@ export async function getMyShipment(id: string, expediteurUserId: string): Promi
 }
 
 /* =====================================================
-   CREATE — crée le colis + 1ère entrée dans l'historique
+   CREATE (v2) — prix calculé serveur + débit wallet + règle 11h
+   Une seule transaction : colis + historique + débit. Si le solde est
+   insuffisant, debitForShipment lève une 400 et RIEN n'est créé.
    ===================================================== */
 export async function createShipment(
   expediteurUserId: string,
-  input: CreateShipmentInput
+  input: CreateShipmentV2Input
 ): Promise<ShipmentDetail> {
   // Récupère le profil expéditeur (snapshot des infos d'envoi)
   const expediteur = await prisma.expediteur.findFirst({
@@ -200,7 +209,16 @@ export async function createShipment(
     );
   }
 
-  const { total } = getPriceBreakdown(input.deliveryType, input.isFragile);
+  // 1. Prix côté serveur (jamais celui du client). Le géocodage (réseau,
+  //    jusqu'à 4 s) se fait AVANT la transaction pour ne pas la garder ouverte.
+  const pricing = await computeShipmentPricing({
+    quartier: input.deliveryCity,
+    address: input.deliveryAddress,
+    type: input.deliveryType,
+  });
+
+  // 2. Jour de tournée (règle 11h, Europe/Berlin)
+  const { plannedPickupDate, round } = computePlannedPickup(input.deliveryType);
 
   const createdId = await prisma.$transaction(async (tx) => {
     const count = await tx.shipment.count();
@@ -223,14 +241,20 @@ export async function createShipment(
         receiverEmail: input.receiverEmail,
         deliveryAddress: input.deliveryAddress,
         deliveryCity: input.deliveryCity,
-        // Colis
+        deliveryLat: pricing.lat,
+        deliveryLng: pricing.lng,
+        deliveryDistanceKm: pricing.distanceKm,
+        // Colis (fragile = info livreur, sans surcoût en v2)
         deliveryType: input.deliveryType,
         isFragile: input.isFragile,
         weight: 0,
         description: input.description,
-        // Prix
-        deliveryPrice: total,
-        codAmount: input.codAmount,
+        // Prix (= montant débité du wallet) — plus de COD
+        deliveryPrice: pricing.price,
+        codAmount: 0,
+        // Tournée
+        plannedPickupDate,
+        pickupRound: round,
         // Statut initial
         status: "PENDING",
         statusHistory: {
@@ -242,6 +266,14 @@ export async function createShipment(
         },
       },
       select: { id: true },
+    });
+
+    // 3. Débit du wallet, lié au colis. Solde insuffisant → exception →
+    //    rollback de toute la transaction (colis + historique compris).
+    await debitForShipment(tx, {
+      expediteurId: expediteur.id,
+      amount: pricing.price,
+      shipmentId: created.id,
     });
 
     return created.id;

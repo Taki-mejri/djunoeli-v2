@@ -18,6 +18,8 @@ import deAdmin from "./locales/de/admin.json";
 import enAdmin from "./locales/en/admin.json";
 import deTrack from "./locales/de/track.json";
 import enTrack from "./locales/en/track.json";
+import deWallet from "./locales/de/wallet.json";
+import enWallet from "./locales/en/wallet.json";
 
 // Les fichiers locales/fr/*.json restent sur disque (héritage v1) mais ne sont plus chargés.
 
@@ -33,6 +35,7 @@ import enTrack from "./locales/en/track.json";
  *  - finance : espace finance (trésorerie, COD, factures, rapports) + supervision admin
  *  - admin   : espace administrateur (tableau de bord, colis, expéditeurs, livreurs)
  *  - track   : suivi public d'un colis (page /track, sans authentification)
+ *  - wallet  : portefeuille expéditeur (solde, historique) + gestion admin des soldes
  *
  * Couverture complète : les 5 espaces de l'application sont bilingues DE/EN.
  *
@@ -44,15 +47,15 @@ i18n
   .use(initReactI18next)
   .init({
     resources: {
-      de: { common: deCommon, auth: deAuth, expediteur: deExpediteur, livreur: deLivreur, dispatch: deDispatch, finance: deFinance, admin: deAdmin, track: deTrack },
-      en: { common: enCommon, auth: enAuth, expediteur: enExpediteur, livreur: enLivreur, dispatch: enDispatch, finance: enFinance, admin: enAdmin, track: enTrack },
+      de: { common: deCommon, auth: deAuth, expediteur: deExpediteur, livreur: deLivreur, dispatch: deDispatch, finance: deFinance, admin: deAdmin, track: deTrack, wallet: deWallet },
+      en: { common: enCommon, auth: enAuth, expediteur: enExpediteur, livreur: enLivreur, dispatch: enDispatch, finance: enFinance, admin: enAdmin, track: enTrack, wallet: enWallet },
     },
     fallbackLng: "de",
     supportedLngs: ["de", "en"],
     // "de-DE" → "de", "en-US" → "en" (sinon un navigateur en-US tomberait sur le fallback)
     nonExplicitSupportedLngs: true,
     defaultNS: "common",
-    ns: ["common", "auth", "expediteur", "livreur", "dispatch", "finance", "admin", "track"],
+    ns: ["common", "auth", "expediteur", "livreur", "dispatch", "finance", "admin", "track", "wallet"],
     detection: {
       // localStorage d'abord (choix manuel mémorisé), puis langue du navigateur
       order: ["localStorage", "navigator"],

@@ -1,0 +1,52 @@
+{
+  "nav": {
+    "myWallet": "Mein Guthaben",
+    "wallets": "Guthaben"
+  },
+  "txType": {
+    "CREDIT_ADMIN": "Aufladung",
+    "TOPUP_CARD": "Kartenaufladung",
+    "BONUS": "Willkommensbonus",
+    "REFUND": "Erstattung",
+    "DEBIT_SHIPMENT": "Sendung"
+  },
+  "exp": {
+    "title": "Mein Guthaben",
+    "subtitle": "Ihr Guthaben und Ihre Transaktionen.",
+    "currentBalance": "Aktuelles Guthaben",
+    "topupNote": "Um Ihr Guthaben aufzuladen, wenden Sie sich an das Djunoeli-Team. Online-Aufladung per Karte folgt in Kürze.",
+    "history": "Transaktionsverlauf",
+    "noTx": "Noch keine Transaktionen.",
+    "loadError": "Guthaben konnte nicht geladen werden."
+  },
+  "admin": {
+    "title": "Guthaben der Versender",
+    "subtitle": "Verwalten Sie das Guthaben der Versender (Aufladung und Erstattung).",
+    "totalBalance": "Gesamtguthaben",
+    "shippers": "Versender",
+    "noTopupYet": "Ohne erste Aufladung",
+    "balance": "Guthaben",
+    "credit": "Aufladen",
+    "refund": "Erstatten",
+    "bonusPending": "Bonus ausstehend",
+    "empty": "Keine Versender",
+    "loadError": "Laden fehlgeschlagen."
+  },
+  "modal": {
+    "creditTitle": "Guthaben aufladen",
+    "refundTitle": "Guthaben erstatten",
+    "currentBalance": "Aktuelles Guthaben",
+    "amount": "Betrag",
+    "note": "Notiz",
+    "notePlaceholderCredit": "z. B. Banküberweisung erhalten",
+    "notePlaceholderRefund": "z. B. Express-Verspätung",
+    "bonusHint": "Erste Aufladung: +20 € Willkommensbonus wird automatisch hinzugefügt.",
+    "confirmCredit": "Aufladen bestätigen",
+    "confirmRefund": "Erstattung bestätigen",
+    "invalidAmount": "Ungültiger Betrag",
+    "done": "Erledigt",
+    "creditDone": "{{amount}} aufgeladen. Neues Guthaben: {{balance}}.",
+    "creditDoneBonus": "{{amount}} aufgeladen + {{bonus}} Willkommensbonus. Neues Guthaben: {{balance}}.",
+    "refundDone": "{{amount}} erstattet. Neues Guthaben: {{balance}}."
+  }
+}

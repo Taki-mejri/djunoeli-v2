@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { DORTMUND_DISTRICTS } from "../lib/dortmundGeo.js";
 
 /* =====================================================
    SCAN RÉCEPTION — colis arrive au dépôt
@@ -20,14 +21,6 @@ export type ScanReceiveInput = z.infer<typeof scanReceiveSchema>;
 /* =====================================================
    SCAN TRI — colis trié par quartier de Dortmund (Stadtteil)
    ===================================================== */
-
-/** Doit rester synchronisé avec web-landing/src/lib/dortmund.ts */
-const DORTMUND_DISTRICTS = [
-  "Innenstadt-Nord", "Innenstadt-Ost", "Innenstadt-West", "Hörde", "Hombruch",
-  "Aplerbeck", "Brackel", "Eving", "Huckarde", "Lütgendortmund",
-  "Mengede", "Scharnhorst", "Nette", "Dorstfeld", "Kirchlinde",
-  "Marten", "Wambel", "Körne", "Asseln", "Wickede",
-] as const;
 
 export const scanSortSchema = z.object({
   trackingNumber: z
