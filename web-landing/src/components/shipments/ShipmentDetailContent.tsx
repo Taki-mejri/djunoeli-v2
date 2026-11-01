@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
-  ArrowLeft, AlertTriangle, MapPin, User, Truck, Wallet, Package,
+  ArrowLeft, AlertTriangle, MapPin, User, Truck, Package,
   Phone, Calendar,
 } from "lucide-react";
 import StatusBadge from "../dashboard/StatusBadge";
@@ -138,20 +138,6 @@ export default function ShipmentDetailContent({ shipment, backLink, topActions, 
               {s.description || <em style={{ color: "var(--muted)" }}>{t("detail.noDescription")}</em>}
             </p>
           </div>
-
-          {/* COD */}
-          {Number(s.codAmount) > 0 && (
-            <div className="ship-section ship-cod-card">
-              <div className="ship-section-head">
-                <span className="ship-section-ic"><Wallet size={17} /></span>
-                <h3>{t("detail.sections.cod")}</h3>
-              </div>
-              <div className="sd-cod-big">
-                {formatEUR(s.codAmount)}
-              </div>
-              <p className="sd-cod-note">{t("detail.codNote")}</p>
-            </div>
-          )}
 
           {/* Livreur */}
           {s.livreur && (

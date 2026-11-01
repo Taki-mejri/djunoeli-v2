@@ -193,7 +193,6 @@
       "pickup": "Abholung",
       "receiver": "Empfänger",
       "content": "Inhalt",
-      "cod": "Nachnahme",
       "livreur": "Zugewiesener Fahrer",
       "dates": "Termine",
       "journal": "Detailliertes Protokoll"
@@ -204,7 +203,6 @@
     "company": "Firma",
     "contact": "Kontakt",
     "noDescription": "Keine Beschreibung",
-    "codNote": "Bei der Zustellung beim Empfänger einzuziehen.",
     "createdAt": "Erstellt am",
     "pickedUpAt": "Abgeholt am",
     "deliveredAt": "Zugestellt am"

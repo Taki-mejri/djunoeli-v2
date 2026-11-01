@@ -49,7 +49,6 @@ export type ShipmentDTO = {
   isFragile: boolean;
   deliveryType: DeliveryType;
   deliveryPrice: string; // Decimal en string
-  codAmount: string;
   insuranceFee: string;
   status: ShipmentStatus;
   statusReason: string | null;
@@ -108,7 +107,6 @@ export type CreateShipmentInput = {
   description?: string;
   isFragile?: boolean;
   deliveryType: DeliveryType;
-  codAmount?: number;
 };
 
 /* ===========================

@@ -44,9 +44,6 @@ import JobDetailPage from "./pages/livreur/JobDetailPage";
 import LivCodPage from "./pages/livreur/LivCodPage";
 import LivProfilePage from "./pages/livreur/LivProfilePage";
 
-// Shared pages
-import RemoteAssignPage from "./pages/shared/RemoteAssignPage";
-
 // Finance pages
 import FinanceHome from "./pages/finance/FinanceHome";
 import LivreurBalancesPage from "./pages/finance/LivreurBalancesPage";
@@ -85,7 +82,6 @@ export default function App() {
           <Route path="shipments" element={<ShipmentsPage />} />
           <Route path="shipments/:id" element={<ShipmentDetailPageAdmin />} />
           <Route path="assign" element={<AssignPage />} />
-          <Route path="remote-assign" element={<RemoteAssignPage />} />
           <Route path="tracking" element={<TrackingPage />} />
           <Route path="drivers" element={<DriversPage />} />
           <Route path="expediteurs" element={<ExpediteursPage />} />

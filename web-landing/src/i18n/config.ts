@@ -10,8 +10,6 @@ import deExpediteur from "./locales/de/expediteur.json";
 import enExpediteur from "./locales/en/expediteur.json";
 import deLivreur from "./locales/de/livreur.json";
 import enLivreur from "./locales/en/livreur.json";
-import deDispatch from "./locales/de/dispatch.json";
-import enDispatch from "./locales/en/dispatch.json";
 import deFinance from "./locales/de/finance.json";
 import enFinance from "./locales/en/finance.json";
 import deAdmin from "./locales/de/admin.json";
@@ -31,7 +29,6 @@ import enWallet from "./locales/en/wallet.json";
  *  - auth   : pages de connexion
  *  - expediteur : espace expéditeur (dashboard, colis, création, détail)
  *  - livreur : espace livreur / PWA (courses, détail, modales, COD, profil)
- *  - dispatch : espace dispatcher (stations de scan, inventaire, assignation à distance)
  *  - finance : espace finance (trésorerie, COD, factures, rapports) + supervision admin
  *  - admin   : espace administrateur (tableau de bord, colis, expéditeurs, livreurs)
  *  - track   : suivi public d'un colis (page /track, sans authentification)
@@ -47,15 +44,15 @@ i18n
   .use(initReactI18next)
   .init({
     resources: {
-      de: { common: deCommon, auth: deAuth, expediteur: deExpediteur, livreur: deLivreur, dispatch: deDispatch, finance: deFinance, admin: deAdmin, track: deTrack, wallet: deWallet },
-      en: { common: enCommon, auth: enAuth, expediteur: enExpediteur, livreur: enLivreur, dispatch: enDispatch, finance: enFinance, admin: enAdmin, track: enTrack, wallet: enWallet },
+      de: { common: deCommon, auth: deAuth, expediteur: deExpediteur, livreur: deLivreur, finance: deFinance, admin: deAdmin, track: deTrack, wallet: deWallet },
+      en: { common: enCommon, auth: enAuth, expediteur: enExpediteur, livreur: enLivreur, finance: enFinance, admin: enAdmin, track: enTrack, wallet: enWallet },
     },
     fallbackLng: "de",
     supportedLngs: ["de", "en"],
     // "de-DE" → "de", "en-US" → "en" (sinon un navigateur en-US tomberait sur le fallback)
     nonExplicitSupportedLngs: true,
     defaultNS: "common",
-    ns: ["common", "auth", "expediteur", "livreur", "dispatch", "finance", "admin", "track", "wallet"],
+    ns: ["common", "auth", "expediteur", "livreur", "finance", "admin", "track", "wallet"],
     detection: {
       // localStorage d'abord (choix manuel mémorisé), puis langue du navigateur
       order: ["localStorage", "navigator"],

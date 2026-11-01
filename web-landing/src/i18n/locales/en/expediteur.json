@@ -193,7 +193,6 @@
       "pickup": "Pickup",
       "receiver": "Recipient",
       "content": "Contents",
-      "cod": "COD",
       "livreur": "Assigned driver",
       "dates": "Dates",
       "journal": "Detailed log"
@@ -204,7 +203,6 @@
     "company": "Company",
     "contact": "Contact",
     "noDescription": "No description",
-    "codNote": "To be collected from the recipient on delivery.",
     "createdAt": "Created on",
     "pickedUpAt": "Picked up on",
     "deliveredAt": "Delivered on"

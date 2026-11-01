@@ -1,8 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Package, AlertCircle, AlertTriangle, PhoneCall } from "lucide-react";
-import RemoteAssignModal from "../../components/shared/RemoteAssignModal";
+import { Package, AlertCircle, AlertTriangle } from "lucide-react";
 import DataTable, { type Column } from "../../components/dashboard/DataTable";
 import Toolbar from "../../components/dashboard/Toolbar";
 import StatusBadge from "../../components/dashboard/StatusBadge";
@@ -28,7 +27,6 @@ export default function ShipmentsPage() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState<ListShipmentsParams["status"]>(undefined);
-  const [raOpen, setRaOpen] = useState(false);
 
   const pageSize = 20;
   const params: ListShipmentsParams = {
@@ -93,15 +91,6 @@ export default function ShipmentsPage() {
       render: (r) => <span className="num-cell">{formatEUR(r.deliveryPrice)}</span>,
     },
     {
-      key: "cod",
-      label: t("shipments.columns.cod"),
-      align: "right",
-      render: (r) => {
-        const amount = Number(r.codAmount);
-        return amount > 0 ? <span className="num-cell">{formatEUR(amount)}</span> : <span className="cell-sub">—</span>;
-      },
-    },
-    {
       key: "status",
       label: t("shipments.columns.status"),
       render: (r) => <StatusBadge label={tc(`status.${r.status}`)} tone={shipmentStatusTone[r.status]} />,
@@ -136,9 +125,6 @@ export default function ShipmentsPage() {
           <span className="kpi-mini">
             <Package size={14} /> {t("shipments.totalBadge", { count: total })}
           </span>
-          <button className="ds-btn-secondary" onClick={() => setRaOpen(true)}>
-            <PhoneCall size={15} style={{ marginRight: 6 }} /> {t("shipments.remoteAssign")}
-          </button>
         </div>
       </div>
 
@@ -202,7 +188,6 @@ export default function ShipmentsPage() {
         />
       )}
 
-      <RemoteAssignModal open={raOpen} onClose={() => setRaOpen(false)} />
     </>
   );
 }
