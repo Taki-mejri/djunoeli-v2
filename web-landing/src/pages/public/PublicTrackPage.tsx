@@ -173,7 +173,9 @@ export default function PublicTrackPage() {
                         <Icon size={16} />
                       </div>
                       <div className="trk-step-body">
-                        <span className="trk-step-label">{tc(`status.${step.key}`)}</span>
+                        <span className="trk-step-label">
+                        {step.key === "PENDING" ? tc("timeline.created") : tc(`status.${step.key}`)}
+                      </span>
                         {step.at && (
                           <span className="trk-step-date">
                             {new Date(step.at).toLocaleString(undefined, {

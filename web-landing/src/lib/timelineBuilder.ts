@@ -7,7 +7,8 @@ import type { ShipmentStatus, ShipmentStatusHistoryEntry } from "./shipmentQueri
  *
  * Branches terminales : un colis annulé, en échec ou retourné garde les
  * étapes déjà atteintes, et son état terminal REMPLACE l'étape finale.
- * Les libellés réutilisent common:status.* (pas de clés dédiées).
+ * Les libellés réutilisent common:status.*, sauf l'étape 1 : common:timeline.created
+ * (« Erstellt » ; le badge de statut, lui, reste status.PENDING « Ausstehend »).
  */
 const FLOW = ["PENDING", "ASSIGNED", "PICKED_UP", "OUT_FOR_DELIVERY", "DELIVERED"] as const;
 
@@ -131,7 +132,7 @@ export function buildTimeline(
 
     return {
       key: flowKey,
-      labelKey: `common:status.${flowKey}`,
+      labelKey: flowKey === "PENDING" ? "common:timeline.created" : `common:status.${flowKey}`,
       state,
       timestamp: stepTimestamps[i],
       hintKey,

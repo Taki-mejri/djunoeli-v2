@@ -9,7 +9,6 @@ import { adminExpediteursRouter, expediteurSelfRouter } from "./routes/expediteu
 import { adminLivreursRouter, livreurSelfRouter } from "./routes/livreur.routes.js";
 import { adminShipmentsRouter, expediteurShipmentsRouter } from "./routes/shipment.routes.js";
 import { adminDispatchRouter, adminDispatchReadRouter, livreurJobsRouter, livreurPickupRouter } from "./routes/dispatch.routes.js";
-import { remoteAssignRouter } from "./routes/remoteAssign.routes.js";
 import { financeRouter, livreurCodRouter } from "./routes/codSettlement.routes.js";
 import { financeExtendedRouter } from "./routes/financeExtended.routes.js";
 import { publicRouter } from "./routes/publicTrack.routes.js";
@@ -55,8 +54,6 @@ app.use("/api/v1/admin/shipments", adminDispatchRouter);
 app.use("/api/v1/admin/dispatch", adminDispatchReadRouter);
 app.use("/api/v1/livreur/jobs", livreurJobsRouter);
 app.use("/api/v1/livreur/pickup", livreurPickupRouter);
-// Assignation à distance (admin)
-app.use("/api/v1/remote-assign", remoteAssignRouter);
 app.use("/api/v1/finance", financeRouter);
 app.use("/api/v1/finance", financeExtendedRouter);
 app.use("/api/v1/livreur/cod", livreurCodRouter);
@@ -82,7 +79,6 @@ app.listen(PORT, () => {
   console.log(`   Dispatch    : POST   /admin/shipments/:id/{assign,unassign}`);
   console.log(`   Zuweisung   : GET    /admin/dispatch/{shipments,livreurs}`);
   console.log(`   Livraison v2: GET    /livreur/jobs · POST /livreur/pickup · PATCH /livreur/jobs/:id/status`);
-  console.log(`   Remote      : GET    /remote-assign/shipments · POST /remote-assign`);
   console.log(`   Finance     : GET    /finance/livreur-balances · POST /livreur-settle`);
   console.log(`   Pricing     : POST   /api/v1/pricing/estimate { quartier, address?, type? }`);
   console.log(`   Wallet      : GET    /api/v1/wallet/me · admin: GET /admin/wallets[/:id] · POST /:id/{credit,refund}`);

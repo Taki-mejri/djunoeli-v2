@@ -112,5 +112,8 @@
     "confirm": "Stornieren",
     "done": "Sendung storniert.",
     "doneRefund": "{{tracking}} storniert — {{amount}} erstattet ({{percent}} %)."
+  },
+  "timeline": {
+    "created": "Erstellt"
   }
 }

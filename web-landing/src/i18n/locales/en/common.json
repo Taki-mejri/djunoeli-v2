@@ -112,5 +112,8 @@
     "confirm": "Cancel shipment",
     "done": "Shipment cancelled.",
     "doneRefund": "{{tracking}} cancelled — {{amount}} refunded ({{percent}}%)."
+  },
+  "timeline": {
+    "created": "Created"
   }
 }

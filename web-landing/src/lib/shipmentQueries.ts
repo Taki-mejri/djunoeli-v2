@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient, keepPreviousData } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { api } from "./api";
 
 /* ===========================
@@ -95,20 +95,6 @@ export type ListShipmentsParams = {
   dateTo?: string;
 };
 
-export type CreateShipmentInput = {
-  expediteurId?: string;
-  receiverName: string;
-  receiverPhone: string;
-  receiverEmail?: string;
-  deliveryAddress: string;
-  deliveryCity: string;
-  pickupAddress?: string;
-  pickupCity?: string;
-  description?: string;
-  isFragile?: boolean;
-  deliveryType: DeliveryType;
-};
-
 /* ===========================
    QUERY KEYS
    =========================== */
@@ -170,19 +156,6 @@ export function useMyShipment(id: string | undefined) {
       return data;
     },
     enabled: !!id,
-  });
-}
-
-export function useCreateMyShipment() {
-  const qc = useQueryClient();
-  return useMutation({
-    mutationFn: async (input: CreateShipmentInput) => {
-      const { data } = await api.post<ShipmentDTO>("/expediteur/shipments", input);
-      return data;
-    },
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: shipmentKeys.all });
-    },
   });
 }
 
