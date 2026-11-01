@@ -1,5 +1,6 @@
 import type { Prisma } from "@prisma/client";
 import { prisma } from "../lib/prisma.js";
+import { historyNote } from "../lib/historyNote.js";
 import { notFound, badRequest, conflict } from "../middleware/errorHandler.js";
 import { makePaginated, parseSort, type Paginated } from "../lib/pagination.js";
 
@@ -224,7 +225,7 @@ export async function unassignLivreurFromShipment(
       data: {
         shipmentId,
         status: "PENDING",
-        note: reason ? `Désassigné · ${reason}` : "Désassigné du livreur",
+        note: historyNote("unassigned", { reason }),
         changedById: actorUserId,
       },
     });

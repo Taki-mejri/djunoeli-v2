@@ -1,5 +1,6 @@
 import type { Prisma, ShipmentStatus } from "@prisma/client";
 import { prisma } from "../lib/prisma.js";
+import { historyNote } from "../lib/historyNote.js";
 import { notFound, badRequest, conflict } from "../middleware/errorHandler.js";
 
 /**
@@ -108,10 +109,10 @@ export async function assignToLivreur(input: {
       where: { id: shipment.id },
       select: deliverySelect,
     });
-    const verb = previousLivreurId && previousLivreurId !== input.livreurId ? "Réassigné" : "Assigné";
+    const reassigned = !!previousLivreurId && previousLivreurId !== input.livreurId;
     await recordHistory(
       tx, shipment.id, "ASSIGNED",
-      `${verb} à ${livreurName}${input.note ? ` · ${input.note}` : ""}`,
+      historyNote(reassigned ? "reassigned" : "assigned", { name: livreurName, reason: input.note }),
       input.actorUserId
     );
     await tx.livreur.update({ where: { id: input.livreurId }, data: { status: "BUSY" } });
@@ -184,9 +185,9 @@ async function markPickedUp(input: {
     const s = await tx.shipment.findUniqueOrThrow({ where: { id: shipment.id }, select: deliverySelect });
     await recordHistory(
       tx, shipment.id, "PICKED_UP",
-      (isExpress && slaDeadline
-        ? `Ramassé — Express, à livrer avant ${berlinTime(slaDeadline)}`
-        : "Ramassé au magasin") + (input.note ? ` · ${input.note}` : ""),
+      isExpress && slaDeadline
+        ? historyNote("pickedUpExpress", { time: berlinTime(slaDeadline), reason: input.note })
+        : historyNote("pickedUp", { reason: input.note }),
       actorUserId
     );
     return s;
@@ -276,14 +277,13 @@ export async function advanceDelivery(input: {
     if (res.count === 0) throw conflict("Le statut de la course vient de changer, rechargez.");
     const s = await tx.shipment.findUniqueOrThrow({ where: { id: shipment.id }, select: deliverySelect });
 
-    let note =
-      input.target === "DELIVERED" ? "Livré"
-      : input.target === "OUT_FOR_DELIVERY" ? "En route vers le client"
-      : "Échec de livraison";
-    if (input.target === "DELIVERED" && isExpress) {
-      note += slaBreached ? ` · Express HORS délai (>${EXPRESS_SLA_MINUTES} min)` : " · Express dans les délais";
-    }
-    if (input.reason) note += ` · ${input.reason}`;
+    const note =
+      input.target === "OUT_FOR_DELIVERY" ? historyNote("outForDelivery", { reason: input.reason })
+      : input.target === "FAILED_DELIVERY" ? historyNote("failed", { reason: input.reason })
+      : !isExpress ? historyNote("delivered", { reason: input.reason })
+      : slaBreached
+        ? historyNote("deliveredExpressLate", { minutes: EXPRESS_SLA_MINUTES, reason: input.reason })
+        : historyNote("deliveredExpressOnTime", { reason: input.reason });
     await recordHistory(tx, shipment.id, input.target, note, input.livreurUserId);
 
     // Incrémente le compteur de livraisons sur une livraison réussie

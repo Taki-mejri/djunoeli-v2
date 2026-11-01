@@ -1,5 +1,6 @@
 import type { Prisma } from "@prisma/client";
 import { prisma } from "../lib/prisma.js";
+import { historyNote } from "../lib/historyNote.js";
 import { buildTrackingNumber } from "../lib/tracking.js";
 import { computeShipmentPricing, computePlannedPickup } from "../lib/shipmentPricing.js";
 import { debitForShipment } from "./wallet.service.js";
@@ -248,7 +249,7 @@ export async function createShipment(
         statusHistory: {
           create: {
             status: "PENDING",
-            note: "Colis créé",
+            note: historyNote("created"),
             changedById: expediteur.user.id,
           },
         },

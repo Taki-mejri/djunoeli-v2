@@ -115,5 +115,27 @@
   },
   "timeline": {
     "created": "Erstellt"
+  },
+  "history": {
+    "created": "Sendung erstellt",
+    "assigned": "{{name}} zugewiesen",
+    "pickedUp": "Im Geschäft abgeholt",
+    "pickedUpExpress": "Express abgeholt — Zustellung bis {{time}}",
+    "outForDelivery": "Unterwegs zum Kunden",
+    "delivered": "Zugestellt",
+    "deliveredExpressOnTime": "Zugestellt · Express fristgerecht",
+    "deliveredExpressLate": "Zugestellt · Express verspätet (>{{minutes}} Min)",
+    "failed": "Zustellung fehlgeschlagen",
+    "cancelled": "Storniert ({{percent}}% erstattet) — {{by}}",
+    "by": {
+      "expediteur": "durch den Absender",
+      "admin": "durch den Admin"
+    },
+    "reassigned": "Neu zugewiesen an {{name}}",
+    "unassigned": "Vom Fahrer abgemeldet",
+    "callAnswered": "Anruf beim Empfänger: erreicht",
+    "callNoAnswer": "Anruf beim Empfänger: keine Antwort",
+    "callWrongNumber": "Anruf beim Empfänger: falsche Nummer",
+    "callRescheduled": "Anruf beim Empfänger: verschoben"
   }
 }

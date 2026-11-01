@@ -6,6 +6,7 @@ import {
 } from "../../lib/shipmentQueries";
 import { dateLocaleTag } from "../../lib/dateLocale";
 import { serverNoteKey } from "../../lib/serverNotes";
+import { renderHistoryNote } from "../../lib/historyNote";
 
 const statusIcon: Record<ShipmentStatus, React.ReactNode> = {
   PENDING: <Clock size={14} />,
@@ -44,8 +45,13 @@ export default function ShipmentTimeline({ history }: Props) {
   const { t: tc } = useTranslation("common");
   const locale = dateLocaleTag(i18n.language);
 
-  /** Traduit une note système connue, sinon renvoie le texte brut du backend */
+  /**
+   * Note structurée {"k","p"} → traduite (common:history.*).
+   * Ligne héritée en prose : note système v1 connue → traduite, sinon texte brut.
+   */
   const noteText = (note: string) => {
+    const rendered = renderHistoryNote(note, (k, o) => tc(k, o));
+    if (rendered !== note) return rendered;
     const key = serverNoteKey(note);
     return key ? tc(key) : note;
   };

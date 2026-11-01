@@ -1,5 +1,6 @@
 import type { ShipmentStatus } from "@prisma/client";
 import { prisma } from "../lib/prisma.js";
+import { historyNote } from "../lib/historyNote.js";
 import { notFound, badRequest, forbidden, conflict } from "../middleware/errorHandler.js";
 import { refundForCancellation } from "./wallet.service.js";
 
@@ -74,10 +75,11 @@ export async function cancelShipment(input: {
       throw conflict(`Le statut du colis ${shipment.trackingNumber} a changé — rechargez et réessayez.`);
     }
 
-    const note =
-      `Annulé (${tierPercent}% remboursé)` +
-      (input.byExpediteur ? " — par l'expéditeur" : " — par l'admin") +
-      (input.reason ? ` · ${input.reason}` : "");
+    const note = historyNote("cancelled", {
+      percent: tierPercent,
+      by: input.byExpediteur ? "expediteur" : "admin",
+      reason: input.reason,
+    });
     await tx.shipmentStatusHistory.create({
       data: { shipmentId: shipment.id, status: "CANCELLED", note, changedById: input.actorUserId },
     });

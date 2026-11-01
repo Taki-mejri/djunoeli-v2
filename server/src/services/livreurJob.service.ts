@@ -1,5 +1,6 @@
 import type { Prisma } from "@prisma/client";
 import { prisma } from "../lib/prisma.js";
+import { historyNote as structuredNote } from "../lib/historyNote.js";
 import { notFound, badRequest } from "../middleware/errorHandler.js";
 import { formatEUR } from "../lib/money.js";
 
@@ -183,6 +184,13 @@ export async function advanceJobStatus(input: AdvanceInput) {
    LOG D'APPEL — le livreur a appelé le destinataire
    ===================================================== */
 
+const CALL_NOTE_KEYS = {
+  ANSWERED: "callAnswered",
+  NO_ANSWER: "callNoAnswer",
+  WRONG_NUMBER: "callWrongNumber",
+  RESCHEDULED: "callRescheduled",
+} as const;
+
 const CALL_LABELS: Record<string, string> = {
   ANSWERED: "a répondu",
   NO_ANSWER: "pas de réponse",
@@ -204,10 +212,7 @@ export async function logCall(
   });
   if (!shipment) throw notFound("Course introuvable ou non assignée à vous");
 
-  const historyNote = [
-    `Appel destinataire : ${CALL_LABELS[outcome]}`,
-    note ?? null,
-  ].filter(Boolean).join(" · ");
+  const historyNote = structuredNote(CALL_NOTE_KEYS[outcome], { reason: note });
 
   await prisma.shipmentStatusHistory.create({
     data: {

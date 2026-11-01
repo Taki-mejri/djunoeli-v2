@@ -115,5 +115,27 @@
   },
   "timeline": {
     "created": "Created"
+  },
+  "history": {
+    "created": "Shipment created",
+    "assigned": "Assigned to {{name}}",
+    "pickedUp": "Picked up at store",
+    "pickedUpExpress": "Express picked up — deliver by {{time}}",
+    "outForDelivery": "On the way to customer",
+    "delivered": "Delivered",
+    "deliveredExpressOnTime": "Delivered · Express on time",
+    "deliveredExpressLate": "Delivered · Express late (>{{minutes}} min)",
+    "failed": "Delivery failed",
+    "cancelled": "Cancelled ({{percent}}% refunded) — {{by}}",
+    "by": {
+      "expediteur": "by the sender",
+      "admin": "by the admin"
+    },
+    "reassigned": "Reassigned to {{name}}",
+    "unassigned": "Unassigned from driver",
+    "callAnswered": "Call to recipient: answered",
+    "callNoAnswer": "Call to recipient: no answer",
+    "callWrongNumber": "Call to recipient: wrong number",
+    "callRescheduled": "Call to recipient: rescheduled"
   }
 }
