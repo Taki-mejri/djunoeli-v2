@@ -98,5 +98,20 @@
     "delivered": "Zugestellt",
     "failed": "Zustellung fehlgeschlagen",
     "unassigned": "Vom Fahrer abgemeldet"
+  },
+  "cancel": {
+    "title": "Sendung stornieren?",
+    "price": "Bezahlter Preis",
+    "refund": "Rückerstattung",
+    "tierFull": "Noch nicht abgeholt — volle Rückerstattung.",
+    "tierHalf": "Bereits abgeholt — 50 % Rückerstattung.",
+    "tierNone": "Keine Rückerstattung für diesen Status.",
+    "reason": "Grund",
+    "reasonPlaceholder": "z. B. Kunde hat storniert",
+    "blockedPicked": "Sendung bereits abgeholt — bitte den Support kontaktieren.",
+    "keep": "Behalten",
+    "confirm": "Stornieren",
+    "done": "Sendung storniert.",
+    "doneRefund": "{{tracking}} storniert — {{amount}} erstattet ({{percent}} %)."
   }
 }

@@ -38,3 +38,11 @@ export const advanceDeliverySchema = z.object({
   reason: z.string().trim().max(300).optional(),
 });
 export type AdvanceDeliveryInput = z.infer<typeof advanceDeliverySchema>;
+
+/* =====================================================
+   Annulation (expéditeur ou admin) — motif facultatif
+   ===================================================== */
+export const cancelShipmentV2Schema = z.object({
+  reason: z.string().trim().max(300).optional(),
+});
+export type CancelShipmentV2Input = z.infer<typeof cancelShipmentV2Schema>;

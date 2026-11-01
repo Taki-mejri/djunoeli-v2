@@ -3,13 +3,14 @@ import { useTranslation } from "react-i18next";
 import { isAxiosError } from "axios";
 import {
   PackageSearch, Zap, AlertTriangle, Check, AlertCircle, Store, MapPin,
-  UserCheck, CalendarClock, Sun, Sunrise,
+  UserCheck, CalendarClock, Sun, Sunrise, Ban,
 } from "lucide-react";
 import {
   useAssignableShipments, useLivreurs, useAssignShipment,
   type AssignableShipment,
 } from "../../lib/dispatchQueries";
 import { formatEUR } from "../../lib/money";
+import CancelShipmentModal from "../../components/CancelShipmentModal";
 
 type Tab = "PENDING" | "ASSIGNED";
 
@@ -24,6 +25,7 @@ export default function AssignPage() {
   const [picked, setPicked] = useState<Record<string, string>>({});
   const [busyId, setBusyId] = useState<string | null>(null);
   const [banner, setBanner] = useState<{ kind: "ok" | "err"; msg: string } | null>(null);
+  const [cancelTarget, setCancelTarget] = useState<AssignableShipment | null>(null);
 
   const pendingCount = shipments?.filter((s) => s.status === "PENDING").length ?? 0;
   const assignedCount = shipments?.filter((s) => s.status === "ASSIGNED").length ?? 0;
@@ -141,12 +143,23 @@ export default function AssignPage() {
                       {busyId === s.id ? "..." : s.livreur ? t("assign.reassign") : t("assign.assign")}
                     </button>
                   </div>
+                  <button className="asg-cancel" onClick={() => setCancelTarget(s)} disabled={busyId === s.id}>
+                    <Ban size={12} /> {tc("cancel.confirm")}
+                  </button>
                 </div>
               </div>
             );
           })}
         </div>
       )}
+
+      <CancelShipmentModal
+        open={!!cancelTarget}
+        target={cancelTarget}
+        asAdmin
+        onClose={() => setCancelTarget(null)}
+        onDone={(msg) => { setBanner({ kind: "ok", msg }); setTimeout(() => setBanner(null), 6000); }}
+      />
 
       {shipments && shipments.length > 0 && (
         <p className="asg-hint"><CalendarClock size={13} /> {t("assign.hint")}</p>

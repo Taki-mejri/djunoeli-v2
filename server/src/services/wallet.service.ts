@@ -252,6 +252,41 @@ export async function debitForShipment(
 }
 
 /* =====================================================
+   REMBOURSEMENT POUR ANNULATION (atomique, dans la tx du caller)
+   Utilisé par cancellation.service.ts.
+   ===================================================== */
+export async function refundForCancellation(
+  tx: Tx,
+  input: {
+    expediteurId: string;
+    amount: number;
+    note?: string;
+    shipmentId?: string;
+    actorUserId: string;
+  }
+) {
+  const exp = await tx.expediteur.findFirst({
+    where: { id: input.expediteurId, deletedAt: null },
+    select: { id: true },
+  });
+  if (!exp) throw notFound("Expéditeur introuvable");
+
+  // increment atomique (pas de lecture-puis-écriture du solde)
+  const newBalance = await incrementBalance(tx, exp.id, input.amount);
+  await writeTx(tx, {
+    expediteurId: exp.id,
+    type: "REFUND",
+    amount: input.amount,
+    balanceAfter: newBalance,
+    note: input.note,
+    shipmentId: input.shipmentId,
+    createdById: input.actorUserId,
+  });
+
+  return { newBalance };
+}
+
+/* =====================================================
    Helpers
    ===================================================== */
 

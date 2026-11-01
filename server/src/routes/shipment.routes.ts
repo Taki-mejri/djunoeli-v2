@@ -4,7 +4,6 @@ import { asyncH, unauthorized } from "../middleware/errorHandler.js";
 import { paginationSchema } from "../lib/pagination.js";
 import {
   estimateSchema,
-  cancelShipmentSchema,
   listShipmentFiltersSchema,
 } from "../schemas/shipment.schema.js";
 import {
@@ -13,9 +12,10 @@ import {
   getShipmentById,
   getMyShipment,
   createShipment,
-  cancelShipment,
 } from "../services/shipment.service.js";
 import { createShipmentV2Schema } from "../schemas/createShipmentV2.schema.js";
+import { cancelShipmentV2Schema } from "../schemas/deliveryV2.schema.js";
+import { cancelShipment } from "../services/cancellation.service.js";
 
 /* =====================================================
    /api/v1/admin/shipments  (réservé aux admins)
@@ -93,13 +93,19 @@ expediteurShipmentsRouter.get(
   })
 );
 
-/** POST /expediteur/shipments/:id/cancel */
+/** POST /expediteur/shipments/:id/cancel { reason? } — v2 : avant ramassage, 100 % remboursé (403 si pas son colis) */
 expediteurShipmentsRouter.post(
   "/:id/cancel",
   asyncH(async (req, res) => {
     if (!req.user) throw unauthorized();
-    const data = cancelShipmentSchema.parse(req.body);
-    const shipment = await cancelShipment(req.params.id as string, req.user.sub, data);
-    res.json(shipment);
+    const data = cancelShipmentV2Schema.parse(req.body);
+    res.json(
+      await cancelShipment({
+        shipmentId: req.params.id as string,
+        actorUserId: req.user.sub,
+        byExpediteur: true,
+        reason: data.reason,
+      })
+    );
   })
 );

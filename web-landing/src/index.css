@@ -4208,3 +4208,53 @@ header.solid .lang span.active { background: var(--teal); color: #04241c; }
   .asg-assign-controls { width: 100%; }
   .asg-select { flex: 1; min-width: 0; }
 }
+
+/* =====================================================
+   Annulation de colis — modal (expéditeur + admin)
+   À COLLER À LA FIN DE src/index.css
+   ===================================================== */
+
+.cx-overlay {
+  position: fixed; inset: 0; background: rgba(15, 23, 42, 0.55);
+  display: flex; align-items: center; justify-content: center; padding: 18px; z-index: 1000;
+}
+.cx-modal {
+  background: #fff; border-radius: 18px; width: 100%; max-width: 380px;
+  padding: 26px 22px 20px; position: relative; text-align: center;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+}
+.cx-close { position: absolute; top: 14px; right: 14px; background: none; border: none; color: #94a3b8; cursor: pointer; }
+.cx-ic {
+  width: 52px; height: 52px; border-radius: 50%; margin: 0 auto 12px;
+  display: flex; align-items: center; justify-content: center;
+  background: #fde7e9; color: #b91c2d;
+}
+.cx-modal h3 { margin: 0 0 2px; font-size: 18px; color: #0f172a; }
+.cx-sub { margin: 0 0 16px; font-size: 13px; font-weight: 600; color: #64748b; font-variant-numeric: tabular-nums; }
+
+.cx-refund { background: #f8fafc; border: 1px solid #eef2f6; border-radius: 12px; padding: 12px 14px; margin-bottom: 14px; text-align: left; }
+.cx-refund-row { display: flex; justify-content: space-between; align-items: center; font-size: 13.5px; color: #475569; padding: 3px 0; }
+.cx-refund-row.big { font-size: 15px; font-weight: 700; color: #0f172a; border-top: 1px dashed #e2e8f0; margin-top: 5px; padding-top: 8px; }
+.cx-refund-row span { display: inline-flex; align-items: center; gap: 5px; }
+.cx-refund-row b.pos { color: #0b6e3b; }
+.cx-tier-note { margin: 8px 0 0; font-size: 12px; color: #64748b; }
+
+.cx-blocked { display: flex; align-items: center; gap: 8px; text-align: left; background: #fef3c7; color: #92400e; border-radius: 10px; padding: 12px 14px; font-size: 13px; font-weight: 600; margin-bottom: 14px; }
+
+.cx-field { text-align: left; margin-bottom: 14px; }
+.cx-field label { display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 6px; }
+.cx-opt { font-weight: 400; color: #94a3b8; }
+.cx-field input { width: 100%; border: 1.5px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 14px; font-family: inherit; }
+
+.cx-error { background: #fde7e9; color: #b91c2d; border-radius: 10px; padding: 9px 12px; font-size: 13px; margin-bottom: 12px; }
+
+.cx-actions { display: flex; gap: 10px; }
+.cx-btn-ghost, .cx-btn-danger { flex: 1; padding: 11px; border-radius: 11px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; border: none; }
+.cx-btn-ghost { background: #eef2f6; color: #475569; }
+.cx-btn-danger { background: #dc2626; color: #fff; }
+.cx-btn-danger:disabled, .cx-btn-ghost:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* AssignPage — bouton « Stornieren » discret (étape 5a) */
+.asg-cancel { display: inline-flex; align-items: center; gap: 4px; background: none; border: none; padding: 2px 0; color: #b91c2d; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; }
+.asg-cancel:hover { text-decoration: underline; }
+.asg-cancel:disabled { opacity: 0.45; cursor: not-allowed; }

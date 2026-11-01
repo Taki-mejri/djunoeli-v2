@@ -9,6 +9,8 @@ import {
 } from "../services/dispatch.service.js";
 import { logCallSchema } from "../schemas/livreurJob.schema.js";
 import { logCall } from "../services/livreurJob.service.js";
+import { cancelShipmentV2Schema } from "../schemas/deliveryV2.schema.js";
+import { cancelShipment } from "../services/cancellation.service.js";
 import {
   assignToLivreurSchema,
   pickupScanSchema,
@@ -25,7 +27,7 @@ import { listAssignableShipments, listLivreurs } from "../services/adminDispatch
 const ADMIN_ROLES = ["SUPER_ADMIN", "OPERATIONS_MANAGER", "CUSTOMER_SUPPORT"] as const;
 
 /* =====================================================
-   /api/v1/admin/shipments/:id/(assign|unassign|suggest-livreur)
+   /api/v1/admin/shipments/:id/(assign|unassign|cancel|suggest-livreur)
    ===================================================== */
 export const adminDispatchRouter = Router();
 
@@ -59,6 +61,23 @@ adminDispatchRouter.post(
       data.reason
     );
     res.json(updated);
+  })
+);
+
+/** POST /admin/shipments/:id/cancel { reason? } — tout colis non terminal (100 % / 50 %) */
+adminDispatchRouter.post(
+  "/:id/cancel",
+  asyncH(async (req, res) => {
+    if (!req.user) throw unauthorized();
+    const data = cancelShipmentV2Schema.parse(req.body);
+    res.json(
+      await cancelShipment({
+        shipmentId: req.params.id as string,
+        actorUserId: req.user.sub,
+        byExpediteur: false,
+        reason: data.reason,
+      })
+    );
   })
 );
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Package, AlertCircle, AlertTriangle, Plus, X as XIcon } from "lucide-react";
+import { Package, AlertCircle, AlertTriangle, Plus, X as XIcon, Check } from "lucide-react";
 import DataTable, { type Column } from "../../components/dashboard/DataTable";
 import Toolbar from "../../components/dashboard/Toolbar";
 import StatusBadge from "../../components/dashboard/StatusBadge";
@@ -11,7 +11,7 @@ import {
   type ShipmentDTO,
   type ListShipmentsParams,
 } from "../../lib/shipmentQueries";
-import CancelShipmentModal from "../../components/expediteur/CancelShipmentModal";
+import CancelShipmentModal from "../../components/CancelShipmentModal";
 import { dateLocaleTag } from "../../lib/dateLocale";
 import { formatEUR } from "../../lib/money";
 
@@ -27,6 +27,10 @@ const FILTER_STATUSES = [
   "CANCELLED",
 ] as const;
 
+/* Annulable par l'expéditeur (avant ramassage). ASSIGNED est un statut v2 que
+   le type front ShipmentStatus ne liste pas encore, d'où le tableau de chaînes. */
+const CANCELLABLE: string[] = ["PENDING", "ASSIGNED"];
+
 export default function MyShipmentsPage() {
   const { t, i18n } = useTranslation("expediteur");
   const { t: tc } = useTranslation("common");
@@ -35,7 +39,10 @@ export default function MyShipmentsPage() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState<ListShipmentsParams["status"]>(undefined);
-  const [cancelTarget, setCancelTarget] = useState<{ id: string; trackingNumber: string } | null>(null);
+  const [cancelTarget, setCancelTarget] = useState<{
+    id: string; trackingNumber: string; status: string; deliveryPrice: number;
+  } | null>(null);
+  const [cancelDone, setCancelDone] = useState<string | null>(null);
 
   const pageSize = 20;
   const params: ListShipmentsParams = {
@@ -109,10 +116,12 @@ export default function MyShipmentsPage() {
           <Link to={`/expediteur/shipments/${r.id}`} className="row-action-link">
             {t("list.view")}
           </Link>
-          {r.status === "PENDING" && (
+          {CANCELLABLE.includes(r.status) && (
             <button
               className="row-action-cancel"
-              onClick={() => setCancelTarget({ id: r.id, trackingNumber: r.trackingNumber })}
+              onClick={() => setCancelTarget({
+                id: r.id, trackingNumber: r.trackingNumber, status: r.status, deliveryPrice: Number(r.deliveryPrice),
+              })}
               title={t("list.cancelTitle")}
             >
               <XIcon size={14} />
@@ -134,6 +143,10 @@ export default function MyShipmentsPage() {
           <Plus size={16} style={{ marginRight: 4 }} /> {t("list.createCta")}
         </Link>
       </div>
+
+      {cancelDone && (
+        <div className="asg-banner ok"><Check size={16} /> {cancelDone}</div>
+      )}
 
       <Toolbar>
         <input
@@ -206,9 +219,10 @@ export default function MyShipmentsPage() {
 
       <CancelShipmentModal
         open={!!cancelTarget}
-        shipmentId={cancelTarget?.id ?? null}
-        trackingNumber={cancelTarget?.trackingNumber ?? null}
+        target={cancelTarget}
+        asAdmin={false}
         onClose={() => setCancelTarget(null)}
+        onDone={(msg) => { setCancelDone(msg); setTimeout(() => setCancelDone(null), 6000); }}
       />
     </>
   );

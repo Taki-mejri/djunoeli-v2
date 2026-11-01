@@ -98,5 +98,20 @@
     "delivered": "Delivered",
     "failed": "Delivery failed",
     "unassigned": "Unassigned by driver"
+  },
+  "cancel": {
+    "title": "Cancel shipment?",
+    "price": "Paid price",
+    "refund": "Refund",
+    "tierFull": "Not picked up yet — full refund.",
+    "tierHalf": "Already picked up — 50% refund.",
+    "tierNone": "No refund for this status.",
+    "reason": "Reason",
+    "reasonPlaceholder": "e.g. customer cancelled",
+    "blockedPicked": "Shipment already picked up — please contact support.",
+    "keep": "Keep",
+    "confirm": "Cancel shipment",
+    "done": "Shipment cancelled.",
+    "doneRefund": "{{tracking}} cancelled — {{amount}} refunded ({{percent}}%)."
   }
 }
