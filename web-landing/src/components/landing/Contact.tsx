@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useReveal } from "../../lib/useReveal.tsx";
 
 const Phone = () => (
@@ -21,32 +22,33 @@ const Pin = () => (
 export default function Contact() {
   const info = useReveal<HTMLDivElement>();
   const form = useReveal<HTMLDivElement>(100);
+  const { t } = useTranslation("common");
 
-  const submit = () => alert("Démo — le formulaire sera connecté au backend.");
+  const submit = () => alert(t("landing.contact.demoAlert"));
 
   return (
     <section className="block" id="contact" style={{ paddingBottom: 60 }}>
       <div className="contact">
         <div className="contact-inner">
           <div ref={info} className="reveal">
-            <div className="sec-kicker" style={{ color: "var(--teal)" }}>Contactez-nous</div>
-            <h2>Parlons de votre logistique</h2>
-            <p className="lead">Une question, un devis, un partenariat ? Notre équipe vous répond rapidement.</p>
+            <div className="sec-kicker" style={{ color: "var(--teal)" }}>{t("landing.contact.kicker")}</div>
+            <h2>{t("landing.contact.title")}</h2>
+            <p className="lead">{t("landing.contact.lead")}</p>
             <ul className="contact-info">
-              <li><span className="ci-ic"><Phone /></span><div><div className="ci-l">Téléphone</div><div className="ci-v">+49 231 0000000</div></div></li>
-              <li><span className="ci-ic"><Mail /></span><div><div className="ci-l">E-mail</div><div className="ci-v">contact@djunoeli.de</div></div></li>
-              <li><span className="ci-ic"><Pin /></span><div><div className="ci-l">Adresse</div><div className="ci-v">Dortmund, Allemagne</div></div></li>
+              <li><span className="ci-ic"><Phone /></span><div><div className="ci-l">{t("landing.contact.phone")}</div><div className="ci-v">+49 231 0000000</div></div></li>
+              <li><span className="ci-ic"><Mail /></span><div><div className="ci-l">{t("landing.contact.email")}</div><div className="ci-v">contact@djunoeli.de</div></div></li>
+              <li><span className="ci-ic"><Pin /></span><div><div className="ci-l">{t("landing.contact.address")}</div><div className="ci-v">{t("landing.footer.location")}</div></div></li>
             </ul>
           </div>
           <div ref={form} className="form reveal">
             <div className="row2">
-              <div className="field"><label>Nom</label><input placeholder="Votre nom" /></div>
-              <div className="field"><label>Téléphone</label><input placeholder="+49 ..." /></div>
+              <div className="field"><label>{t("landing.contact.name")}</label><input placeholder={t("landing.contact.namePlaceholder")} /></div>
+              <div className="field"><label>{t("landing.contact.phone")}</label><input placeholder="+49 ..." /></div>
             </div>
-            <div className="field"><label>E-mail</label><input placeholder="vous@entreprise.de" /></div>
-            <div className="field"><label>Message</label><textarea rows={4} placeholder="Comment pouvons-nous vous aider ?" /></div>
+            <div className="field"><label>{t("landing.contact.email")}</label><input placeholder={t("landing.contact.emailPlaceholder")} /></div>
+            <div className="field"><label>{t("landing.contact.message")}</label><textarea rows={4} placeholder={t("landing.contact.messagePlaceholder")} /></div>
             <button className="btn btn-primary" style={{ width: "100%", justifyContent: "center" }} onClick={submit}>
-              Envoyer le message
+              {t("landing.contact.send")}
             </button>
           </div>
         </div>

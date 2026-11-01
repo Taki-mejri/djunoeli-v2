@@ -10,7 +10,7 @@ export default function Footer({ onLogin }: { onLogin: () => void }) {
       <div className="wrap">
         <div className="foot-grid">
           <div className="foot-brand">
-            <a href="#top" className="logo" style={{ color: "#fff" }}>
+            <a href="/#top" className="logo" style={{ color: "#fff" }}>
               <Logo variant="icon" height={40} />
               Djunoeli
             </a>
@@ -18,16 +18,16 @@ export default function Footer({ onLogin }: { onLogin: () => void }) {
           </div>
           <div className="foot-col">
             <h4>{t("landing.footer.services")}</h4>
-            <a href="#services">{t("landing.footer.sameDay")}</a>
-            <a href="#services">{t("landing.footer.billing")}</a>
+            <a href="/#services">{t("landing.footer.sameDay")}</a>
+            <a href="/#services">{t("landing.footer.billing")}</a>
             <Link to="/track">{t("landing.footer.liveTracking")}</Link>
-            <a href="#services">{t("landing.footer.allDortmund")}</a>
+            <a href="/#services">{t("landing.footer.allDortmund")}</a>
           </div>
           <div className="foot-col">
             <h4>{t("landing.footer.company")}</h4>
-            <a href="#about">{t("landing.nav.about")}</a>
-            <a href="#contact">{t("landing.nav.contact")}</a>
-            <a href="#how">{t("landing.nav.how")}</a>
+            <a href="/#about">{t("landing.nav.about")}</a>
+            <a href="/#contact">{t("landing.nav.contact")}</a>
+            <a href="/#how">{t("landing.nav.how")}</a>
           </div>
           <div className="foot-col">
             <h4>{t("landing.footer.spaces")}</h4>

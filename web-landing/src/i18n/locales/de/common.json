@@ -160,6 +160,119 @@
       "livreur": "Fahrer",
       "rights": "© {{year}} Djunoeli. Alle Rechte vorbehalten.",
       "location": "Dortmund, Deutschland"
+    },
+    "hero": {
+      "pill": "Same-Day-Zustellung in Dortmund",
+      "title1": "Ihre Pakete geliefert,",
+      "title2": "überall, pünktlich.",
+      "sub": "Djunoeli liefert Ihre Pakete noch am selben Tag in ganz Dortmund — von der Abholung bis zur Übergabe, mit Echtzeit-Tracking vom ersten bis zum letzten Kilometer.",
+      "ctaLogin": "Zu meinem Bereich →",
+      "ctaServices": "Unsere Dienste entdecken",
+      "statDelivered": "Zugestellte Pakete",
+      "statDrivers": "Aktive Fahrer",
+      "statDistricts": "Belieferte Stadtteile",
+      "card": {
+        "badge": "Unterwegs",
+        "created": "Paket erstellt",
+        "pickedUp": "Abgeholt",
+        "outForDelivery": "In Zustellung",
+        "delivered": "Zugestellt",
+        "eta": "Voraussichtlich {{time}}",
+        "successRate": "Erfolgsquote"
+      }
+    },
+    "services": {
+      "kicker": "Unsere Dienste",
+      "title": "Alles, was Sie zum Liefern brauchen",
+      "intro": "Eine vollständige Plattform für Dortmunder Händler, die noch am selben Tag versenden und jedes Paket live verfolgen möchten.",
+      "popular": "BELIEBT",
+      "items": {
+        "sameDay": {
+          "title": "Same-Day-Zustellung",
+          "desc": "Abholung und Zustellung noch am selben Tag überall in Dortmund, von der Innenstadt bis Wickede."
+        },
+        "billing": {
+          "title": "Transparente Abrechnung",
+          "desc": "Klare Preise in Euro, detaillierte Rechnungen und Nachverfolgung jeder Sendung, von der Bestellung bis zur Bezahlung."
+        },
+        "tracking": {
+          "title": "Echtzeit-Tracking",
+          "desc": "Ihre Kunden verfolgen ihr Paket live, Schritt für Schritt, mit der GPS-Position des Fahrers auf der Karte."
+        },
+        "coverage": {
+          "title": "Ganz Dortmund",
+          "desc": "Ein Fahrernetz, das die Dortmunder Stadtteile abdeckt, mit einem zentralen Depot für kürzere Lieferzeiten."
+        },
+        "dashboard": {
+          "title": "Dashboard & Berichte",
+          "desc": "Live-Statistiken, Fahrerleistung, Umsätze und mit einem Klick exportierbare Berichte."
+        },
+        "notifications": {
+          "title": "Automatische Benachrichtigungen",
+          "desc": "SMS, WhatsApp und E-Mail bei jedem Schritt: Paket abgeholt, unterwegs und zugestellt."
+        }
+      }
+    },
+    "how": {
+      "kicker": "Einfach & schnell",
+      "title": "So funktioniert's",
+      "intro": "Vier Schritte, von der Bestellung bis zur erfolgreichen Zustellung.",
+      "steps": {
+        "s1": {
+          "title": "Sendung erstellen",
+          "desc": "Der Versender gibt die Paketdaten und die Adresse in seinem Bereich ein."
+        },
+        "s2": {
+          "title": "Wir weisen zu",
+          "desc": "Das Paket wird dem nächstgelegenen verfügbaren Fahrer zugewiesen."
+        },
+        "s3": {
+          "title": "Live-Tracking",
+          "desc": "Alle verfolgen das Paket in Echtzeit bis zum Ziel."
+        },
+        "s4": {
+          "title": "Noch am selben Tag zugestellt",
+          "desc": "Zustellnachweis und automatische Abrechnung."
+        }
+      }
+    },
+    "about": {
+      "kicker": "Über Djunoeli",
+      "title": "Lokale Zustellung in Dortmund, endlich modern",
+      "p1": "Djunoeli entstand aus einer einfachen Feststellung: Dortmunder Händler verdienen einen zuverlässigen, transparenten und vollständig digitalen Lieferdienst. Schluss mit Anrufen, um zu erfahren, wo ein Paket ist.",
+      "p2": "Wir verbinden Versender, Fahrer und Kunden auf einer einzigen Plattform, mit Zustellung am selben Tag in der ganzen Stadt.",
+      "check1": "Verfügbar auf Deutsch und Englisch",
+      "check2": "Transparente und nachvollziehbare Abrechnung in Euro",
+      "check3": "Sichere Daten, täglich gesichert",
+      "stat1": "Erfolgreiche Zustellungen",
+      "stat2": "Durchschnittliche Lieferzeit in der Stadt",
+      "stat3": "Tracking verfügbar",
+      "stat4": "Geschäftskunden"
+    },
+    "contact": {
+      "kicker": "Kontaktieren Sie uns",
+      "title": "Sprechen wir über Ihre Logistik",
+      "lead": "Eine Frage, ein Angebot, eine Partnerschaft? Unser Team antwortet Ihnen schnell.",
+      "phone": "Telefon",
+      "email": "E-Mail",
+      "address": "Adresse",
+      "name": "Name",
+      "namePlaceholder": "Ihr Name",
+      "emailPlaceholder": "sie@unternehmen.de",
+      "message": "Nachricht",
+      "messagePlaceholder": "Wie können wir Ihnen helfen?",
+      "send": "Nachricht senden",
+      "demoAlert": "Demo — das Formular wird an das Backend angebunden."
+    },
+    "loginModal": {
+      "title": "Anmeldung in Ihrem Bereich",
+      "sub": "Wählen Sie Ihren Kontotyp, um fortzufahren.",
+      "close": "Schließen",
+      "desc": {
+        "admin": "Den gesamten Betrieb verwalten",
+        "expediteur": "Meine Pakete erstellen und verfolgen",
+        "livreur": "Meine Zustellungen des Tages ansehen"
+      }
     }
   }
 }

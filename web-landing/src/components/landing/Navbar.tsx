@@ -22,9 +22,8 @@ export default function Navbar({
   const { t: tc } = useTranslation("common");
   const { pathname } = useLocation();
 
-  // Hors de la landing, les ancres doivent repartir vers "/" (ex. /#services)
-  const onLanding = pathname === "/";
-  const anchor = (hash: string) => (onLanding ? hash : `/${hash}`);
+  // Ancres toujours absolues (/#services) : elles marchent depuis /track comme depuis la landing
+  const anchor = (hash: string) => `/${hash}`;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);

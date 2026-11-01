@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useReveal } from "../../lib/useReveal.tsx";
 
 const Check = () => (
@@ -11,34 +12,28 @@ const Check = () => (
 export default function About() {
   const text = useReveal<HTMLDivElement>();
   const visual = useReveal<HTMLDivElement>(120);
+  const { t } = useTranslation("common");
   return (
     <section className="block" id="about">
       <div className="wrap about-grid">
         <div ref={text} className="about-text reveal">
-          <div className="sec-kicker">À propos de Djunoeli</div>
-          <h2>La livraison locale à Dortmund, enfin moderne</h2>
-          <p>
-            Djunoeli est née d'un constat simple : les commerces de Dortmund méritent
-            un service de livraison fiable, transparent et entièrement numérique. Fini
-            les appels pour savoir où est un colis.
-          </p>
-          <p>
-            Nous connectons expéditeurs, livreurs et clients sur une seule plateforme,
-            avec une livraison le jour même dans toute la ville.
-          </p>
+          <div className="sec-kicker">{t("landing.about.kicker")}</div>
+          <h2>{t("landing.about.title")}</h2>
+          <p>{t("landing.about.p1")}</p>
+          <p>{t("landing.about.p2")}</p>
           <ul className="check-list">
-            <li><Check /> Disponible en allemand et en anglais</li>
-            <li><Check /> Facturation transparente et traçable en euros</li>
-            <li><Check /> Données sécurisées et sauvegardées chaque jour</li>
+            <li><Check /> {t("landing.about.check1")}</li>
+            <li><Check /> {t("landing.about.check2")}</li>
+            <li><Check /> {t("landing.about.check3")}</li>
           </ul>
         </div>
         <div ref={visual} className="about-visual reveal">
           <div className="a-card">
             <div className="a-stat-grid">
-              <div className="a-stat accent"><div className="n">98.7%</div><div className="l">Taux de livraison réussie</div></div>
-              <div className="a-stat"><div className="n">2.4h</div><div className="l">Délai moyen en ville</div></div>
-              <div className="a-stat"><div className="n">24/24</div><div className="l">Suivi disponible</div></div>
-              <div className="a-stat"><div className="n">+1.2k</div><div className="l">Entreprises clientes</div></div>
+              <div className="a-stat accent"><div className="n">98.7%</div><div className="l">{t("landing.about.stat1")}</div></div>
+              <div className="a-stat"><div className="n">2.4h</div><div className="l">{t("landing.about.stat2")}</div></div>
+              <div className="a-stat"><div className="n">24/24</div><div className="l">{t("landing.about.stat3")}</div></div>
+              <div className="a-stat"><div className="n">+1.2k</div><div className="l">{t("landing.about.stat4")}</div></div>
             </div>
           </div>
         </div>

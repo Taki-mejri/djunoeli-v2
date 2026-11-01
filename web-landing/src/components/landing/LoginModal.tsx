@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-type Role = { key: string; title: string; desc: string; cls: string; icon: React.ReactNode };
+/** Libellés : auth:roles.<key> (titre) + common:landing.loginModal.desc.<key> */
+type Role = { key: "admin" | "expediteur" | "livreur"; cls: string; icon: React.ReactNode };
 
 const roles: Role[] = [
   {
     key: "admin",
-    title: "Administrateur",
-    desc: "Gérer toute l'opération",
     cls: "rc-admin",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -17,8 +17,6 @@ const roles: Role[] = [
   },
   {
     key: "expediteur",
-    title: "Expéditeur",
-    desc: "Créer et suivre mes colis",
     cls: "rc-exp",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -29,8 +27,6 @@ const roles: Role[] = [
   },
   {
     key: "livreur",
-    title: "Livreur",
-    desc: "Voir mes livraisons du jour",
     cls: "rc-liv",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -44,6 +40,8 @@ const roles: Role[] = [
 
 export default function LoginModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const navigate = useNavigate();
+  const { t } = useTranslation("common");
+  const { t: ta } = useTranslation("auth");
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
@@ -67,15 +65,15 @@ export default function LoginModal({ open, onClose }: { open: boolean; onClose: 
   return (
     <div className="overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
       <div className="modal">
-        <button className="modal-close" onClick={onClose}>✕</button>
-        <h3>Connexion à votre espace</h3>
-        <p className="m-sub">Choisissez votre type de compte pour continuer.</p>
+        <button className="modal-close" onClick={onClose} aria-label={t("landing.loginModal.close")}>✕</button>
+        <h3>{t("landing.loginModal.title")}</h3>
+        <p className="m-sub">{t("landing.loginModal.sub")}</p>
         {roles.map((r) => (
           <div key={r.key} className="role-card" onClick={() => go(r.key)}>
             <span className={`rc-ic ${r.cls}`}>{r.icon}</span>
             <div>
-              <div className="rc-t">{r.title}</div>
-              <div className="rc-d">{r.desc}</div>
+              <div className="rc-t">{ta(`roles.${r.key}`)}</div>
+              <div className="rc-d">{t(`landing.loginModal.desc.${r.key}`)}</div>
             </div>
             <span className="rc-arrow">→</span>
           </div>
