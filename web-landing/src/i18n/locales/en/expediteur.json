@@ -221,7 +221,8 @@
     "hints": {
       "inProgress": "in progress…",
       "failed": "failed",
-      "returned": "returned"
+      "returned": "returned",
+      "assigned": "driver assigned"
     },
     "banner": {
       "cancelled": "This shipment has been cancelled",

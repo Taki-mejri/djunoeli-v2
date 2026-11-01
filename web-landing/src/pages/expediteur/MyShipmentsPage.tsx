@@ -10,6 +10,7 @@ import {
   shipmentStatusTone,
   type ShipmentDTO,
   type ListShipmentsParams,
+  type ShipmentStatus,
 } from "../../lib/shipmentQueries";
 import CancelShipmentModal from "../../components/CancelShipmentModal";
 import { dateLocaleTag } from "../../lib/dateLocale";
@@ -18,6 +19,7 @@ import { formatEUR } from "../../lib/money";
 /** Statuts proposés dans le filtre (libellés pris dans le namespace common) */
 const FILTER_STATUSES = [
   "PENDING",
+  "ASSIGNED",
   "AWAITING_PICKUP",
   "PICKED_UP",
   "IN_TRANSIT",
@@ -27,9 +29,8 @@ const FILTER_STATUSES = [
   "CANCELLED",
 ] as const;
 
-/* Annulable par l'expéditeur (avant ramassage). ASSIGNED est un statut v2 que
-   le type front ShipmentStatus ne liste pas encore, d'où le tableau de chaînes. */
-const CANCELLABLE: string[] = ["PENDING", "ASSIGNED"];
+/* Annulable par l'expéditeur (avant ramassage) */
+const CANCELLABLE: ShipmentStatus[] = ["PENDING", "ASSIGNED"];
 
 export default function MyShipmentsPage() {
   const { t, i18n } = useTranslation("expediteur");

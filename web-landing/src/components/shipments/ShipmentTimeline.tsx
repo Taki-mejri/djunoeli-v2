@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Check, Clock, Truck, Package, X, AlertCircle, Home } from "lucide-react";
+import { Check, Clock, Truck, Package, X, AlertCircle, Home, UserCheck } from "lucide-react";
 import {
   type ShipmentStatus,
   type ShipmentStatusHistoryEntry,
@@ -9,6 +9,7 @@ import { serverNoteKey } from "../../lib/serverNotes";
 
 const statusIcon: Record<ShipmentStatus, React.ReactNode> = {
   PENDING: <Clock size={14} />,
+  ASSIGNED: <UserCheck size={14} />,
   AWAITING_PICKUP: <Home size={14} />,
   PICKED_UP: <Package size={14} />,
   AT_WAREHOUSE: <Home size={14} />,
@@ -22,6 +23,7 @@ const statusIcon: Record<ShipmentStatus, React.ReactNode> = {
 
 const statusColor: Record<ShipmentStatus, string> = {
   PENDING: "#8a99a8",
+  ASSIGNED: "#b76e09",
   AWAITING_PICKUP: "#b76e09",
   PICKED_UP: "#2563c9",
   AT_WAREHOUSE: "#2563c9",

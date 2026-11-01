@@ -17,7 +17,7 @@ import { formatEUR } from "../../lib/money";
 
 /** Statuts proposés au filtre — la valeur envoyée à l'API, le libellé vient de `common` */
 const STATUS_FILTERS: ListShipmentsParams["status"][] = [
-  "PENDING", "AWAITING_PICKUP", "PICKED_UP", "IN_TRANSIT",
+  "PENDING", "ASSIGNED", "AWAITING_PICKUP", "PICKED_UP", "IN_TRANSIT",
   "OUT_FOR_DELIVERY", "DELIVERED", "FAILED_DELIVERY", "CANCELLED",
 ];
 

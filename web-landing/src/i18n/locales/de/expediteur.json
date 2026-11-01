@@ -221,7 +221,8 @@
     "hints": {
       "inProgress": "läuft…",
       "failed": "fehlgeschlagen",
-      "returned": "zurückgesendet"
+      "returned": "zurückgesendet",
+      "assigned": "Fahrer zugewiesen"
     },
     "banner": {
       "cancelled": "Diese Sendung wurde storniert",

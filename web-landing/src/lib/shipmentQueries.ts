@@ -9,6 +9,7 @@ export type DeliveryType = "STANDARD" | "EXPRESS";
 
 export type ShipmentStatus =
   | "PENDING"
+  | "ASSIGNED" // v2 : assigné par l'admin, pas encore ramassé
   | "AWAITING_PICKUP"
   | "PICKED_UP"
   | "AT_WAREHOUSE"
@@ -248,6 +249,7 @@ export function useEstimatePrice(input: EstimateInput | null) {
  */
 export const shipmentStatusTone: Record<ShipmentStatus, "blue" | "amber" | "green" | "red" | "gray" | "teal"> = {
   PENDING: "gray",
+  ASSIGNED: "amber",
   AWAITING_PICKUP: "amber",
   PICKED_UP: "blue",
   AT_WAREHOUSE: "blue",

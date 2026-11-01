@@ -32,6 +32,7 @@ export type TimelineStep = {
  */
 const STATUS_TO_STEP_INDEX: Record<ShipmentStatus, number> = {
   PENDING: 0,            // Créé (en attente d'enlèvement)
+  ASSIGNED: 0,           // v2 : livreur assigné, ramassage à venir
   AWAITING_PICKUP: 0,    // Créé, prêt à être ramassé
   PICKED_UP: 1,          // Ramassé
   AT_WAREHOUSE: 2,       // Au dépôt / centre de tri
@@ -55,6 +56,7 @@ export const TIMELINE_STEPS: { key: TimelineStepKey }[] = [
 /** Map du statut métier vers l'index d'étape concerné (utilisé pour matcher l'historique) */
 const STATUS_TO_STEP: Record<ShipmentStatus, TimelineStepKey> = {
   PENDING: "CREATED",
+  ASSIGNED: "CREATED",
   AWAITING_PICKUP: "CREATED",
   PICKED_UP: "PICKED_UP",
   AT_WAREHOUSE: "AT_WAREHOUSE",
@@ -125,7 +127,7 @@ export function buildTimeline(
         state = "done";
       } else {
         state = "current";
-        hintKey = "timeline.hints.inProgress";
+        hintKey = currentStatus === "ASSIGNED" ? "timeline.hints.assigned" : "timeline.hints.inProgress";
       }
     } else {
       state = "future";
