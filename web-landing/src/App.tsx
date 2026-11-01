@@ -11,7 +11,6 @@ import AdminLayout from "./components/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import ShipmentsPage from "./pages/admin/ShipmentsPage";
 import ShipmentDetailPageAdmin from "./pages/admin/ShipmentDetailPage";
-import AssignmentsPage from "./pages/admin/AssignmentsPage";
 import TrackingPage from "./pages/admin/TrackingPage";
 import DriversPage from "./pages/admin/DriversPage";
 import ExpediteursPage from "./pages/admin/ExpediteursPage";
@@ -86,7 +85,6 @@ export default function App() {
           <Route path="shipments" element={<ShipmentsPage />} />
           <Route path="shipments/:id" element={<ShipmentDetailPageAdmin />} />
           <Route path="assign" element={<AssignPage />} />
-          <Route path="assignments" element={<AssignmentsPage />} />
           <Route path="remote-assign" element={<RemoteAssignPage />} />
           <Route path="tracking" element={<TrackingPage />} />
           <Route path="drivers" element={<DriversPage />} />

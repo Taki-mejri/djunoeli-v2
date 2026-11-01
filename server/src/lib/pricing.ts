@@ -1,5 +1,3 @@
-import type { DeliveryType as PrismaDeliveryType } from "@prisma/client";
-
 /**
  * Moteur de pricing à la distance — Djunoeli Dortmund.
  *
@@ -44,25 +42,4 @@ export function priceBreakdown(distanceKm: number) {
     simple: priceForDistance(distanceKm, "SIMPLE"),
     express: priceForDistance(distanceKm, "EXPRESS"),
   };
-}
-
-/* =====================================================
-   TARIF v1 (forfait STANDARD/EXPRESS + supplément fragile)
-   N'est plus utilisé par la création de colis (étape 3 : pricing distance).
-   Reste branché sur l'ancien POST /expediteur/shipments/estimate (v1) :
-   à retirer quand le frontend utilisera /pricing/estimate.
-   ===================================================== */
-
-const BASE_PRICES: Record<PrismaDeliveryType, number> = {
-  STANDARD: 8,
-  SIMPLE: 8, // ajouté avec l'enum v2 ; seul l'ancien /expediteur/shipments/estimate passe encore ici
-  EXPRESS: 12,
-};
-
-const FRAGILE_SURCHARGE = 3;
-
-export function getPriceBreakdown(deliveryType: PrismaDeliveryType, isFragile: boolean) {
-  const base = BASE_PRICES[deliveryType];
-  const fragile = isFragile ? FRAGILE_SURCHARGE : 0;
-  return { base, fragile, total: base + fragile };
 }

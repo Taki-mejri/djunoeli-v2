@@ -1,16 +1,11 @@
 import type { Prisma } from "@prisma/client";
 import { prisma } from "../lib/prisma.js";
-import { getPriceBreakdown } from "../lib/pricing.js";
 import { buildTrackingNumber } from "../lib/tracking.js";
 import { computeShipmentPricing, computePlannedPickup } from "../lib/shipmentPricing.js";
 import { debitForShipment } from "./wallet.service.js";
-import { badRequest, notFound, forbidden } from "../middleware/errorHandler.js";
+import { badRequest, notFound } from "../middleware/errorHandler.js";
 import { makePaginated, parseSort, type Paginated } from "../lib/pagination.js";
-import type {
-  EstimateInput,
-  CancelShipmentInput,
-  ListShipmentFilters,
-} from "../schemas/shipment.schema.js";
+import type { ListShipmentFilters } from "../schemas/shipment.schema.js";
 import type { CreateShipmentV2Input } from "../schemas/createShipmentV2.schema.js";
 
 /* =====================================================
@@ -85,13 +80,6 @@ const shipmentDetailSelect = {
 
 export type ShipmentList = Prisma.ShipmentGetPayload<{ select: typeof shipmentListSelect }>;
 export type ShipmentDetail = Prisma.ShipmentGetPayload<{ select: typeof shipmentDetailSelect }>;
-
-/* =====================================================
-   ESTIMATE — calcule le prix sans créer de colis
-   ===================================================== */
-export function estimatePrice(input: EstimateInput) {
-  return getPriceBreakdown(input.deliveryType, input.isFragile);
-}
 
 /* =====================================================
    LIST — avec pagination, filtres, scope optionnel
@@ -280,53 +268,4 @@ export async function createShipment(
   });
 
   return getShipmentById(createdId);
-}
-
-/* =====================================================
-   CANCEL — annulation par l'expéditeur (PENDING uniquement)
-   ===================================================== */
-export async function cancelShipment(
-  shipmentId: string,
-  expediteurUserId: string,
-  input: CancelShipmentInput
-): Promise<ShipmentDetail> {
-  // Récupère le colis et vérifie qu'il appartient à cet expéditeur
-  const shipment = await prisma.shipment.findFirst({
-    where: { id: shipmentId, deletedAt: null },
-    select: {
-      id: true,
-      status: true,
-      expediteur: { select: { userId: true } },
-    },
-  });
-  if (!shipment) throw notFound("Colis introuvable");
-  if (shipment.expediteur.userId !== expediteurUserId) {
-    throw forbidden("Ce colis ne vous appartient pas");
-  }
-  if (shipment.status !== "PENDING") {
-    throw badRequest(`Impossible d'annuler un colis en statut ${shipment.status}`);
-  }
-
-  // Récupère l'userId de l'expéditeur pour le changedById
-  const expediteur = await prisma.expediteur.findFirst({
-    where: { userId: expediteurUserId },
-    select: { user: { select: { id: true } } },
-  });
-
-  await prisma.$transaction(async (tx) => {
-    await tx.shipment.update({
-      where: { id: shipmentId },
-      data: { status: "CANCELLED", statusReason: input.reason },
-    });
-    await tx.shipmentStatusHistory.create({
-      data: {
-        shipmentId,
-        status: "CANCELLED",
-        note: input.reason,
-        changedById: expediteur?.user.id,
-      },
-    });
-  });
-
-  return getShipmentById(shipmentId);
 }

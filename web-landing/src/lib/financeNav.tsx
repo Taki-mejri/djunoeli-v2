@@ -13,7 +13,7 @@ import type { NavGroup } from "./adminNav";
  * intitulés de pages viennent du namespace `common` (nav.*), déjà partagé avec
  * l'admin ; seuls les titres de groupes sont propres à l'espace finance.
  *
- * Le type NavGroup vient d'adminNav (comme dispatchNav) : c'est celui qu'attend
+ * Le type NavGroup vient d'adminNav : c'est celui qu'attend
  * DashboardLayout. Pas de champ `end` ici — Sidebar le déduit de homePath.
  */
 export function useFinanceNav(): NavGroup[] {

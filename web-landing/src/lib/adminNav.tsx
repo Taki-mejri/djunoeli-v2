@@ -12,7 +12,7 @@ export type NavGroup = { title: string; items: NavItem[] };
 /**
  * Navigation de l'espace administrateur.
  *
- * Hook (et non constante) comme dispatchNav/financeNav : les libellés sont
+ * Hook (et non constante) comme financeNav : les libellés sont
  * traduits au rendu, donc ils suivent la bascule DE / EN sans rechargement.
  * Les intitulés partagés viennent de `common` (nav.*), les autres d'`admin`.
  *

@@ -111,17 +111,6 @@ export type CreateShipmentInput = {
   codAmount?: number;
 };
 
-export type EstimateInput = {
-  deliveryType: DeliveryType;
-  isFragile?: boolean;
-};
-
-export type EstimateResult = {
-  basePrice: number;
-  fragileFee: number;
-  total: number;
-};
-
 /* ===========================
    QUERY KEYS
    =========================== */
@@ -157,19 +146,6 @@ export function useAdminShipment(id: string | undefined) {
       return data;
     },
     enabled: !!id,
-  });
-}
-
-export function useCancelShipmentAdmin() {
-  const qc = useQueryClient();
-  return useMutation({
-    mutationFn: async ({ id, reason }: { id: string; reason?: string }) => {
-      const { data } = await api.post<ShipmentDTO>(`/admin/shipments/${id}/cancel`, { reason });
-      return data;
-    },
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: shipmentKeys.all });
-    },
   });
 }
 
@@ -209,32 +185,6 @@ export function useCreateMyShipment() {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: shipmentKeys.all });
     },
-  });
-}
-
-export function useCancelMyShipment() {
-  const qc = useQueryClient();
-  return useMutation({
-    mutationFn: async ({ id, reason }: { id: string; reason?: string }) => {
-      const { data } = await api.post<ShipmentDTO>(`/expediteur/shipments/${id}/cancel`, { reason });
-      return data;
-    },
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: shipmentKeys.all });
-    },
-  });
-}
-
-/** Estimation prix (live preview dans le formulaire de création) */
-export function useEstimatePrice(input: EstimateInput | null) {
-  return useQuery({
-    queryKey: ["shipments", "estimate", input],
-    queryFn: async () => {
-      const { data } = await api.post<EstimateResult>("/expediteur/shipments/estimate", input);
-      return data;
-    },
-    enabled: input !== null,
-    staleTime: 60 * 1000, // 1 minute — l'estimation ne change pas vite
   });
 }
 

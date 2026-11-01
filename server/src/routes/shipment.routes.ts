@@ -2,12 +2,8 @@ import { Router } from "express";
 import { requireAuth, requireRole } from "../middleware/auth.js";
 import { asyncH, unauthorized } from "../middleware/errorHandler.js";
 import { paginationSchema } from "../lib/pagination.js";
+import { listShipmentFiltersSchema } from "../schemas/shipment.schema.js";
 import {
-  estimateSchema,
-  listShipmentFiltersSchema,
-} from "../schemas/shipment.schema.js";
-import {
-  estimatePrice,
   listShipments,
   getShipmentById,
   getMyShipment,
@@ -50,15 +46,6 @@ adminShipmentsRouter.get(
 export const expediteurShipmentsRouter = Router();
 
 expediteurShipmentsRouter.use(requireAuth, requireRole("EXPEDITEUR"));
-
-/** POST /expediteur/shipments/estimate */
-expediteurShipmentsRouter.post(
-  "/estimate",
-  asyncH(async (req, res) => {
-    const data = estimateSchema.parse(req.body);
-    res.json(estimatePrice(data));
-  })
-);
 
 /** GET /expediteur/shipments — liste ses propres colis */
 expediteurShipmentsRouter.get(
