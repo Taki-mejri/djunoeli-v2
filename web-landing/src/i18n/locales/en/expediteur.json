@@ -208,14 +208,6 @@
     "deliveredAt": "Delivered on"
   },
   "timeline": {
-    "steps": {
-      "CREATED": "Created",
-      "PICKED_UP": "Picked up",
-      "AT_WAREHOUSE": "At warehouse",
-      "IN_TRANSIT": "In transit",
-      "OUT_FOR_DELIVERY": "Out for delivery",
-      "DELIVERED": "Delivered"
-    },
     "hints": {
       "inProgress": "in progress…",
       "failed": "failed",

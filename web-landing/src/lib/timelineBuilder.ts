@@ -1,72 +1,62 @@
 import type { ShipmentStatus, ShipmentStatusHistoryEntry } from "./shipmentQueries";
 
 /**
- * Les 6 étapes affichées dans la timeline visuelle.
- * On les MAPPE depuis les statuts métier internes (10 statuts en DB)
- * vers une expérience utilisateur claire et simple (6 étapes).
+ * Timeline v2 (Dortmund) : les 5 étapes du flux réel, sans entrepôt ni transit.
+ *
+ *   Erstellt → Zugewiesen → Abgeholt (au magasin) → In Zustellung → Zugestellt
+ *
+ * Branches terminales : un colis annulé, en échec ou retourné garde les
+ * étapes déjà atteintes, et son état terminal REMPLACE l'étape finale.
+ * Les libellés réutilisent common:status.* (pas de clés dédiées).
  */
-export type TimelineStepKey =
-  | "CREATED"
-  | "PICKED_UP"
-  | "AT_WAREHOUSE"
-  | "IN_TRANSIT"
-  | "OUT_FOR_DELIVERY"
-  | "DELIVERED";
+const FLOW = ["PENDING", "ASSIGNED", "PICKED_UP", "OUT_FOR_DELIVERY", "DELIVERED"] as const;
+
+type TerminalStatus = "CANCELLED" | "FAILED_DELIVERY" | "RETURNED";
+export type TimelineStepKey = (typeof FLOW)[number] | TerminalStatus;
 
 export type TimelineStepState = "done" | "current" | "future" | "failed";
 
 export type TimelineStep = {
   key: TimelineStepKey;
-  /** Clé i18n du libellé (namespace "expediteur"), traduite par le composant */
+  /** Clé i18n du libellé (préfixée par son namespace), traduite par le composant */
   labelKey: string;
   state: TimelineStepState;
   /** Horodatage formaté (ex: "29 juin · 14:00") ou null si pas encore atteint */
   timestamp: string | null;
-  /** Clé i18n du texte secondaire ("en cours…", "échec"...) ou null */
+  /** Clé i18n du texte secondaire (namespace "expediteur") ou null */
   hintKey: string | null;
 };
 
+/** Nombre d'étapes affichées (l'étape finale peut être remplacée par un état terminal) */
+export const TIMELINE_STEP_COUNT = FLOW.length;
+
 /**
- * Mapping des 10 statuts métier vers les 6 étapes UX.
- * L'index donne l'ordre de progression dans la timeline.
+ * Index d'étape atteint par chaque statut métier (-1 = état terminal).
+ * Les statuts v1 encore présents en base sont rabattus sur l'étape v2 voisine.
  */
 const STATUS_TO_STEP_INDEX: Record<ShipmentStatus, number> = {
-  PENDING: 0,            // Créé (en attente d'enlèvement)
-  ASSIGNED: 0,           // v2 : livreur assigné, ramassage à venir
-  AWAITING_PICKUP: 0,    // Créé, prêt à être ramassé
-  PICKED_UP: 1,          // Ramassé
-  AT_WAREHOUSE: 2,       // Au dépôt / centre de tri
-  IN_TRANSIT: 3,         // En route vers destination
-  OUT_FOR_DELIVERY: 4,   // En livraison finale
-  DELIVERED: 5,          // Livré
-  FAILED_DELIVERY: 4,    // On bloque sur "En livraison" mais en mode failed
-  RETURNED: 4,           // Idem
-  CANCELLED: 0,          // Annulé — on bloque sur "Créé"
+  PENDING: 0,
+  AWAITING_PICKUP: 0,  // legacy v1
+  ASSIGNED: 1,
+  PICKED_UP: 2,
+  AT_WAREHOUSE: 2,     // legacy v1 : entre ramassage et livraison
+  IN_TRANSIT: 2,       // legacy v1
+  OUT_FOR_DELIVERY: 3,
+  DELIVERED: 4,
+  CANCELLED: -1,
+  FAILED_DELIVERY: -1,
+  RETURNED: -1,
 };
 
-export const TIMELINE_STEPS: { key: TimelineStepKey }[] = [
-  { key: "CREATED" },
-  { key: "PICKED_UP" },
-  { key: "AT_WAREHOUSE" },
-  { key: "IN_TRANSIT" },
-  { key: "OUT_FOR_DELIVERY" },
-  { key: "DELIVERED" },
-];
-
-/** Map du statut métier vers l'index d'étape concerné (utilisé pour matcher l'historique) */
-const STATUS_TO_STEP: Record<ShipmentStatus, TimelineStepKey> = {
-  PENDING: "CREATED",
-  ASSIGNED: "CREATED",
-  AWAITING_PICKUP: "CREATED",
-  PICKED_UP: "PICKED_UP",
-  AT_WAREHOUSE: "AT_WAREHOUSE",
-  IN_TRANSIT: "IN_TRANSIT",
-  OUT_FOR_DELIVERY: "OUT_FOR_DELIVERY",
-  DELIVERED: "DELIVERED",
-  FAILED_DELIVERY: "OUT_FOR_DELIVERY",
-  RETURNED: "OUT_FOR_DELIVERY",
-  CANCELLED: "CREATED",
+const TERMINAL_HINT: Record<TerminalStatus, string | null> = {
+  CANCELLED: null, // le bandeau « annulé » suffit
+  FAILED_DELIVERY: "timeline.hints.failed",
+  RETURNED: "timeline.hints.returned",
 };
+
+function isTerminal(status: ShipmentStatus): status is TerminalStatus {
+  return status === "CANCELLED" || status === "FAILED_DELIVERY" || status === "RETURNED";
+}
 
 function formatTimestamp(iso: string, locale: string): string {
   const d = new Date(iso);
@@ -76,54 +66,60 @@ function formatTimestamp(iso: string, locale: string): string {
 }
 
 /**
- * Construit la timeline à partir du shipment actuel + son historique.
- * Renvoie les 6 étapes prêtes à être affichées.
+ * Construit la timeline à partir du statut actuel + l'historique.
+ * `progressIndex` = dernière étape atteinte (pour la barre de progression).
  */
 export function buildTimeline(
   currentStatus: ShipmentStatus,
   history: ShipmentStatusHistoryEntry[],
   locale: string = "de-DE"
 ): { steps: TimelineStep[]; progressIndex: number; isFailed: boolean; isCancelled: boolean } {
-  const currentIndex = STATUS_TO_STEP_INDEX[currentStatus];
+  const terminal = isTerminal(currentStatus) ? currentStatus : null;
   const isFailed = currentStatus === "FAILED_DELIVERY" || currentStatus === "RETURNED";
   const isCancelled = currentStatus === "CANCELLED";
 
-  // Trie l'historique du plus ancien au plus récent pour piocher l'horodatage de chaque étape
   const sortedHistory = [...history].sort(
     (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
   );
 
-  // Pour chaque étape, on cherche l'événement le plus ancien qui correspond
-  const stepTimestamps: Record<TimelineStepKey, string | null> = {
-    CREATED: null,
-    PICKED_UP: null,
-    AT_WAREHOUSE: null,
-    IN_TRANSIT: null,
-    OUT_FOR_DELIVERY: null,
-    DELIVERED: null,
-  };
-
+  // Première date à laquelle chaque étape a été atteinte + date de l'état terminal
+  const stepTimestamps: (string | null)[] = FLOW.map(() => null);
+  let terminalTimestamp: string | null = null;
+  let maxReached = 0;
   for (const entry of sortedHistory) {
-    const stepKey = STATUS_TO_STEP[entry.status];
-    // On ne garde que la PREMIÈRE occurrence pour chaque étape
-    if (stepKey && stepTimestamps[stepKey] === null) {
-      stepTimestamps[stepKey] = formatTimestamp(entry.createdAt, locale);
+    const idx = STATUS_TO_STEP_INDEX[entry.status];
+    if (idx >= 0) {
+      if (stepTimestamps[idx] === null) stepTimestamps[idx] = formatTimestamp(entry.createdAt, locale);
+      maxReached = Math.max(maxReached, idx);
+    } else if (entry.status === terminal && terminalTimestamp === null) {
+      terminalTimestamp = formatTimestamp(entry.createdAt, locale);
     }
   }
 
-  const steps: TimelineStep[] = TIMELINE_STEPS.map((step, i) => {
+  // Colis terminal : on s'arrête à la dernière étape atteinte avant l'incident
+  const progressIndex = terminal ? maxReached : STATUS_TO_STEP_INDEX[currentStatus];
+  const lastIndex = FLOW.length - 1;
+
+  const steps: TimelineStep[] = FLOW.map((flowKey, i) => {
+    // L'état terminal remplace l'étape finale
+    if (terminal && i === lastIndex) {
+      return {
+        key: terminal,
+        labelKey: `common:status.${terminal}`,
+        state: "failed",
+        timestamp: terminalTimestamp,
+        hintKey: TERMINAL_HINT[terminal],
+      };
+    }
+
     let state: TimelineStepState;
     let hintKey: string | null = null;
-
-    if (isCancelled && i > 0) {
-      state = "future";
-    } else if (i < currentIndex) {
+    if (terminal) {
+      state = i <= progressIndex ? "done" : "future";
+    } else if (i < progressIndex) {
       state = "done";
-    } else if (i === currentIndex) {
-      if (isFailed) {
-        state = "failed";
-        hintKey = currentStatus === "FAILED_DELIVERY" ? "timeline.hints.failed" : "timeline.hints.returned";
-      } else if (currentStatus === "DELIVERED") {
+    } else if (i === progressIndex) {
+      if (currentStatus === "DELIVERED") {
         state = "done";
       } else {
         state = "current";
@@ -134,13 +130,13 @@ export function buildTimeline(
     }
 
     return {
-      key: step.key,
-      labelKey: `timeline.steps.${step.key}`,
+      key: flowKey,
+      labelKey: `common:status.${flowKey}`,
       state,
-      timestamp: stepTimestamps[step.key],
+      timestamp: stepTimestamps[i],
       hintKey,
     };
   });
 
-  return { steps, progressIndex: currentIndex, isFailed, isCancelled };
+  return { steps, progressIndex, isFailed, isCancelled };
 }

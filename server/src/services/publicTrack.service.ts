@@ -12,37 +12,38 @@ import { notFound } from "../middleware/errorHandler.js";
    ===================================================== */
 
 /**
- * Les 6 étapes visibles publiquement (comme la timeline animée),
- * dans l'ordre. On mappe les 10 statuts DB vers ces étapes.
+ * Les 5 étapes visibles publiquement (flux v2, sans entrepôt ni transit),
+ * dans l'ordre. Un état terminal (annulé / échec / retourné) remplace
+ * l'étape finale. Le front traduit les clés via common.status.*.
  */
 const PUBLIC_STEPS = [
-  "CREATED",
+  "PENDING",
+  "ASSIGNED",
   "PICKED_UP",
-  "AT_WAREHOUSE",
-  "IN_TRANSIT",
   "OUT_FOR_DELIVERY",
   "DELIVERED",
 ] as const;
 
-/** Mappe un statut DB vers l'index d'étape publique (0..5), ou -1 si spécial */
+const TERMINAL_STATUSES = ["CANCELLED", "FAILED_DELIVERY", "RETURNED"];
+
+/** Mappe un statut DB vers l'index d'étape publique (0..4), ou -1 si terminal */
 function stepIndexForStatus(status: string): number {
   switch (status) {
     case "PENDING":
-    case "ASSIGNED": // v2 : assigné, pas encore ramassé
-    case "AWAITING_PICKUP":
-      return 0; // Créé
+    case "AWAITING_PICKUP": // legacy v1
+      return 0; // Erstellt
+    case "ASSIGNED":
+      return 1; // Fahrer zugewiesen
     case "PICKED_UP":
-      return 1; // Ramassé
-    case "AT_WAREHOUSE":
-      return 2; // Au dépôt
-    case "IN_TRANSIT":
-      return 3; // En route
+    case "AT_WAREHOUSE":    // legacy v1
+    case "IN_TRANSIT":      // legacy v1
+      return 2; // Abgeholt (au magasin)
     case "OUT_FOR_DELIVERY":
-      return 4; // En livraison
+      return 3; // In Zustellung
     case "DELIVERED":
-      return 5; // Livré
+      return 4; // Zugestellt
     default:
-      return -1; // FAILED_DELIVERY, RETURNED, CANCELLED → traités à part
+      return -1; // FAILED_DELIVERY, RETURNED, CANCELLED → remplacent l'étape finale
   }
 }
 
@@ -74,27 +75,40 @@ export async function getPublicTracking(trackingNumber: string) {
   const isCancelled = shipment.status === "CANCELLED";
   const isReturned = shipment.status === "RETURNED";
 
-  // Construit la progression : pour chaque étape publique, atteinte ou non + date
-  // On cherche dans l'historique la première fois qu'un statut correspondant
-  // à l'étape a été atteint.
+  const terminal = TERMINAL_STATUSES.includes(shipment.status) ? shipment.status : null;
+
+  // Pour chaque étape publique : première date à laquelle elle a été atteinte
   const stepReachedAt: (string | null)[] = PUBLIC_STEPS.map(() => null);
+  let maxReached = 0;
+  let terminalAt: string | null = null;
   for (const h of shipment.statusHistory) {
     const idx = stepIndexForStatus(h.status);
-    if (idx >= 0 && stepReachedAt[idx] === null) {
-      stepReachedAt[idx] = h.createdAt.toISOString();
+    if (idx >= 0) {
+      if (stepReachedAt[idx] === null) stepReachedAt[idx] = h.createdAt.toISOString();
+      maxReached = Math.max(maxReached, idx);
+    } else if (h.status === terminal && terminalAt === null) {
+      terminalAt = h.createdAt.toISOString();
     }
   }
-  // L'étape "Créé" est toujours atteinte (date de création du colis)
+  // L'étape "Erstellt" est toujours atteinte (date de création du colis)
   if (stepReachedAt[0] === null) {
     stepReachedAt[0] = shipment.createdAt.toISOString();
   }
 
-  const steps = PUBLIC_STEPS.map((key, i) => ({
-    key,                                   // le front traduit via i18n
-    reached: currentStep >= 0 && i <= currentStep,
-    current: i === currentStep,
-    at: stepReachedAt[i],
-  }));
+  // Colis terminal : progression figée à la dernière étape atteinte avant l'incident
+  const reachedIndex = terminal ? maxReached : currentStep;
+  const lastIndex = PUBLIC_STEPS.length - 1;
+  const steps = PUBLIC_STEPS.map((key, i) =>
+    terminal && i === lastIndex
+      ? { key: terminal, reached: true, current: true, terminal: true, at: terminalAt }
+      : {
+          key,                               // le front traduit via common.status.*
+          reached: i <= reachedIndex,
+          current: !terminal && i === currentStep && shipment.status !== "DELIVERED", // livré = terminé, pas « en cours »
+          terminal: false,
+          at: stepReachedAt[i],
+        }
+  );
 
   return {
     trackingNumber: shipment.trackingNumber,

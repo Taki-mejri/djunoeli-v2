@@ -1814,7 +1814,6 @@ footer { background: var(--navy); color: #fff; padding: 60px 0 30px; margin-top:
 /* État annulé : rail rouge plein */
 .progress-timeline.is-cancelled .pt-progress {
   background: #d23744;
-  width: 100% !important;
   opacity: 0.4;
 }
 .progress-timeline.is-failed .pt-progress {
@@ -1852,7 +1851,7 @@ footer { background: var(--navy); color: #fff; padding: 60px 0 30px; margin-top:
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 6px;
   padding-top: 18px;
 }
@@ -1989,7 +1988,6 @@ footer { background: var(--navy); color: #fff; padding: 60px 0 30px; margin-top:
     width: 4px !important;
     background: linear-gradient(180deg, var(--teal-d) 0%, var(--teal) 100%);
   }
-  .progress-timeline.is-cancelled .pt-progress { height: 100%; }
 
   .pt-truck {
     display: none;
@@ -3708,6 +3706,9 @@ footer { background: var(--navy); color: #fff; padding: 60px 0 30px; margin-top:
   50% { box-shadow: 0 0 0 8px rgba(31,196,160,.08); }
 }
 
+/* État terminal (annulé / échec / retourné) à la place de l'étape finale */
+.trk-step.terminal .trk-step-dot { background: #fde7e9; color: #d23744; border-color: #d23744; box-shadow: none; animation: none; }
+.trk-step.terminal.reached .trk-step-label { color: #d23744; } /* l'emporte sur .trk-step.reached */
 .trk-step-body { display: flex; flex-direction: column; justify-content: center; padding-top: 6px; }
 .trk-step-label { font-size: 14.5px; font-weight: 700; color: #b8c4d0; }
 .trk-step.reached .trk-step-label { color: var(--navy); }

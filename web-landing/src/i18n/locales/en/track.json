@@ -16,14 +16,6 @@
   "errorTitle": "An error occurred",
   "errorHint": "Tracking cannot be retrieved right now. Please try again shortly.",
   "privacyNote": "For your security, only delivery information is shown. Personal data stays protected.",
-  "steps": {
-    "CREATED": "Shipment created",
-    "PICKED_UP": "Picked up",
-    "AT_WAREHOUSE": "At warehouse",
-    "IN_TRANSIT": "In transit",
-    "OUT_FOR_DELIVERY": "Out for delivery",
-    "DELIVERED": "Delivered"
-  },
   "special": {
     "FAILED": "Delivery failed",
     "CANCELLED": "Cancelled",

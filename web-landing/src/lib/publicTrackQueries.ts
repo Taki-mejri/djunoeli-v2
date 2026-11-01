@@ -5,9 +5,13 @@ import { api } from "./api";
    Types
    ===================================================== */
 export type PublicStep = {
-  key: "CREATED" | "PICKED_UP" | "AT_WAREHOUSE" | "IN_TRANSIT" | "OUT_FOR_DELIVERY" | "DELIVERED";
+  /** Flux v2 ; la dernière étape peut être remplacée par un état terminal */
+  key:
+    | "PENDING" | "ASSIGNED" | "PICKED_UP" | "OUT_FOR_DELIVERY" | "DELIVERED"
+    | "CANCELLED" | "FAILED_DELIVERY" | "RETURNED";
   reached: boolean;
   current: boolean;
+  terminal: boolean;
   at: string | null;
 };
 

@@ -16,14 +16,6 @@
   "errorTitle": "Ein Fehler ist aufgetreten",
   "errorHint": "Die Verfolgung kann momentan nicht abgerufen werden. Bitte versuchen Sie es gleich noch einmal.",
   "privacyNote": "Zu Ihrer Sicherheit werden nur Lieferinformationen angezeigt. Persönliche Daten bleiben geschützt.",
-  "steps": {
-    "CREATED": "Sendung erstellt",
-    "PICKED_UP": "Abgeholt",
-    "AT_WAREHOUSE": "Im Lager",
-    "IN_TRANSIT": "Unterwegs",
-    "OUT_FOR_DELIVERY": "In Zustellung",
-    "DELIVERED": "Zugestellt"
-  },
   "special": {
     "FAILED": "Zustellung fehlgeschlagen",
     "CANCELLED": "Storniert",

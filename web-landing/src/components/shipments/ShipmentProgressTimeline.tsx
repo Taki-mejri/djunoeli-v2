@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Check, Truck, X, AlertTriangle } from "lucide-react";
 import type { ShipmentStatus, ShipmentStatusHistoryEntry } from "../../lib/shipmentQueries";
-import { buildTimeline, TIMELINE_STEPS, type TimelineStep } from "../../lib/timelineBuilder";
+import { buildTimeline, TIMELINE_STEP_COUNT, type TimelineStep } from "../../lib/timelineBuilder";
 import { dateLocaleTag } from "../../lib/dateLocale";
 
 type Props = {
@@ -19,16 +19,11 @@ export default function ShipmentProgressTimeline({ currentStatus, history }: Pro
     [currentStatus, history, locale]
   );
 
-  const totalSteps = TIMELINE_STEPS.length;
-
-  // Pourcentage de progression de la barre colorée
-  // Le camion se place EXACTEMENT sur l'étape actuelle
+  // Pourcentage de progression de la barre colorée : jusqu'à l'étape actuelle,
+  // ou jusqu'à la dernière étape atteinte avant annulation / échec.
+  // Le camion se place EXACTEMENT sur l'étape actuelle.
   const progressPercent =
-    currentStatus === "DELIVERED"
-      ? 100
-      : isCancelled
-      ? 0
-      : (progressIndex / (totalSteps - 1)) * 100;
+    currentStatus === "DELIVERED" ? 100 : (progressIndex / (TIMELINE_STEP_COUNT - 1)) * 100;
 
   return (
     <div className={`progress-timeline ${isCancelled ? "is-cancelled" : ""} ${isFailed ? "is-failed" : ""}`}>
@@ -65,7 +60,7 @@ export default function ShipmentProgressTimeline({ currentStatus, history }: Pro
           </div>
         )}
 
-        {/* Les 6 marqueurs d'étapes */}
+        {/* Les 5 marqueurs d'étapes (le dernier peut être un état terminal) */}
         <div className="pt-steps">
           {steps.map((step, i) => (
             <StepMarker key={step.key} step={step} index={i} />
@@ -85,7 +80,7 @@ function StepMarker({ step, index }: { step: TimelineStep; index: number }) {
         {step.state === "done" ? (
           <Check size={14} strokeWidth={3} />
         ) : step.state === "failed" ? (
-          <AlertTriangle size={14} />
+          step.key === "CANCELLED" ? <X size={14} strokeWidth={3} /> : <AlertTriangle size={14} />
         ) : step.state === "current" ? (
           <span className="pt-step-num">{index + 1}</span>
         ) : (

@@ -4,18 +4,20 @@ import { useTranslation } from "react-i18next";
 import { isAxiosError } from "axios";
 import {
   Search, Package, MapPin, Zap, AlertTriangle, CheckCircle2,
-  Circle, Truck, XCircle, RotateCcw, PackageCheck,
+  Circle, Truck, XCircle, RotateCcw, PackageCheck, UserCheck,
 } from "lucide-react";
 import { usePublicTracking } from "../../lib/publicTrackQueries";
 import PhoneTrackPanel from "./PhoneTrackPanel";
 
 const STEP_ICONS: Record<string, typeof Package> = {
-  CREATED: Package,
+  PENDING: Package,
+  ASSIGNED: UserCheck,
   PICKED_UP: PackageCheck,
-  AT_WAREHOUSE: Package,
-  IN_TRANSIT: Truck,
   OUT_FOR_DELIVERY: Truck,
   DELIVERED: CheckCircle2,
+  CANCELLED: XCircle,
+  FAILED_DELIVERY: AlertTriangle,
+  RETURNED: RotateCcw,
 };
 
 export default function PublicTrackPage() {
@@ -158,34 +160,32 @@ export default function PublicTrackPage() {
                 </div>
               )}
 
-              {/* Timeline verticale */}
-              {!data.special && (
-                <div className="trk-timeline">
-                  {data.steps.map((step) => {
-                    const Icon = STEP_ICONS[step.key] ?? Circle;
-                    return (
-                      <div
-                        key={step.key}
-                        className={`trk-step ${step.reached ? "reached" : ""} ${step.current ? "current" : ""}`}
-                      >
-                        <div className="trk-step-dot">
-                          <Icon size={16} />
-                        </div>
-                        <div className="trk-step-body">
-                          <span className="trk-step-label">{t(`steps.${step.key}`)}</span>
-                          {step.at && (
-                            <span className="trk-step-date">
-                              {new Date(step.at).toLocaleString(undefined, {
-                                day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit",
-                              })}
-                            </span>
-                          )}
-                        </div>
+              {/* Timeline verticale (flux v2 ; un état terminal remplace l'étape finale) */}
+              <div className="trk-timeline">
+                {data.steps.map((step) => {
+                  const Icon = STEP_ICONS[step.key] ?? Circle;
+                  return (
+                    <div
+                      key={step.key}
+                      className={`trk-step ${step.reached ? "reached" : ""} ${step.current ? "current" : ""} ${step.terminal ? "terminal" : ""}`}
+                    >
+                      <div className="trk-step-dot">
+                        <Icon size={16} />
                       </div>
-                    );
-                  })}
-                </div>
-              )}
+                      <div className="trk-step-body">
+                        <span className="trk-step-label">{tc(`status.${step.key}`)}</span>
+                        {step.at && (
+                          <span className="trk-step-date">
+                            {new Date(step.at).toLocaleString(undefined, {
+                              day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit",
+                            })}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
 
               <p className="trk-footer-note">{t("privacyNote")}</p>
             </div>
