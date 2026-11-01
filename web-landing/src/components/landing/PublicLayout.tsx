@@ -9,10 +9,7 @@ import LoginModal from "./LoginModal";
  * landing autour d'une page publique — aujourd'hui /track.
  *
  * - `solid` : pas de hero marine derrière la barre, elle est donc blanche d'emblée
- * - `showLanguageSelector` : sélecteur FR/DE (i18next) pour que le suivi public
- *   soit consultable dans les deux langues. Le toggle FR/ع de la landing n'est
- *   volontairement pas rendu ici (il pilote seulement la direction RTL locale
- *   de la landing, pas i18next).
+ * - `showLanguageSelector` : sélecteur DE/EN (i18next), comme sur la landing
  */
 export default function PublicLayout() {
   const [loginOpen, setLoginOpen] = useState(false);

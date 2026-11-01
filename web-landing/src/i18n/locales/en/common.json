@@ -137,5 +137,29 @@
     "callNoAnswer": "Call to recipient: no answer",
     "callWrongNumber": "Call to recipient: wrong number",
     "callRescheduled": "Call to recipient: rescheduled"
+  },
+  "landing": {
+    "nav": {
+      "services": "Services",
+      "how": "How it works",
+      "about": "About",
+      "contact": "Contact"
+    },
+    "signIn": "Sign in",
+    "footer": {
+      "tagline": "The delivery and logistics platform built for Dortmund retailers.",
+      "services": "Services",
+      "sameDay": "Same-day delivery",
+      "billing": "Billing",
+      "liveTracking": "Live tracking",
+      "allDortmund": "All of Dortmund",
+      "company": "Company",
+      "spaces": "Portals",
+      "admin": "Admin",
+      "expediteur": "Sender",
+      "livreur": "Driver",
+      "rights": "© {{year}} Djunoeli. All rights reserved.",
+      "location": "Dortmund, Germany"
+    }
   }
 }

@@ -19,6 +19,7 @@ export default function Navbar({
 }: Props) {
   const [scrolled, setScrolled] = useState(false);
   const { t } = useTranslation("track");
+  const { t: tc } = useTranslation("common");
   const { pathname } = useLocation();
 
   // Hors de la landing, les ancres doivent repartir vers "/" (ex. /#services)
@@ -42,20 +43,20 @@ export default function Navbar({
             Djunoeli
           </a>
           <ul className="nav-links">
-            <li><a href={anchor("#services")}>Services</a></li>
-            <li><a href={anchor("#how")}>Comment ça marche</a></li>
-            <li><a href={anchor("#about")}>À propos</a></li>
+            <li><a href={anchor("#services")}>{tc("landing.nav.services")}</a></li>
+            <li><a href={anchor("#how")}>{tc("landing.nav.how")}</a></li>
+            <li><a href={anchor("#about")}>{tc("landing.nav.about")}</a></li>
             <li>
               <Link to="/track" className={pathname.startsWith("/track") ? "nav-active" : ""}>
                 {t("menuLink")}
               </Link>
             </li>
-            <li><a href={anchor("#contact")}>Contact</a></li>
+            <li><a href={anchor("#contact")}>{tc("landing.nav.contact")}</a></li>
           </ul>
           <div className="nav-right">
             {showLanguageSelector && <LanguageSelector />}
             <button className="btn btn-primary" onClick={onLogin}>
-              Se connecter
+              {tc("landing.signIn")}
             </button>
           </div>
         </nav>

@@ -137,5 +137,29 @@
     "callNoAnswer": "Anruf beim Empfänger: keine Antwort",
     "callWrongNumber": "Anruf beim Empfänger: falsche Nummer",
     "callRescheduled": "Anruf beim Empfänger: verschoben"
+  },
+  "landing": {
+    "nav": {
+      "services": "Dienste",
+      "how": "So funktioniert's",
+      "about": "Über uns",
+      "contact": "Kontakt"
+    },
+    "signIn": "Anmelden",
+    "footer": {
+      "tagline": "Die Liefer- und Logistikplattform für den Handel in Dortmund.",
+      "services": "Dienste",
+      "sameDay": "Same-Day-Zustellung",
+      "billing": "Abrechnung",
+      "liveTracking": "Live-Sendungsverfolgung",
+      "allDortmund": "Ganz Dortmund",
+      "company": "Unternehmen",
+      "spaces": "Zugänge",
+      "admin": "Admin",
+      "expediteur": "Versender",
+      "livreur": "Fahrer",
+      "rights": "© {{year}} Djunoeli. Alle Rechte vorbehalten.",
+      "location": "Dortmund, Deutschland"
+    }
   }
 }

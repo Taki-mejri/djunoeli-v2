@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Logo from "../shared/Logo";
 
 export default function Footer({ onLogin }: { onLogin: () => void }) {
+  const { t } = useTranslation("common");
+
   return (
     <footer>
       <div className="wrap">
@@ -11,31 +14,31 @@ export default function Footer({ onLogin }: { onLogin: () => void }) {
               <Logo variant="icon" height={40} />
               Djunoeli
             </a>
-            <p>La plateforme de livraison et de logistique pensée pour les commerces de Dortmund.</p>
+            <p>{t("landing.footer.tagline")}</p>
           </div>
           <div className="foot-col">
-            <h4>Services</h4>
-            <a href="#services">Livraison Same-Day</a>
-            <a href="#services">Facturation</a>
-            <Link to="/track">Suivi en direct</Link>
-            <a href="#services">Tout Dortmund</a>
+            <h4>{t("landing.footer.services")}</h4>
+            <a href="#services">{t("landing.footer.sameDay")}</a>
+            <a href="#services">{t("landing.footer.billing")}</a>
+            <Link to="/track">{t("landing.footer.liveTracking")}</Link>
+            <a href="#services">{t("landing.footer.allDortmund")}</a>
           </div>
           <div className="foot-col">
-            <h4>Société</h4>
-            <a href="#about">À propos</a>
-            <a href="#contact">Contact</a>
-            <a href="#how">Comment ça marche</a>
+            <h4>{t("landing.footer.company")}</h4>
+            <a href="#about">{t("landing.nav.about")}</a>
+            <a href="#contact">{t("landing.nav.contact")}</a>
+            <a href="#how">{t("landing.nav.how")}</a>
           </div>
           <div className="foot-col">
-            <h4>Espaces</h4>
-            <a onClick={onLogin}>Admin</a>
-            <a onClick={onLogin}>Expéditeur</a>
-            <a onClick={onLogin}>Livreur</a>
+            <h4>{t("landing.footer.spaces")}</h4>
+            <a onClick={onLogin}>{t("landing.footer.admin")}</a>
+            <a onClick={onLogin}>{t("landing.footer.expediteur")}</a>
+            <a onClick={onLogin}>{t("landing.footer.livreur")}</a>
           </div>
         </div>
         <div className="foot-bottom">
-          <span>© 2026 Djunoeli. Tous droits réservés.</span>
-          <span>Dortmund, Allemagne · contact@djunoeli.de</span>
+          <span>{t("landing.footer.rights", { year: new Date().getFullYear() })}</span>
+          <span>{t("landing.footer.location")} · contact@djunoeli.de</span>
         </div>
       </div>
     </footer>

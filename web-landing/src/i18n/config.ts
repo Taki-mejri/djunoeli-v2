@@ -19,8 +19,6 @@ import enTrack from "./locales/en/track.json";
 import deWallet from "./locales/de/wallet.json";
 import enWallet from "./locales/en/wallet.json";
 
-// Les fichiers locales/fr/*.json restent sur disque (héritage v1) mais ne sont plus chargés.
-
 /**
  * Configuration i18n — allemand (défaut) + anglais.
  *
