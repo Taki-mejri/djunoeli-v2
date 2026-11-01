@@ -36,7 +36,6 @@ const allowedRolesFor: Record<RoleKey, UserRole[]> = {
   admin: ["SUPER_ADMIN", "OPERATIONS_MANAGER", "FINANCE_MANAGER", "WAREHOUSE_MANAGER", "CUSTOMER_SUPPORT"],
   expediteur: ["EXPEDITEUR"],
   livreur: ["LIVREUR"],
-  dispatch: ["DISPATCHER"],
   finance: ["FINANCE_MANAGER"],
 };
 

@@ -20,6 +20,7 @@ import {
   advanceDelivery,
   getMyJobs,
 } from "../services/deliveryV2.service.js";
+import { listAssignableShipments, listLivreurs } from "../services/adminDispatch.service.js";
 
 const ADMIN_ROLES = ["SUPER_ADMIN", "OPERATIONS_MANAGER", "CUSTOMER_SUPPORT"] as const;
 
@@ -66,6 +67,30 @@ adminDispatchRouter.get(
   asyncH(async (req, res) => {
     const result = await suggestBestLivreur(req.params.id as string);
     res.json(result);
+  })
+);
+
+/* =====================================================
+   /api/v1/admin/dispatch/* — lectures pour la page admin Zuweisung
+   (l'assignation passe par POST /admin/shipments/:id/assign ci-dessus)
+   ===================================================== */
+export const adminDispatchReadRouter = Router();
+
+adminDispatchReadRouter.use(requireAuth, requireRole(...ADMIN_ROLES));
+
+/** GET /admin/dispatch/shipments — PENDING + ASSIGNED, Express d'abord */
+adminDispatchReadRouter.get(
+  "/shipments",
+  asyncH(async (_req, res) => {
+    res.json(await listAssignableShipments());
+  })
+);
+
+/** GET /admin/dispatch/livreurs — livreurs + charge active */
+adminDispatchReadRouter.get(
+  "/livreurs",
+  asyncH(async (_req, res) => {
+    res.json(await listLivreurs());
   })
 );
 

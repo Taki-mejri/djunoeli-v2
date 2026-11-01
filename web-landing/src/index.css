@@ -4131,3 +4131,80 @@ header.solid .lang span.active { background: var(--teal); color: #04241c; }
 
 /* Label avec icône (magasin) */
 .liv-card-label { display: inline-flex; align-items: center; gap: 5px; }
+
+/* =====================================================
+   ADMIN — Zuweisung (assignation colis → livreur)
+   À COLLER À LA FIN DE src/index.css
+   ===================================================== */
+
+/* Bannière */
+.asg-banner { display: flex; align-items: center; gap: 8px; padding: 11px 14px; border-radius: 11px; font-size: 13.5px; font-weight: 600; margin-bottom: 14px; }
+.asg-banner.ok { background: #e3f7f1; color: #0b6e3b; }
+.asg-banner.err { background: #fde7e9; color: #b91c2d; }
+
+/* Onglets */
+.asg-tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+.asg-tabs button {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #fff; border: 1.5px solid var(--border, #e5e7eb); color: #475569;
+  padding: 9px 16px; border-radius: 10px; font-size: 14px; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+}
+.asg-tabs button.active { border-color: var(--teal, #0fb493); color: var(--teal-d, #04241c); background: #f0fbf8; }
+.asg-tab-count { background: #eef2f6; color: #475569; border-radius: 999px; padding: 1px 8px; font-size: 12px; font-weight: 700; }
+.asg-tabs button.active .asg-tab-count { background: var(--teal, #0fb493); color: #04241c; }
+
+/* Lignes */
+.asg-rows { display: flex; flex-direction: column; gap: 10px; }
+.asg-row {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  background: #fff; border: 1px solid var(--border, #e5e7eb); border-radius: 14px;
+  padding: 14px 16px;
+}
+.asg-row.express { border-left: 4px solid #f59e0b; }
+
+.asg-main { flex: 1; min-width: 220px; }
+.asg-trk-line { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-bottom: 7px; }
+.asg-trk-line .mono-cell { font-size: 13.5px; font-weight: 700; }
+
+.asg-type { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 700; border-radius: 999px; padding: 2px 9px; }
+.asg-type.express { background: #fef3c7; color: #b45309; }
+.asg-type.simple { background: #eef2f6; color: #475569; }
+
+.asg-round { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; border-radius: 999px; padding: 2px 9px; }
+.asg-round.express { background: #fef3c7; color: #b45309; }
+.asg-round.today { background: #e3f7f1; color: #0b6e3b; }
+.asg-round.tomorrow { background: #eef2f6; color: #475569; }
+
+.asg-fragile { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; border-radius: 999px; padding: 2px 9px; background: #fde7e9; color: #b91c2d; }
+
+.asg-route { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; color: #334155; }
+.asg-route span { display: inline-flex; align-items: center; gap: 4px; }
+.asg-route .asg-arrow { color: #94a3b8; font-weight: 700; }
+
+.asg-price { font-size: 15px; font-weight: 800; color: var(--teal-d, #04241c); min-width: 64px; text-align: right; }
+
+.asg-assign { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+.asg-current { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; color: #0b6e3b; }
+.asg-assign-controls { display: flex; gap: 8px; }
+.asg-select {
+  border: 1.5px solid var(--border, #e5e7eb); border-radius: 10px; padding: 9px 12px;
+  font-size: 13.5px; font-family: inherit; background: #fff; color: #1e293b; min-width: 150px;
+}
+.asg-btn {
+  background: var(--teal, #0fb493); color: #04241c; border: none; border-radius: 10px;
+  padding: 9px 18px; font-size: 13.5px; font-weight: 700; cursor: pointer; font-family: inherit; white-space: nowrap;
+}
+.asg-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.asg-hint { display: flex; align-items: center; gap: 6px; margin-top: 16px; font-size: 12.5px; color: #64748b; }
+
+/* Mobile ~390px */
+@media (max-width: 560px) {
+  .asg-tabs button { flex: 1; min-width: 0; justify-content: center; padding: 9px 10px; }
+  .asg-row { align-items: stretch; }
+  .asg-price { text-align: left; min-width: 0; }
+  .asg-assign { align-items: stretch; width: 100%; }
+  .asg-assign-controls { width: 100%; }
+  .asg-select { flex: 1; min-width: 0; }
+}

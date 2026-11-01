@@ -8,7 +8,7 @@ import authRoutes from "./routes/auth.routes.js";
 import { adminExpediteursRouter, expediteurSelfRouter } from "./routes/expediteur.routes.js";
 import { adminLivreursRouter, livreurSelfRouter } from "./routes/livreur.routes.js";
 import { adminShipmentsRouter, expediteurShipmentsRouter } from "./routes/shipment.routes.js";
-import { adminDispatchRouter, livreurJobsRouter, livreurPickupRouter } from "./routes/dispatch.routes.js";
+import { adminDispatchRouter, adminDispatchReadRouter, livreurJobsRouter, livreurPickupRouter } from "./routes/dispatch.routes.js";
 import { dispatcherRouter } from "./routes/dispatcher.routes.js";
 import { inventoryRouter, inventoryHistoryRouter } from "./routes/inventory.routes.js";
 import { remoteAssignRouter } from "./routes/remoteAssign.routes.js";
@@ -54,6 +54,7 @@ app.use("/api/v1/expediteur/shipments", expediteurShipmentsRouter);
 
 // Dispatch (assign/unassign/suggest + livreur jobs)
 app.use("/api/v1/admin/shipments", adminDispatchRouter);
+app.use("/api/v1/admin/dispatch", adminDispatchReadRouter);
 app.use("/api/v1/livreur/jobs", livreurJobsRouter);
 app.use("/api/v1/livreur/pickup", livreurPickupRouter);
 // Assignation à distance (partagé admin + dispatcher) — monté avant /dispatch par cohérence d'ordre
@@ -84,6 +85,7 @@ app.listen(PORT, () => {
   console.log(`   Livreurs    : CRUD   /api/v1/admin/livreurs`);
   console.log(`   Shipments   : CRUD   /api/v1/admin/shipments`);
   console.log(`   Dispatch    : POST   /admin/shipments/:id/{assign,unassign}`);
+  console.log(`   Zuweisung   : GET    /admin/dispatch/{shipments,livreurs}`);
   console.log(`   Livraison v2: GET    /livreur/jobs · POST /livreur/pickup · PATCH /livreur/jobs/:id/status`);
   console.log(`   Dispatcher  : POST   /dispatch/scan/{receive,sort,assign}`);
   console.log(`   Inventaire  : GET    /dispatch/inventory/{expected,current,:id} · POST /open,:id/scan,:id/close`);

@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import {
-  LayoutDashboard, Package, Truck, Users, Building2, ClipboardList,
-  MapPin, Warehouse, Wallet, LifeBuoy, Settings, PhoneCall,
+  LayoutDashboard, Package, Truck, Users, Building2,
+  MapPin, Warehouse, Wallet, LifeBuoy, Settings, PhoneCall, PackageSearch,
 } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -30,7 +30,7 @@ export function useAdminNav(): NavGroup[] {
         items: [
           { label: tc("nav.dashboard"), icon: <LayoutDashboard size={19} />, path: "/admin" },
           { label: t("nav.deliveries"), icon: <Package size={19} />, path: "/admin/shipments" },
-          { label: t("nav.assignments"), icon: <ClipboardList size={19} />, path: "/admin/assignments" },
+          { label: t("assign.title"), icon: <PackageSearch size={19} />, path: "/admin/assign" },
           { label: tc("nav.remoteAssign"), icon: <PhoneCall size={19} />, path: "/admin/remote-assign" },
           { label: t("nav.liveTracking"), icon: <MapPin size={19} />, path: "/admin/tracking" },
         ],

@@ -245,5 +245,23 @@
     "results_other": "{{count}} results",
     "pageOf": "Page",
     "unknownError": "unknown error"
+  },
+  "assign": {
+    "title": "Assignment",
+    "subtitle": "Assign shipments to drivers — Express first.",
+    "tabPending": "To assign",
+    "tabAssigned": "Assigned",
+    "simple": "Standard",
+    "fragile": "Fragile",
+    "roundToday": "Today",
+    "roundTomorrow": "Tomorrow",
+    "choose": "Choose driver…",
+    "assign": "Assign",
+    "reassign": "Reassign",
+    "done": "Shipment assigned.",
+    "emptyPending": "No shipment to assign",
+    "emptyAssigned": "No assigned shipment",
+    "loadError": "Could not load shipments.",
+    "hint": "Simple before 11:00 → today's round, after → tomorrow. Express: immediate. The driver picks up at the store by scanning."
   }
 }

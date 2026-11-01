@@ -245,5 +245,23 @@
     "results_other": "{{count}} Ergebnisse",
     "pageOf": "Seite",
     "unknownError": "unbekannter Fehler"
+  },
+  "assign": {
+    "title": "Zuweisung",
+    "subtitle": "Sendungen den Fahrern zuweisen — Express zuerst.",
+    "tabPending": "Zuzuweisen",
+    "tabAssigned": "Zugewiesen",
+    "simple": "Standard",
+    "fragile": "Zerbrechlich",
+    "roundToday": "Heute",
+    "roundTomorrow": "Morgen",
+    "choose": "Fahrer wählen…",
+    "assign": "Zuweisen",
+    "reassign": "Neu zuweisen",
+    "done": "Sendung zugewiesen.",
+    "emptyPending": "Keine Sendung zuzuweisen",
+    "emptyAssigned": "Keine zugewiesene Sendung",
+    "loadError": "Sendungen konnten nicht geladen werden.",
+    "hint": "Simple vor 11:00 → heutige Tour, danach → morgen. Express: sofort. Der Fahrer holt im Geschäft per Scan ab."
   }
 }

@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/auth/LoginPage";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
@@ -24,6 +24,7 @@ import AdminFinanceOverviewPage from "./pages/admin/AdminFinanceOverviewPage";
 import SupportPage from "./pages/admin/SupportPage";
 import SettingsPage from "./pages/admin/SettingsPage";
 import WalletsPage from "./pages/admin/WalletsPage";
+import AssignPage from "./pages/admin/AssignPage";
 
 // Expediteur pages
 import ExpediteurDashboard from "./pages/expediteur/ExpediteurDashboard";
@@ -35,7 +36,6 @@ import ExpCodPage from "./pages/expediteur/ExpCodPage";
 import ProfilePage from "./pages/expediteur/ProfilePage";
 import WalletPage from "./pages/expediteur/WalletPage";
 import ExpediteurLayout from "./components/expediteur/ExpediteurLayout";
-import DispatchLayout from "./components/dispatch/DispatchLayout";
 
 // Livreur pages
 import LivreurLayout from "./components/livreur/LivreurLayout";
@@ -45,15 +45,7 @@ import JobDetailPage from "./pages/livreur/JobDetailPage";
 import LivCodPage from "./pages/livreur/LivCodPage";
 import LivProfilePage from "./pages/livreur/LivProfilePage";
 
-// Dispatch pages
-import DispatchHome from "./pages/dispatch/DispatchHome";
-import ReceptionPage from "./pages/dispatch/ReceptionPage";
-import SortPage from "./pages/dispatch/SortPage";
-import AssignPage from "./pages/dispatch/AssignPage";
-import InventoryPage from "./pages/dispatch/InventoryPage";
-import ScanHistoryPage from "./pages/dispatch/ScanHistoryPage";
-
-// Shared pages (admin + dispatch)
+// Shared pages
 import RemoteAssignPage from "./pages/shared/RemoteAssignPage";
 
 // Finance pages
@@ -79,7 +71,6 @@ export default function App() {
       <Route path="/admin/login" element={<LoginPage role="admin" />} />
       <Route path="/expediteur/login" element={<LoginPage role="expediteur" />} />
       <Route path="/livreur/login" element={<LoginPage role="livreur" />} />
-      <Route path="/dispatch/login" element={<LoginPage role="dispatch" />} />
       <Route path="/finance/login" element={<LoginPage role="finance" />} />
 
       {/* ----- Suivi public (PAS de ProtectedRoute) ----- */}
@@ -94,6 +85,7 @@ export default function App() {
           <Route index element={<AdminDashboard />} />
           <Route path="shipments" element={<ShipmentsPage />} />
           <Route path="shipments/:id" element={<ShipmentDetailPageAdmin />} />
+          <Route path="assign" element={<AssignPage />} />
           <Route path="assignments" element={<AssignmentsPage />} />
           <Route path="remote-assign" element={<RemoteAssignPage />} />
           <Route path="tracking" element={<TrackingPage />} />
@@ -136,18 +128,8 @@ export default function App() {
         </Route>
       </Route>
 
-      {/* ----- Dispatch (protégé) ----- */}
-      <Route element={<ProtectedRoute allowedRoles={["DISPATCHER"]} redirectTo="/dispatch/login" />}>
-        <Route path="/dispatch" element={<DispatchLayout />}>
-          <Route index element={<DispatchHome />} />
-          <Route path="reception" element={<ReceptionPage />} />
-          <Route path="tri" element={<SortPage />} />
-          <Route path="assignation" element={<AssignPage />} />
-          <Route path="verification" element={<InventoryPage />} />
-          <Route path="remote-assign" element={<RemoteAssignPage />} />
-          <Route path="historique" element={<ScanHistoryPage />} />
-        </Route>
-      </Route>
+      {/* ----- Ancien espace dispatcher : retiré en v2 (l'admin assigne) ----- */}
+      <Route path="/dispatch/*" element={<Navigate to="/" replace />} />
 
       {/* ----- Finance (protégé) ----- */}
       <Route element={<ProtectedRoute allowedRoles={["FINANCE_MANAGER", "SUPER_ADMIN"]} redirectTo="/finance/login" />}>

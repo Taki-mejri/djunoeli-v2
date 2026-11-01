@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-import { ShieldCheck, Package, Truck, Warehouse, Wallet } from "lucide-react";
+import { ShieldCheck, Package, Truck, Wallet } from "lucide-react";
 
-export type RoleKey = "admin" | "expediteur" | "livreur" | "dispatch" | "finance";
+export type RoleKey = "admin" | "expediteur" | "livreur" | "finance";
 
 /**
  * Config visuelle d'un rôle sur les pages de connexion.
@@ -39,13 +39,6 @@ export const roleConfig: Record<RoleKey, RoleConfig> = {
     panelClass: "auth-liv",
     icon: <Truck size={26} />,
     dashboardPath: "/livreur",
-  },
-  dispatch: {
-    key: "dispatch",
-    label: "Dispatcher",
-    panelClass: "auth-dispatch",
-    icon: <Warehouse size={26} />,
-    dashboardPath: "/dispatch",
   },
   finance: {
     key: "finance",

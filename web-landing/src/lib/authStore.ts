@@ -64,8 +64,6 @@ export function dashboardPathForRole(role: UserRole): string {
       return "/livreur";
     case "EXPEDITEUR":
       return "/expediteur";
-    case "DISPATCHER":
-      return "/dispatch";
     case "FINANCE_MANAGER":
       return "/finance";
     default:
