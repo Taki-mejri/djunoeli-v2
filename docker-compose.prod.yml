@@ -1,0 +1,60 @@
+# Djunoeli v2 — déploiement démo (VPS partagé, isolation totale).
+# Lancer :  docker compose --env-file .env.prod -f docker-compose.prod.yml up -d --build
+# Arrêter : docker compose --env-file .env.prod -f docker-compose.prod.yml down -v
+name: djunoeli-v2
+
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    # AUCUN port publié : la base n'est joignable que depuis le réseau djunoeli-v2-net
+    volumes:
+      - djunoeli-v2-dbdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks:
+      - djunoeli-v2-net
+
+  server:
+    build: ./server
+    restart: unless-stopped
+    env_file: .env.prod
+    environment:
+      NODE_ENV: production
+      PORT: "4002"
+      DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
+    ports:
+      - "${API_PORT:-8092}:4002"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - djunoeli-v2-net
+
+  web:
+    build:
+      context: ./web-landing
+      args:
+        VITE_API_URL: ${PUBLIC_API_URL}
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORT:-8093}:80"
+    depends_on:
+      - server
+    networks:
+      - djunoeli-v2-net
+
+networks:
+  djunoeli-v2-net:
+    name: djunoeli-v2-net
+
+volumes:
+  djunoeli-v2-dbdata:
+    name: djunoeli-v2-dbdata

@@ -19,10 +19,30 @@ import { errorHandler } from "./middleware/errorHandler.js";
 
 const app = express();
 const PORT = process.env.PORT || 4002;
-const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || "http://localhost:5173";
+const IS_PROD = process.env.NODE_ENV === "production";
+
+// CORS : CORS_ORIGIN (prod, liste séparée par des virgules) + CLIENT_ORIGIN (legacy).
+// En dev, les fronts locaux (5173 v1 / 5174 v2) restent autorisés.
+const DEV_ORIGINS = ["http://localhost:5173", "http://localhost:5174", "http://127.0.0.1:5173", "http://127.0.0.1:5174"];
+const ALLOWED_ORIGINS = new Set(
+  [process.env.CORS_ORIGIN, process.env.CLIENT_ORIGIN]
+    .flatMap((v) => (v ?? "").split(","))
+    .map((o) => o.trim().replace(/\/+$/, ""))
+    .filter(Boolean)
+    .concat(IS_PROD ? [] : DEV_ORIGINS),
+);
 
 app.use(helmet());
-app.use(cors({ origin: CLIENT_ORIGIN, credentials: true }));
+app.use(
+  cors({
+    origin: (origin, cb) => {
+      // Pas d'Origin (curl, healthcheck, même origine) → autorisé
+      if (!origin || ALLOWED_ORIGINS.has(origin)) return cb(null, true);
+      return cb(null, false);
+    },
+    credentials: true,
+  }),
+);
 app.use(express.json());
 app.use(cookieParser());
 app.set("trust proxy", 1);
@@ -68,6 +88,7 @@ app.use((_req, res) => {
 app.use(errorHandler);
 
 app.listen(PORT, () => {
+  console.log(`   CORS origins: ${[...ALLOWED_ORIGINS].join(", ") || "(aucune)"}`);
   console.log(`🚀 Djunoeli API démarré sur http://localhost:${PORT}`);
   console.log(`   Health      : GET    /api/v1/health`);
   console.log(`   Public      : GET    /api/v1/public/track/:trackingNumber (sans auth)`);

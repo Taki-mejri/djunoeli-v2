@@ -58,7 +58,10 @@ const REFRESH_COOKIE = "djunoeli_refresh";
 /** Options du cookie HttpOnly */
 const refreshCookieOptions = () => ({
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production", // HTTPS only en prod
+  // HTTPS only en prod, sauf COOKIE_SECURE=false (démo HTTP en IP:port)
+  secure: process.env.COOKIE_SECURE
+    ? process.env.COOKIE_SECURE === "true"
+    : process.env.NODE_ENV === "production",
   sameSite: "lax" as const,
   maxAge: refreshCookieMaxAgeMs(),
   path: "/api/v1/auth", // limité aux routes d'auth

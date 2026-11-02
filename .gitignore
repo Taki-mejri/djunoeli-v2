@@ -4,3 +4,4 @@ dist/
 server/.env
 cookies.txt
 *.log
+.env.prod
